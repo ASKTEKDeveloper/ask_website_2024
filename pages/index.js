@@ -47,6 +47,7 @@ import { TbReport } from "react-icons/tb";
 import ContactUsForm from "./ContactUsForm";
 import BlogList from "./BlogList";
 import Testimonials from "./Testimonials";
+import ContactUsGarments from "./ContactUsGarments";
 
 const BootstrapTooltip = styled(Tooltip)(({ theme }) => ({
   [`& .${tooltipClasses.arrow}`]: {
@@ -99,6 +100,7 @@ const Index = () => {
   const [openLoader, setOpenLoader] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const settings = projectSliderActive(setCurrentSlide);
+  const [open, setOpen] = useState(false);
 
   return (
     <Layout header={2}>
@@ -814,10 +816,7 @@ const Index = () => {
                       className="content col-12 mt-3 "
                       style={{ padding: 0, cursor: "pointer" }}
                     >
-                      <Link
-                        legacyBehavior
-                        href="/garment_inspection_softwares"
-                      >
+                      <Link legacyBehavior href="/garment_inspection_softwares">
                         <a className="theme-btn style-four ">
                           Know More
                           <i className="fas fa-long-arrow-right" />
@@ -2060,6 +2059,8 @@ const Index = () => {
       </div>
 
       <BlogList />
+      {/* Contact Form Section Start */}
+      {!open && <ContactUsGarments TypeOF={"p"} initialValue={""} />}
 
       <Dialog
         open={openLoader}

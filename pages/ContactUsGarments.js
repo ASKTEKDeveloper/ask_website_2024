@@ -40,7 +40,7 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
   useEffect(() => {
     setTimeout(() => {
       setOpen(true);
-    }, [7000]);
+    }, [5000]);
   }, []);
 
   const handleClose = () => {

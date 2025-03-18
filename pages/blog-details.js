@@ -133,56 +133,58 @@ const BlogDetails = () => {
             </div>
             <div className="col-lg-4 col-md-7 col-sm-9">
               <div className="main-sidebar rmt-75">
-                <div className="widget widget-recent-news wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Recent Blogs</h4>
-                  <ul>
-                    {blogData.map(
-                      (blog, index) =>
-                        index !== currentBlogIndex && (
-                          <li key={index}>
-                            <div className="image">
-                              <img
-                                src={`/api/blog-image?BlogFileName=${blog.BlogFileName}`}
-                                alt="News"
-                                style={{
-                                  objectFit: "cover",
-                                  maxWidth: "90px",
-                                  height: "90px",
-                                  borderRadius: "10px",
-                                }}
-                              />
-                            </div>
-                            <div className="content">
-                              <h5>
-                                <Link
-                                  legacyBehavior
-                                  href={{
-                                    pathname: "/blog-details",
-                                    query: {
-                                      id: index,
-                                      title: formatTitleForURL(
-                                        blogData[index].BlogTitle
-                                      ),
-                                    },
-                                  }}
-                                >
-                                  <a>{blog.BlogTitle}</a>
-                                </Link>
-                              </h5>
-                              <span className="date">
-                                <i className="far fa-calendar-alt" />
-                                <a href={"#"}>
-                                  {moment(blog.CreatedDate).format("LL")}
-                                </a>
-                              </span>
-                            </div>
-                          </li>
-                        )
-                    )}
-                  </ul>
-                </div>
                 <div className="mb-50 wow fadeInUp delay-0-2s">
                   <ContactinBlog />
+                </div>
+                <div className="widget widget-recent-news wow fadeInUp delay-0-2s">
+                  <h4 className="widget-title">Recent Blogs</h4>
+                  <div style={{ maxHeight: "800px", overflow: "auto" }}>
+                    <ul>
+                      {blogData.map(
+                        (blog, index) =>
+                          index !== currentBlogIndex && (
+                            <li key={index}>
+                              <div className="image">
+                                <img
+                                  src={`/api/blog-image?BlogFileName=${blog.BlogFileName}`}
+                                  alt="News"
+                                  style={{
+                                    objectFit: "cover",
+                                    maxWidth: "90px",
+                                    height: "90px",
+                                    borderRadius: "10px",
+                                  }}
+                                />
+                              </div>
+                              <div className="content">
+                                <h5>
+                                  <Link
+                                    legacyBehavior
+                                    href={{
+                                      pathname: "/blog-details",
+                                      query: {
+                                        id: index,
+                                        title: formatTitleForURL(
+                                          blogData[index].BlogTitle
+                                        ),
+                                      },
+                                    }}
+                                  >
+                                    <a>{blog.BlogTitle}</a>
+                                  </Link>
+                                </h5>
+                                <span className="date">
+                                  <i className="far fa-calendar-alt" />
+                                  <a href={"#"}>
+                                    {moment(blog.CreatedDate).format("LL")}
+                                  </a>
+                                </span>
+                              </div>
+                            </li>
+                          )
+                      )}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

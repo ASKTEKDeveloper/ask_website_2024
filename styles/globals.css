@@ -109,3 +109,8 @@ img.mfp-img {
   background-color: #0c356a;
   /* cursor: all-scroll; */
 }
+
+.team_icons {
+  max-width: 20%;
+  object-fit: contain;
+}

@@ -10,7 +10,7 @@ const OurCEO = () => {
             <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
               <div className="section-title mb-60 rmb-40">
                 {/* <span className="sub-title mb-15">Meet Our CEO</span> */}
-                <h2>Meet Our CEO</h2>
+                <h2>Meet Our <span className="text-success">CEO</span> </h2>
               </div>
               <div className="row gap-40">
                 <div className="col-12">
@@ -47,68 +47,145 @@ const OurCEO = () => {
             </div>
           </div>
         </div>
-        <div className="row my-30 align-items-center gap-100">
-          <div className="col-lg-12">
-            <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
-              <div className="section-title text-center mb-30 rmb-40">
-                <span className="sub-title ">Key Highlights </span>
+        <section className="services-area-six py-50 rel z-1">
+          <div className="container">
+            <div className="section-title text-center mb-30 rmb-40">
+              <span className="sub-title ">Key Highlights </span>
+            </div>
+            <div className="row gy-4">
+              <div className="col-lg-4 col-md-6">
+                <div className="service-item-six wow fadeInUp delay-0-2s">
+                  <div className="icon">
+                    <img
+                      src="assets/images/erp.png"
+                      alt="Fashion Automation Icon"
+                      className="team_icons"
+                    />
+                  </div>
+                  <h4>
+                    <Link legacyBehavior href="#">
+                      ERP Solutions
+                    </Link>
+                  </h4>
+                  <p>
+                    Custom ERP systems tailored for textile and garment
+                    industries. Streamline operations and improve efficiency
+                    with advanced tools. Designed to meet industry-specific
+                    needs.
+                  </p>
+                </div>
               </div>
-              <div className="row gy-4">
-                <div className="col-lg-4 col-md-6">
-                  <div className="service-item-six wow fadeInUp delay-0-2s h-100 mb-0 text-center d-flex align-items-center">
-                    <p>
-                      Development of ERP solutions tailored for textile and
-                      garment industries.
-                    </p>
+              <div className="col-lg-4 col-md-6">
+                <div className="service-item-six wow fadeInUp delay-0-4s">
+                  <div className="icon">
+                     <img
+                      src="assets/images/deal.png"
+                      alt="Fashion Automation Icon"
+                      className="team_icons"
+                    />
                   </div>
+                  <h4>
+                    <Link legacyBehavior href="#">
+                      House Automation
+                    </Link>
+                  </h4>
+                  <p>
+                    Automate sourcing and production processes with buying house
+                    software. Enhance productivity and reduce manual effort.
+                    Ideal for seamless supply chain management.
+                  </p>
                 </div>
-                <div className="col-lg-4 col-md-6">
-                  <div className="service-item-six wow fadeInUp delay-0-2s h-100 mb-0 text-center d-flex align-items-center">
-                    <p>
-                      Implementation of Buying House Management Software for
-                      sourcing and production automation.
-                    </p>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                <div className="service-item-six wow fadeInUp delay-0-6s">
+                  <div className="icon">
+                  <img
+                      src="assets/images/human-resources.png"
+                      alt="Fashion Automation Icon"
+                      className="team_icons"
+                    />
                   </div>
+                  <h4>
+                    <Link legacyBehavior href="#">
+                      Production Tools
+                    </Link>
+                  </h4>
+                  <p>
+                    Optimize production with operation bulletin and shrinkage
+                    tools. <br />
+                    Reduce waste and improve workflow efficiency. <br />
+                    Tailored for fashion and garment manufacturers.
+                  </p>
                 </div>
-                <div className="col-lg-4 col-md-6">
-                  <div className="service-item-six wow fadeInUp delay-0-2s h-100 mb-0 text-center d-flex align-items-center">
-                    <p>
-                      Creation of Operation Bulletin & Shrinkage Tools to
-                      optimize production processes.
-                    </p>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                <div className="service-item-six wow fadeInUp delay-0-2s">
+                  <div className="icon">
+                  <img
+                      src="assets/images/globalization.png"
+                      alt="Fashion Automation Icon"
+                      className="team_icons"
+                    />
                   </div>
+                  <h4>
+                    <Link legacyBehavior href="#">
+                      Digital Shift
+                    </Link>
+                  </h4>
+                  <p>
+                    Transform your business with corporate software for fashion
+                    technology. Drive innovation and streamline operations. Stay
+                    ahead in the competitive market.
+                  </p>
                 </div>
-                <div className="col-lg-4 col-md-6">
-                  <div className="service-item-six wow fadeInUp delay-0-2s h-100 mb-0 text-center d-flex align-items-center">
-                    <p>
-                      Asktek Solutions delivers corporate software that
-                      digitally transforms the fashion technology sector.
-                    </p>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                <div className="service-item-six wow fadeInUp delay-0-4s">
+                  <div className="icon">
+                     <img
+                      src="assets/images/global-connection.png"
+                      alt="Fashion Automation Icon"
+                      className="team_icons"
+                    />
                   </div>
+                  <h4>
+                    <Link legacyBehavior href="#">
+                      Global Impact
+                    </Link>
+                  </h4>
+                  <p>
+                    Our software is trusted across India and Bangladesh. Boost
+                    productivity and operational efficiency. Designed for
+                    manufacturers in the fashion industry.
+                  </p>
                 </div>
-                <div className="col-lg-4 col-md-6">
-                  <div className="service-item-six wow fadeInUp delay-0-2s h-100 mb-0 text-center d-flex align-items-center">
-                    <p>
-                      Our software solutions are widely used across India and
-                      Bangladesh, helping manufacturers boost productivity and
-                      efficiency.
-                    </p>
+              </div>
+              <div className="col-lg-4 col-md-6">
+                <div className="service-item-six wow fadeInUp delay-0-6s">
+                  <div className="icon">
+                  <img
+                      src="assets/images/garment.png"
+                      alt="Fashion Automation Icon"
+                      className="team_icons"
+                    />
                   </div>
-                </div>
-                <div className="col-lg-4 col-md-6">
-                  <div className="service-item-six wow fadeInUp delay-0-2s h-100 mb-0 text-center d-flex align-items-center">
-                    <p>
-                      Designed exclusively for fashion brands and manufacturers,
-                      automating processes related to product creation,
-                      sourcing, and production.
-                    </p>
-                  </div>
+                  <h4>
+                    <Link legacyBehavior href="#">
+                      Fashion Automation
+                    </Link>
+                  </h4>
+                  <p>
+                    Automate product creation, sourcing, and production
+                    processes. Designed exclusively for fashion brands. Improve
+                    efficiency and reduce time-to-market.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="row mt-50">
+        </section>
+
+        <div className="row">
           <div className="col-12">
             <div className="service-item style-three">
               <p>
@@ -123,9 +200,9 @@ const OurCEO = () => {
         </div>
       </div>
 
-      <div className="about-bg-shape">
+      {/* <div className="about-bg-shape">
         <img src="assets/images/background/about-bg-shape.png" alt="About" />
-      </div>
+      </div> */}
     </section>
   );
 };
