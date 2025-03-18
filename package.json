@@ -23,7 +23,7 @@
     "formidable": "^3.5.1",
     "formik": "^2.4.5",
     "fs-extra": "^11.2.0",
-    "html-react-parser": "^5.1.15",
+    "html-react-parser": "^5.2.2",
     "isotope-layout": "^3.0.6",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",

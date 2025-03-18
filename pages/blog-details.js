@@ -2,7 +2,7 @@ import PageBanner from "@/components/PageBanner";
 import Layout from "@/layout";
 import Link from "next/link";
 import ContactinBlog from "./ContactinBlog";
-import parse from "html-react-parser";
+import parse, { domToReact } from "html-react-parser";
 import { useRouter } from "next/router";
 import { Dialog, Divider, IconButton, LinearProgress } from "@mui/material";
 import moment from "moment";
@@ -76,6 +76,27 @@ const BlogDetails = () => {
   const nextIndex =
     currentBlogIndex + 1 < blogData.length ? currentBlogIndex + 1 : null;
 
+  // Custom parser options for anchor tags
+  const parserOptions = {
+    replace: (domNode) => {
+      if (domNode.name === "a") {
+        return (
+          <a
+            style={{
+              textDecoration: "none",
+              color: "green",
+            }}
+            href={domNode.attribs.href}
+            target={domNode.attribs.target || "_self"}
+            rel={domNode.attribs.rel || "noopener noreferrer"}
+          >
+            {domToReact(domNode.children, parserOptions)}
+          </a>
+        );
+      }
+    },
+  };
+
   return (
     <Layout>
       <PageBanner pageName={"Blog Details"} />
@@ -102,8 +123,8 @@ const BlogDetails = () => {
                     alt="Blog Single"
                   />
                 </div>
-
-                <p>{parse(blog.BlogDescription)}</p>
+                <p>{parse(blog.BlogDescription, parserOptions)}</p>
+                {/* <p>{parse(blog.BlogDescription)}</p> */}
                 {blog.URL && (
                   <iframe
                     width="100%"
