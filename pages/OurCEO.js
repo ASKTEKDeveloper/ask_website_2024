@@ -10,7 +10,9 @@ const OurCEO = () => {
             <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
               <div className="section-title mb-60 rmb-40">
                 {/* <span className="sub-title mb-15">Meet Our CEO</span> */}
-                <h2>Meet Our <span className="text-success">CEO</span> </h2>
+                <h2>
+                  Meet Our <span className="text-success">CEO</span>{" "}
+                </h2>
               </div>
               <div className="row gap-40">
                 <div className="col-12">
@@ -78,7 +80,7 @@ const OurCEO = () => {
               <div className="col-lg-4 col-md-6">
                 <div className="service-item-six wow fadeInUp delay-0-4s">
                   <div className="icon">
-                     <img
+                    <img
                       src="assets/images/deal.png"
                       alt="Fashion Automation Icon"
                       className="team_icons"
@@ -99,7 +101,7 @@ const OurCEO = () => {
               <div className="col-lg-4 col-md-6">
                 <div className="service-item-six wow fadeInUp delay-0-6s">
                   <div className="icon">
-                  <img
+                    <img
                       src="assets/images/human-resources.png"
                       alt="Fashion Automation Icon"
                       className="team_icons"
@@ -121,7 +123,7 @@ const OurCEO = () => {
               <div className="col-lg-4 col-md-6">
                 <div className="service-item-six wow fadeInUp delay-0-2s">
                   <div className="icon">
-                  <img
+                    <img
                       src="assets/images/globalization.png"
                       alt="Fashion Automation Icon"
                       className="team_icons"
@@ -142,7 +144,7 @@ const OurCEO = () => {
               <div className="col-lg-4 col-md-6">
                 <div className="service-item-six wow fadeInUp delay-0-4s">
                   <div className="icon">
-                     <img
+                    <img
                       src="assets/images/global-connection.png"
                       alt="Fashion Automation Icon"
                       className="team_icons"
@@ -163,7 +165,7 @@ const OurCEO = () => {
               <div className="col-lg-4 col-md-6">
                 <div className="service-item-six wow fadeInUp delay-0-6s">
                   <div className="icon">
-                  <img
+                    <img
                       src="assets/images/garment.png"
                       alt="Fashion Automation Icon"
                       className="team_icons"
