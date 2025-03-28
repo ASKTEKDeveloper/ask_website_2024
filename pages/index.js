@@ -48,15 +48,8 @@ import ContactUsForm from "./ContactUsForm";
 import BlogList from "./BlogList";
 import Testimonials from "./Testimonials";
 import ContactUsGarments from "./ContactUsGarments";
+import OurPartners from "./OurPartners";
 
-const BootstrapTooltip = styled(Tooltip)(({ theme }) => ({
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.common.black,
-  },
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.black,
-  },
-}));
 
 const icons = [
   "angular.png",
@@ -101,6 +94,11 @@ const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const settings = projectSliderActive(setCurrentSlide);
   const [open, setOpen] = useState(false);
+
+  const clientImages = Array.from(
+    { length: 22 },
+    (_, i) => `assets/images/clients/${i + 1}.jpeg`
+  );
 
   return (
     <Layout header={2}>
@@ -1554,100 +1552,7 @@ const Index = () => {
       {/* Why Choose Us Area end */}
 
       {/* Partners Area start */}
-      <section className="partners-area pb-50 pt-50 rmt-30 rpb-70 rel z-1">
-        <div>
-          <div className="section-title text-center mb-50 wow fadeInUp delay-0-2s">
-            {/* <span className="sub-title mb-15">Global Partners</span> */}
-            <h2 className="text-gradient-title2">Our Partners</h2>
-          </div>
-          <div className="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 justify-content-center">
-            <Marquee
-              direction="right"
-              pauseOnHover
-              gradient={100}
-              loop={0}
-              autoFill
-            >
-              <div>
-                <img
-                  src="assets/images/clients/1.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/2.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/3.webp"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/4.webp"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/5.jpg"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/6.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/7.jpg"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/8.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/9.jpg"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-            </Marquee>
-          </div>
-        </div>
-      </section>
+      <OurPartners/>
       {/* Partners Area end */}
 
       {/* Work Process Area start */}

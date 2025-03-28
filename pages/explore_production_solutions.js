@@ -23,6 +23,7 @@ import { CgDisplayFlex } from "react-icons/cg";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { RiTeamLine } from "react-icons/ri";
 
+import OurPartners from "./OurPartners";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { MdConnectWithoutContact } from "react-icons/md";
 
@@ -418,100 +419,7 @@ const GarmentManufacturing = () => {
       </section>
 
       {/* Partners Area start */}
-      <section className="partners-area   py-50 rel z-1">
-        <div>
-          <div className="section-title text-center mb-50 wow fadeInUp delay-0-2s">
-            {/* <span className="sub-title mb-15">Global Partners</span> */}
-            <h2 className="text-gradient-title2">Our Partners</h2>
-          </div>
-          <div className="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 justify-content-center">
-            <Marquee
-              direction="right"
-              pauseOnHover
-              gradient={100}
-              loop={0}
-              autoFill
-            >
-              <div>
-                <img
-                  src="assets/images/clients/1.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/2.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/3.webp"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/4.webp"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-
-              <div>
-                <img
-                  src="assets/images/clients/5.jpg"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/6.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/7.jpg"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/8.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/images/clients/9.jpg"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                  className="client-logo"
-                />
-              </div>
-            </Marquee>
-          </div>
-        </div>
-      </section>
+      <OurPartners />
       {/* Partners Area end */}
 
       {/* Why Choose Us Area start */}

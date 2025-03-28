@@ -11765,7 +11765,7 @@ input {
 }
 
 .client-logo {
-  max-width: 150px;
+  max-width: 200px;
   object-fit: contain;
   /* filter: drop-shadow(0.35rem 0.35rem 0.2rem rgba(0, 0, 0, 0.286)); */
   padding-left: 20px;

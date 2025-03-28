@@ -56,64 +56,74 @@ const BlogList = () => {
             </Link>
           </div>
         </div>
-        {blogData.map((data, index) => (
-          <div
-            className="blog-item style-four wow fadeInUp delay-0-2s"
-            key={index}
-          >
-            <div className="image">
-              <img
-                src={`/api/blog-image?BlogFileName=${data.BlogFileName}`}
-                alt="data"
-                style={{ maxWidth: "250px", objectFit: "contain" }}
-              />
-            </div>
-            <div className="content">
-              <ul className="blog-meta">
-                <li>
-                  <i className="far fa-calendar-alt" />{" "}
-                  <a href="#"> {moment(data.CreatedDate).format("LL")} </a>
-                </li>
-              </ul>
-              <h4>
-                <Link
-                  legacyBehavior
-                  href={{
-                    pathname: "/blog-details",
-                    query: {
-                      id: index,
-                      title: formatTitleForURL(blogData[index].BlogTitle),
-                    },
-                  }}
-                >
-                  <a>{data.BlogTitle}</a>
-                </Link>
-              </h4>
-              <div className="author-more">
-                <span className="author">
-                  <a href="/" style={{ color: "#456e96" }}>
-                    {data.Category}
-                  </a>
-                </span>
+        <div
+          style={{
+            maxHeight: "500px",
+            overflowY: "auto",
+            // padding: "10px",
+            // border: "1px solid #eee",
+            // borderRadius: "4px",
+          }}
+        >
+          {blogData.map((data, index) => (
+            <div
+              className="blog-item style-four wow fadeInUp delay-0-2s"
+              key={index}
+            >
+              <div className="image">
+                <img
+                  src={`/api/blog-image?BlogFileName=${data.BlogFileName}`}
+                  alt="data"
+                  style={{ maxWidth: "250px", objectFit: "contain" }}
+                />
+              </div>
+              <div className="content">
+                <ul className="blog-meta">
+                  <li>
+                    <i className="far fa-calendar-alt" />{" "}
+                    <a href="#"> {moment(data.CreatedDate).format("LL")} </a>
+                  </li>
+                </ul>
+                <h4>
+                  <Link
+                    legacyBehavior
+                    href={{
+                      pathname: "/blog-details",
+                      query: {
+                        id: index,
+                        title: formatTitleForURL(blogData[index].BlogTitle),
+                      },
+                    }}
+                  >
+                    <a>{data.BlogTitle}</a>
+                  </Link>
+                </h4>
+                <div className="author-more">
+                  <span className="author">
+                    <a href="/" style={{ color: "#456e96" }}>
+                      {data.Category}
+                    </a>
+                  </span>
 
-                <Link
-                  legacyBehavior
-                  href={{
-                    pathname: "/blog-details",
-                    query: {
-                      id: index,
-                      title: formatTitleForURL(blogData[index].BlogTitle),
-                    },
-                  }}
-                >
-                  <a className="read-more">
-                    Read More <i className="far fa-arrow-right" />
-                  </a>
-                </Link>
+                  <Link
+                    legacyBehavior
+                    href={{
+                      pathname: "/blog-details",
+                      query: {
+                        id: index,
+                        title: formatTitleForURL(blogData[index].BlogTitle),
+                      },
+                    }}
+                  >
+                    <a className="read-more">
+                      Read More <i className="far fa-arrow-right" />
+                    </a>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </Container>
     </section>
   );
