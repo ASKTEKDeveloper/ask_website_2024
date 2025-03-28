@@ -21,6 +21,7 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 
+import OurPartners from "./OurPartners";
 import { FaBoxes } from "react-icons/fa";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { FaUserTag } from "react-icons/fa";
