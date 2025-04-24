@@ -1,9 +1,30 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 const OurPartners = () => {
-  const clientImages = Array.from(
-    { length: 22 },
-    (_, i) => `assets/images/clients/${i + 1}.jpeg`
-  );
+  const [data1,setData1]=useState([])
+  const [data2,setData2]=useState([])
+  useEffect(()=>{
+    getAllData()
+  },[])
+  async function getAllData(){
+      try{
+        const res=await axios.get("/api/OurPartners")
+        const [arr1, arr2] = res.data.reduce(
+          ([a, b], item, index) => {
+            if (index % 2 === 0) a.push(item);
+            else b.push(item);
+            return [a, b];
+          },
+          [[], []]
+        );
+    
+        setData1(arr1);
+        setData2(arr2);
+      }catch(e){
+        console.log("ourPartners Error",e.message)
+      }
+  }
 
   return (
     <>
@@ -22,10 +43,30 @@ const OurPartners = () => {
               loop={0}
               autoFill
             >
-              {clientImages.map((src, index) => (
+              {data1.map((src, index) => (
                 <div key={index}>
                   <img
-                    src={src}
+                    src={`/api/partner-image?logoName=${src.logoName}`}
+                    alt={`Partner ${index + 1}`}
+                    style={{ margin: 20 }}
+                    className="client-logo"
+                  />
+                </div>
+              ))}
+            </Marquee>
+          </div>
+          <div className="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 justify-content-center">
+            <Marquee
+              direction="left"
+              pauseOnHover
+              gradient={100}
+              loop={0}
+              autoFill
+            >
+              {data2.map((src, index) => (
+                <div key={index}>
+                  <img
+                    src={`/api/partner-image?logoName=${src.logoName}`}
                     alt={`Partner ${index + 1}`}
                     style={{ margin: 20 }}
                     className="client-logo"
@@ -36,6 +77,7 @@ const OurPartners = () => {
           </div>
         </div>
       </section>
+   
       {/* Partners Area end */}
     </>
   );
