@@ -2,17 +2,25 @@ import Link from "next/link";
 import Search from "../Search";
 import HeaderTop from "./HeaderTop";
 import Menu from "./Menu";
-import { Container } from "@mui/material";
+import { Container, Dialog, DialogContent, Slide } from "@mui/material";
+import ContactUsProduct from "@/pages/ContactUsProduct";
+import React, { useState } from "react";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const DefaultHeader = () => {
+  
   return (
+    <> 
     <header className="main-header header-two">
    
       {/*Header-Upper*/}
       <div className="header-upper bg-white">
       <HeaderTop />
        {/* <div className="container-fluid clearfix>*/}      
-        <Container >
+        <Container maxWidth={false} >
           <div className="header-inner rel d-flex align-items-center">
             <div className="logo-outer">
               <div className="logo">
@@ -30,7 +38,7 @@ const DefaultHeader = () => {
             </div>
             <div className="nav-outer mx-auto clearfix">
               {/* Main Menu */}
-              <Menu />
+              <Menu  />
               {/* Main Menu End*/}
             </div>
             {/* Nav Search */}
@@ -38,6 +46,13 @@ const DefaultHeader = () => {
               <Search />
             </div> */}
             {/* Menu Button */}
+            <div className="menu-btns me-2" >
+              <Link legacyBehavior href="partner_with_us">
+                  <a className="theme-btn" onClick={null}>
+                  Partner With Us <i className="fas fa-long-arrow-right" />
+                  </a>
+              </Link>
+            </div>
             <div className="menu-btns">
               <Link legacyBehavior href="hire_a_developer">
                 <a className="theme-btn">
@@ -64,7 +79,9 @@ const DefaultHeader = () => {
         </Container>
       </div>
       {/*End Header Upper*/}
+    
     </header>
+  </>
   );
 };
 export default DefaultHeader;

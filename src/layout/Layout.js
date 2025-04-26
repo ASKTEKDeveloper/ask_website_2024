@@ -14,7 +14,7 @@ import logo from "../../public/assets/images/logos/logo-one.png";
 import { Triangle } from "react-loader-spinner";
 import { Dialog } from "@mui/material";
 
-const Layout = ({ children, header }) => {
+const Layout = ({ children, header}) => {
   useEffect(() => {
     animation();
   }, []);
@@ -22,7 +22,6 @@ const Layout = ({ children, header }) => {
   const customChatboxStyle = {
     backgroundColor: "white",
   };
-
   const customButtonStyle = {
     width: "40px",
     height: "40px",

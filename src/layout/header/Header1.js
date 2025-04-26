@@ -119,6 +119,13 @@ const Header1 = () => {
               <Search />
             </div> */}
             {/* Menu Button */}
+            <div className="menu-btns me-2" >
+              <Link legacyBehavior href="/partner_with_us">
+                <a className="theme-btn" onClick={null}>
+                 Partner With Us <i className="fas fa-long-arrow-right" />
+                </a>
+                </Link>
+            </div>
             <div className="menu-btns">
               <Link legacyBehavior href="/contact">
                 <a

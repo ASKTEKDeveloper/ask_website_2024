@@ -93,7 +93,6 @@ const Index = () => {
   const [openLoader, setOpenLoader] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const settings = projectSliderActive(setCurrentSlide);
-  const [open, setOpen] = useState(false);
 
   const clientImages = Array.from(
     { length: 22 },
@@ -101,7 +100,7 @@ const Index = () => {
   );
 
   return (
-    <Layout header={2}>
+    <Layout  header={2}>
       <Slider
         {...sliderTwoActive}
         ref={sliderRef}
@@ -1965,7 +1964,7 @@ const Index = () => {
 
       <BlogList />
       {/* Contact Form Section Start */}
-      {!open && <ContactUsGarments TypeOF={"p"} initialValue={""} />}
+      <ContactUsGarments TypeOF={"p"} initialValue={""} />
 
       <Dialog
         open={openLoader}

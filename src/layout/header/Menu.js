@@ -182,6 +182,24 @@ const MobileMenu = () => {
               </Link>
             </li>
 
+      
+            <li className="dropdown">
+              <a href="#" onClick={() => active("partner_with_us")}>
+              Partner With Us
+              </a>
+              <ul style={activeSubMenu("partner_with_us")}>
+                <li >
+                  <Link href="partner_with_us" > Partner With Us</Link>
+                </li>
+              </ul>
+              <div
+                className="dropdown-btn"
+                onClick={() => active("partner_with_us")}
+              >
+                <span className="fas fa-chevron-down" />
+              </div>
+            </li>
+
             <li className="dropdown">
               <a href="#" onClick={() => active("hire_a_developer")}>
                 Hire a Developer

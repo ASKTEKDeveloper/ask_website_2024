@@ -14,7 +14,7 @@ import {
 import Marquee from "react-fast-marquee";
 import Link from "next/link";
 import Slider from "react-slick";
-import { Container, Paper, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { GiReceiveMoney } from "react-icons/gi";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { RiUserLocationFill } from "react-icons/ri";

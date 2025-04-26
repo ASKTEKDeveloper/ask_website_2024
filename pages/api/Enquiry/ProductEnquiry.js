@@ -14,7 +14,7 @@ const InsertProductEnquiry = async (Enquirydata) => {
       .input("Email", sql.VarChar(50), Enquirydata.email)
       .input("City", sql.VarChar(50), Enquirydata.city)
       .input("Country", sql.VarChar(100), Enquirydata.country.label)
-      .input("CompanyName", sql.VarChar(100), Enquirydata.company_name)
+      .input("CompanyName", sql.VarChar(100), Enquirydata.company_name || "")
       .input("Product", sql.VarChar(20), Enquirydata.product)
       .input("TypeOfReq", sql.Char(1), Enquirydata.TypeOfReq)
       .input("Remarks", sql.VarChar(sql.MAX), Enquirydata.enquiry_details)
