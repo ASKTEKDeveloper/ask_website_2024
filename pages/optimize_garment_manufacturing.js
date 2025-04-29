@@ -246,6 +246,97 @@ const GarmentManufacturing = () => {
         </Container>
       </section>
 
+     
+      <section className="services-area-three overflow-hidden rpt-50 pt-30 rpb-70 rel z-1">
+        <Container maxWidth={"lg"}>
+          <div className="row gap-100 align-items-center">
+            <div className="col-lg-12">
+              <div className="services-content-three mb-30 rmb-65 wow fadeInUp delay-0-2s">
+                <div className="section-title mb-30 text-center">
+                  <h2>All Our Integrations</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row align-items-center gap-100">
+            <div className="col">
+              <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
+                <div className="row gap-40">
+                  
+                  <div className="col-md-4">
+                    <div className="service-item style-three">
+                      <div className="mb-20">
+                        <img
+                          style={{maxWidth:'120px'}}
+                          src="/assets/images/sap-erp.png"
+                          alt="Optimize Garment Potential"
+                        />
+                      </div>
+                      <h4 className="text-gradient-title">SAP + ERP</h4>
+                      <p>
+                        In order to increase data flow, expedite procedures, and
+                        boost overall business efficiency, SAP ERP integration
+                        entails integrating SAP's Enterprise Resource Planning
+                        (ERP) system with other corporate applications and
+                        systems. Beyond simple data sharing, this integration
+                        includes intricate process integration between several
+                        departments, such as supply chain management, finance,
+                        and procurement.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="service-item style-three">
+                      <div className="mb-20" >
+                        <img
+                          style={{maxWidth:'150px'}}
+                          src="/assets/images/oracle-netsuite.png"
+                          alt="Boost Garment Efficiency"
+                        />
+                      </div>
+                      <h4 className="text-gradient-title">
+                        Oracle NetSuite + ERP
+                      </h4>
+                      <p>
+                        Explore the world of NetSuite ERP integration with
+                        Oracle NetSuite + Apparel Fashion ERP, which is the only
+                        fashion program with a "Built for NetSuite PLM
+                        Connector" in the world. We are the obvious choice for
+                        NetSuite ERP users in the fashion sector because of this
+                        synergy.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="service-item style-three">
+                    <div className="mb-20" >
+                        <img
+                          style={{maxWidth:'55px'}}
+                          src="/assets/images/erp.png"
+                          alt="Optimize Garment Potential"
+                        />
+                      </div>
+                      <h4 className="text-gradient-title">
+                        Decision one + ERP{" "}
+                      </h4>
+                      <p>
+                        DecisionOne works to control operations in an economical
+                        way and continuously enhance "ON-TIME" production. The
+                        complete business process, from "Yarn to Fabric" or "Cut
+                        to Pack," as well as important events involved in
+                        routine garment and textile manufacturing processes, may
+                        be planned and tracked with this straightforward,
+                        understandable, and reasonably priced production
+                        planning software program.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
       <section className="services-area-five  rpt-35  rpb-100 rel z-2">
         <Container>
           <div className="col-lg-12">
