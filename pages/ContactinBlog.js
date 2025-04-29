@@ -131,13 +131,15 @@ const ContactinBlog = () => {
           message: "",
         }}
         validationSchema={Yup.object({
-          name: Yup.string().required("Please provide your full name."),
+          name: Yup.string().max(50, "should not exceed 50 characters.").required("Please provide your full name."),
           // subject: Yup.string().required(
           //   "Please provide a subject for your message."
           // ),
-          phone_number: Yup.string().required(
-            "Please enter your phone number."
-          ),
+          phone_number: Yup.string().matches(
+            /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+            "Please provide a valid phone number."
+          )
+          .required(" Please enter your phone number."),
           email: Yup.string()
             .email("Please provide a valid email address.")
             .required("Email address is required."),

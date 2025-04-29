@@ -600,7 +600,7 @@ const ProjectGrid = () => {
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
-                      name: Yup.string().required(
+                      name: Yup.string().max(50, "should not exceed 50 characters.").required(
                         "Please provide your full name."
                       ),
                       phone_number: Yup.string().matches(/^\+?[1-9][0-9-]*(?: [0-9-]+)*$/, "Please enter a valid phone number.").required(
@@ -609,9 +609,9 @@ const ProjectGrid = () => {
                       email: Yup.string()
                         .email("Please provide a valid email address.")
                         .required("Email address is required."),
-                      city: Yup.string().required("Please specify your city."),
+                      city: Yup.string().max(50, "should not exceed 50 characters.").required("Please specify your city."),
                       country: Yup.object().required("Please select your country."),
-                      company_name: Yup.string().required(
+                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
                         "Please specify the name of your company."
                       ),
                     })}

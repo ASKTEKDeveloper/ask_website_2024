@@ -239,45 +239,28 @@ const CareersForm = () => {
                     years_of_experience: "",
                     resume: null,
                   }}
-                  validate={(values) => {
-                    const errors = {};
-
-                    if (!values.name) {
-                      errors.name = "Please enter your name";
-                    } else if (!/^[A-Za-z\s]+$/.test(values.name)) {
-                      errors.name = "Please enter a valid name";
-                    }
-
-                    if (!values.phone_number) {
-                      errors.phone_number = "Please enter your phone number";
-                    }
-
-                    if (!values.email) {
-                      errors.email = "Please enter your email";
-                    } else if (
-                      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-                        values.email
-                      )
-                    ) {
-                      errors.email = "Please enter a valid email address";
-                    }
-
-                    if (!values.gender) {
-                      errors.gender = "Please select your gender";
-                    }
-                    if (!values.years_of_experience) {
-                      errors.years_of_experience =
-                        "Please enter your years of experience";
-                    } else if (!/^\d{1,2}$/.test(values.years_of_experience)) {
-                      errors.years_of_experience =
-                        "Please enter a valid number up to 2 digits";
-                    }
-
-                    if (!values.resume) {
-                      errors.resume = "Please upload your resume";
-                    }
-                    return errors;
-                  }}
+                  validationSchema = {Yup.object({
+                    name: Yup.string()
+                      .matches(/^[A-Za-z\s]+$/, "Please enter a valid name")
+                      .required("Please enter your name"),
+                  
+                    phone_number: Yup.string()
+                      .required("Please enter your phone number"),
+                  
+                    email: Yup.string()
+                      .matches(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, "Please enter a valid email address")
+                      .required("Please enter your email"),
+                  
+                    gender: Yup.string()
+                      .required("Please select your gender"),
+                  
+                    years_of_experience: Yup.string()
+                      .matches(/^\d{1,2}$/, "Please enter a valid number up to 2 digits")
+                      .required("Please enter your years of experience"),
+                  
+                    resume: Yup.mixed()
+                      .required("Please upload your resume"),
+                  })}
                   onSubmit={handleSubmit}
                 >
                   {({ errors, touched }) => (

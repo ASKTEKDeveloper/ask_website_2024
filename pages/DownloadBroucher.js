@@ -157,15 +157,18 @@ const DownloadBroucher = ({ TypeOF, initialValue }) => {
                 enquiry_details: "",
               }}
               validationSchema={Yup.object({
-                name: Yup.string().required("Please provide your full name."),
+                name: Yup.string()
+                      .matches(/^[A-Za-z\s]+$/, "enter valid name")
+                      .max(50, "should not exceed 50 characters.")
+                      .required("Please provide your full name."),
                 phone_number: Yup.string().matches(/^\+?[1-9][0-9-]*(?: [0-9-]+)*$/, "Please enter a valid phone number.").required(
                   "Please enter your phone number."
                 ),
                 email: Yup.string()
                   .email("Please provide a valid email address.")
                   .required("Email address is required."),
-                city: Yup.string().required("Please specify your city."),
-                company_name: Yup.string().required(
+                city: Yup.string().max(50, "should not exceed 50 characters.").required("Please specify your city."),
+                company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
                   "Please specify the name of your company."
                 ),
               })}

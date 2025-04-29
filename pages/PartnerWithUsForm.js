@@ -159,7 +159,7 @@ const PartnerWithUsForm = () => {
                         /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
                         "Please provide a valid phone number."
                       )
-                      .required("Phone number is required."),
+                      .required(" Please enter your phone number."),
                     email: Yup.string()
                       .matches(
                         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,

@@ -1,0 +1,33 @@
+// /pages/api/client-logo.js
+
+export default async function handler(req, res) {
+  const { BlogFileName } = req.query;
+  console.log("Received BlogFileName:", BlogFileName);
+
+  if (!BlogFileName) {
+    return res.status(400).json({ message: "Logo file name is required" });
+  }
+
+  try {
+    // const externalUrl = `http://103.73.189.37/ASK_WEB_ADMIN_PANEL_API/api/CaseStudy/${BlogFileName}`;
+    const externalUrl = `http://localhost:1311/api/CaseStudy/${BlogFileName}`;
+    console.log("Fetching image from:", externalUrl);
+
+    const response = await fetch(externalUrl);
+
+    if (!response.ok) {
+      console.log("Failed to fetch image. Status:", response.status);
+      throw new Error(`Failed to fetch image. Status: ${response.status}`);
+    }
+
+    const contentType = response.headers.get("Content-Type");
+    res.setHeader("Content-Type", contentType);
+
+    // Use arrayBuffer() for binary data
+    const imageBuffer = await response.arrayBuffer();
+    res.status(200).send(Buffer.from(imageBuffer));
+  } catch (error) {
+    console.error("Error in API route:", error.message);
+    res.status(500).json({ message: "Error fetching image" });
+  }
+}

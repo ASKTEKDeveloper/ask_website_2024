@@ -290,11 +290,15 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                   validationSchema={Yup.object({
                     name: Yup.string()
                       .matches(/^[A-Za-z\s]+$/, "enter valid name")
+                      .max(50, "should not exceed 50 characters.")
                       .required("Please provide your full name."),
 
-                    phone_number: Yup.string().required(
-                      "Please enter your phone number."
-                    ),
+                    phone_number: Yup.string()
+                    .matches(
+                      /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+                      "Please provide a valid phone number."
+                    )
+                    .required(" Please enter your phone number."),
 
                     email: Yup.string()
                       .matches(
@@ -303,7 +307,7 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                       )
                       .required("Email address is required."),
 
-                    city: Yup.string().matches(
+                    city: Yup.string().max(50, "should not exceed 50 characters.").matches(
                       /^[A-Za-z\s]+$/,
                       "enter valid city name"
                     ),
@@ -312,7 +316,7 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                     ),
                     // .required("Please specify your city."),
 
-                    company_name: Yup.string().required(
+                    company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
                       "Please specify the name of your company."
                     ),
                     enquiry_details: Yup.string().max(

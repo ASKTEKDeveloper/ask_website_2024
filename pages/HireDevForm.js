@@ -144,11 +144,15 @@ const HireDevForm = () => {
                   validationSchema={Yup.object({
                     name: Yup.string()
                       .matches(/^[A-Za-z\s]+$/, "enter valid name")
+                      .max(50, "should not exceed 50 characters.")
                       .required("Please provide your full name."),
 
-                    phone_number: Yup.string().required(
-                      "Please enter your phone number."
-                    ),
+                    phone_number: Yup.string()
+                    .matches(
+                      /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
+                      "Please enter a valid phone number."
+                    )
+                    .required("Please enter your phone number."),
                     email: Yup.string()
                       .matches(
                         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,

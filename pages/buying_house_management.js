@@ -729,23 +729,33 @@ const ProjectGrid = () => {
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
-                      name: Yup.string().required(
+                      name: Yup.string()
+                      .max(50, "should not exceed 50 characters.")
+                      .required(
                         "Please provide your full name."
                       ),
                       phone_number: Yup.string()
-                        .matches(
-                          /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
-                          "Please enter a valid phone number."
-                        )
-                        .required("Please enter your phone number."),
+                      .matches(
+                        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+                        "Please provide a valid phone number."
+                      )
+                      .required(
+                        "Please enter your phone number."
+                      ),
                       email: Yup.string()
-                        .email("Please provide a valid email address.")
-                        .required("Email address is required."),
-                      city: Yup.string().required("Please specify your city."),
+                      .matches(
+                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                        "Please provide a valid email address"
+                      )
+                      .required("Email address is required."),
+                      city: Yup.string().max(50, "should not exceed 50 characters.").matches(
+                        /^[A-Za-z\s]+$/,
+                        "enter valid city name"
+                      ).required("Please specify your city."),
                       country: Yup.object().required(
                         "Please select your country."
                       ),
-                      company_name: Yup.string().required(
+                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
                         "Please specify the name of your company."
                       ),
                     })}
