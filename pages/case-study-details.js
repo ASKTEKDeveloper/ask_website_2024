@@ -148,7 +148,7 @@ const BlogDetails = () => {
                     allowfullscreen
                   ></iframe>
                 )}
-                <h4>Summary & Results</h4>
+                <h4>The Results</h4>
                 <p>{caseStudy?.Summary}</p>
               </div>
 

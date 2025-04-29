@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import axios from "axios";
 import VideoPopup from "@/src/components/VideoPopup";
+import Link from "next/link";
 
 const Testimonials = () => {
   const tokent =
@@ -112,7 +113,21 @@ const Testimonials = () => {
                         - {data.CompanyName}
                       </h6>
 
-                      { data.URL && (
+                      <div className="about-btns mb-45">
+                      { data.URL && ( <Link legacyBehavior  href={data.URL}>
+                        <a className="theme-btn style-three mt-15">
+                        Watch Testimonial <i className="fas fa-play" />
+                        </a>
+                      </Link>)}
+                      { data.CaseStudyId && (
+                      <Link legacyBehavior href={`/case-study-details?id=${data.CaseStudyId}`}>
+                        <a className="theme-btn mt-15">
+                          Read More <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>)}
+                    </div>
+
+                    {/* { data.URL && (
                         <a
                           className="theme-btn mt-10"
                           href={data.URL}
@@ -124,6 +139,18 @@ const Testimonials = () => {
                           Watch Testimonial <i className="fas fa-play" />
                         </a>
                       )}
+                        { data.CaseStudyId && (
+                        <a
+                          className="theme-btn mt-10"
+                          href={`/case-study-details?id=${data.CaseStudyId}`}
+                          style={{
+                            boxShadow:
+                              "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                          }}
+                        >
+                          Read More <i className="fas fa-play" />
+                        </a>
+                      )} */}
                     </div>
                   ))}
                 </Slider>

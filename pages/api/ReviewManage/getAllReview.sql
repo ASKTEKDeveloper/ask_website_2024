@@ -4,6 +4,7 @@ SELECT
             cr.ReviewID DESC
     ) AS SNo,
     cr.ReviewID,
+    c.CaseStudyId,
     cr.CompanyName,
     cr.LogoFileName,
     cr.UserName,
@@ -16,7 +17,8 @@ SELECT
     cr.CreatedBy,
     cr.ModifyedBy
 FROM
-    Tbl_client_reviews cr
+    Tbl_client_reviews cr 
+left join  Tbl_Case_Study c on c.ReviewId=cr.ReviewID
 where
     ActiveStatus = 'Y'
 ORDER BY

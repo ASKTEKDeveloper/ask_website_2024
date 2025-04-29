@@ -162,8 +162,12 @@ const MobileMenu = () => {
                   <Link href="OurTeam">Our Team</Link>
                 </li>
                 <li>
+                  <Link href="case_study">Case Study</Link>
+                </li>
+                <li>
                   <Link href="Our_Engagement_Model">Engagement Model</Link>
                 </li>
+               
               </ul>
               <div className="dropdown-btn" onClick={() => active("home")}>
                 <span className="fas fa-chevron-down" />
@@ -466,6 +470,9 @@ const DeskTopMenu = () => {
               </li>
               <li>
                   <Link href="OurTeam">Our Team</Link>
+              </li>
+              <li>
+                <Link href="case_study">Case Study</Link>
               </li>
               <li>
                 <Link href="Our_Engagement_Model">Engagement Model</Link>
