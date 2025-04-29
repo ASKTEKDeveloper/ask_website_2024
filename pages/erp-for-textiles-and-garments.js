@@ -657,7 +657,7 @@ const ProjectGrid = () => {
                         .email("Please provide a valid email address.")
                         .required("Email address is required."),
                       city: Yup.string().required("Please specify your city."),
-                      country: Yup.object().max(50, "should not exceed 50 characters.").required("Please select your country."),
+                      country: Yup.object().required("Please select your country."),
                       company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
                         "Please specify the name of your company."
                       ),
