@@ -311,8 +311,8 @@ const GarmentManufacturing = () => {
                     <div className="service-item style-three">
                     <div className="mb-20" >
                         <img
-                          style={{maxWidth:'55px'}}
-                          src="/assets/images/erp.png"
+                          style={{maxWidth:'225px'}}
+                          src="/assets/images/decision-one.jpg"
                           alt="Optimize Garment Potential"
                         />
                       </div>

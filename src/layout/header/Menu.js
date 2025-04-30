@@ -81,14 +81,6 @@ const MobileMenu = () => {
             </li>
 
             <li className="dropdown">
-              <Link
-                href="Industries_we_serve"
-                onClick={() => active("Careers")}
-              >
-                Industries
-              </Link>
-            </li>
-            <li className="dropdown">
               <a href="#" onClick={() => active("services")}>
                 services
               </a>
@@ -144,11 +136,6 @@ const MobileMenu = () => {
                 <span className="fas fa-chevron-down" />
               </div>
             </li>
-            <li className="dropdown">
-              <Link href="Careers" onClick={() => active("Careers")}>
-                Careers
-              </Link>
-            </li>
 
             <li className="dropdown">
               <a href="#" onClick={() => active("home")}>
@@ -159,15 +146,17 @@ const MobileMenu = () => {
                   <Link href="about-us">About US</Link>
                 </li>
                 <li>
-                  <Link href="OurTeam">Our Team</Link>
+                  <Link href="Industries_we_serve">Industries</Link>
                 </li>
                 <li>
-                  <Link href="case_study">Case Study</Link>
+                  <Link href="Careers">Careers</Link>
+                </li>
+                <li>
+                  <Link href="OurTeam">Our Team</Link>
                 </li>
                 <li>
                   <Link href="Our_Engagement_Model">Engagement Model</Link>
                 </li>
-               
               </ul>
               <div className="dropdown-btn" onClick={() => active("home")}>
                 <span className="fas fa-chevron-down" />
@@ -179,6 +168,11 @@ const MobileMenu = () => {
                 Blogs
               </Link>
             </li>
+            <li className="dropdown">
+              <Link href="case_study" onClick={() => active("case_study")}>
+                Case Study
+              </Link>
+            </li>
 
             <li className="dropdown">
               <Link href="contact" onClick={() => active("contact")}>
@@ -186,14 +180,13 @@ const MobileMenu = () => {
               </Link>
             </li>
 
-      
             <li className="dropdown">
               <a href="#" onClick={() => active("partner_with_us")}>
-              Partner With Us
+                Partner With Us
               </a>
               <ul style={activeSubMenu("partner_with_us")}>
-                <li >
-                  <Link href="partner_with_us" > Partner With Us</Link>
+                <li>
+                  <Link href="partner_with_us"> Partner With Us</Link>
                 </li>
               </ul>
               <div
@@ -395,11 +388,6 @@ const DeskTopMenu = () => {
             </div>
           </li>
 
-          {/* Industries */}
-          <li className="dropdown">
-            <Link href="Industries_we_serve">Industries</Link>
-          </li>
-
           {/* services */}
           <li className="dropdown">
             <a href="#">services</a>
@@ -456,11 +444,6 @@ const DeskTopMenu = () => {
             </div>
           </li>
 
-          {/* Careers */}
-          <li className="dropdown">
-            <Link href="Careers">Careers</Link>
-          </li>
-
           {/* Company */}
           <li className="dropdown">
             <a href="#">Company</a>
@@ -469,10 +452,13 @@ const DeskTopMenu = () => {
                 <Link href="about-us">About US</Link>
               </li>
               <li>
-                  <Link href="OurTeam">Our Team</Link>
+                <Link href="Industries_we_serve">Industries</Link>
               </li>
               <li>
-                <Link href="case_study">Case Study</Link>
+                <Link href="Careers">Careers</Link>
+              </li>
+              <li>
+                <Link href="OurTeam">Our Team</Link>
               </li>
               <li>
                 <Link href="Our_Engagement_Model">Engagement Model</Link>
@@ -486,6 +472,9 @@ const DeskTopMenu = () => {
           {/* Blogs */}
           <li className="dropdown">
             <Link href="blog">Blogs</Link>
+          </li>
+          <li className="dropdown">
+            <Link href="case_study">Case Study</Link>
           </li>
 
           {/* Contact US */}
