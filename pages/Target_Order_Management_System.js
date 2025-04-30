@@ -442,7 +442,32 @@ const ProjectGrid = () => {
                         </div>
                       </div>
                     </div>
-
+                    <div className="row mt-50">
+                      <div className="col-xl-8 col-md-12  content">
+                        <h3>
+                            Our Integration -{" "}
+                          <span
+                            style={{ fontFamily: "Oswald", color: "#31363F" }}
+                          >
+                            TALLY
+                          </span>
+                        </h3>
+                        <p className="my-3">
+                          Connecting Tally software to other programs or
+                          databases in order to streamline corporate procedures
+                          and enable data interchange is known as Tally
+                          integration. This may entail integrating with
+                          databases, e-commerce sites, CRMs, and other systems.
+                          A variety of techniques, such as APIs, ODBC
+                          interfaces, and XML interfaces, can be used to
+                          accomplish integration and enable two-way data
+                          transfer.
+                        </p>
+                      </div>
+                      <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                        <img src="assets/images/tally.png" alt="Video" />
+                      </div>
+                    </div>
                     <div className="col-xl-12 mt-50 ">
                       <section className="services-area  pt-75 pb-10 rel z-1">
                         <div className="container">
@@ -699,7 +724,7 @@ const ProjectGrid = () => {
             </Container>
           </section>
           {/* Contact Form Section Start */}
-         {!open && <ContactUsProduct TypeOF={"p"} initialValue={"TOMS"} />}
+          {!open && <ContactUsProduct TypeOF={"p"} initialValue={"TOMS"} />}
           {/* Contact Form Section End */}
         </>
         <Dialog
@@ -737,26 +762,33 @@ const ProjectGrid = () => {
                       company_name: "",
                       email: "",
                       city: "",
-                      country:'',
+                      country: "",
                       TypeOfReq: "d",
                       product: "TOMS",
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
-                      name: Yup.string().max(50, "should not exceed 50 characters.").required(
-                        "Please provide your full name."
-                      ),
-                      phone_number: Yup.string().matches(/^\+?[1-9][0-9-]*(?: [0-9-]+)*$/, "Please enter a valid phone number.").required(
-                  "Please enter your phone number."
-                ),
+                      name: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please provide your full name."),
+                      phone_number: Yup.string()
+                        .matches(
+                          /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
+                          "Please enter a valid phone number."
+                        )
+                        .required("Please enter your phone number."),
                       email: Yup.string()
                         .email("Please provide a valid email address.")
                         .required("Email address is required."),
-                      city: Yup.string().max(50, "should not exceed 50 characters.").required("Please specify your city."),
-                      country: Yup.object().required("Please select your country."),
-                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                        "Please specify the name of your company."
+                      city: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please specify your city."),
+                      country: Yup.object().required(
+                        "Please select your country."
                       ),
+                      company_name: Yup.string()
+                        .max(80, "should not exceed 80 characters.")
+                        .required("Please specify the name of your company."),
                     })}
                     onSubmit={handleSubmit}
                   >
@@ -853,7 +885,7 @@ const ProjectGrid = () => {
                           <Field name="country">
                             {({ field, form }) => (
                               <Autocomplete
-                                options={countryOptions || []} 
+                                options={countryOptions || []}
                                 getOptionLabel={(option) => option.label}
                                 value={field.value || null}
                                 onChange={(event, value) =>

@@ -407,30 +407,6 @@ const GarmentManufacturing = () => {
                 </ul>
               </div>
             </div>
-            <div className="row">
-              <div className="col-xl-8 col-md-12  content">
-                <h3>
-                  <span className="text-gradient-title2">
-                    Our Integration -{" "}
-                  </span>
-                  <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                    TALLY
-                  </span>
-                </h3>
-                <p className="my-3">
-                  Connecting Tally software to other programs or databases in
-                  order to streamline corporate procedures and enable data
-                  interchange is known as Tally integration. This may entail
-                  integrating with databases, e-commerce sites, CRMs, and other
-                  systems. A variety of techniques, such as APIs, ODBC
-                  interfaces, and XML interfaces, can be used to accomplish
-                  integration and enable two-way data transfer.
-                </p>
-              </div>
-              <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                <img src="assets/images/tally.png" alt="Video" />
-              </div>
-            </div>
           </div>
         </Container>
         <div className="project-shapes">
