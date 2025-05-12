@@ -53,8 +53,8 @@ const BlogDetails = () => {
         
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching blogs:", error);
-      setError("Failed to load blog data.");
+      console.error("Error fetching CaseStudy:", error);
+      setError("Failed to load CaseStudy data.");
       setLoading(false);
     } finally {
       setOpenLoader(false);
@@ -169,7 +169,7 @@ const BlogDetails = () => {
                   <ContactinBlog />
                 </div>
                 <div className="widget widget-recent-news wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Recent Blogs</h4>
+                  <h4 className="widget-title">Recent Case Studies</h4>
                   <div style={{ maxHeight: "800px", overflow: "auto" }}>
                     <ul>
                       {caseStudyData.map(

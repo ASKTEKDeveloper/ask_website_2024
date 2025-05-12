@@ -64,10 +64,11 @@ const case_study = () => {
                         {caseStudy.CaseStudyTitle}
                       </h4>
                     <Link
+                      
                       legacyBehavior
                       href={`/case-study-details?id=${caseStudy.CaseStudyId}`}
                     >
-                      <span className="read-more">
+                      <span className="read-more" style={{cursor:'pointer'}}>
                           Read More <i className="far fa-arrow-right" />
                         </span>
                     </Link>
