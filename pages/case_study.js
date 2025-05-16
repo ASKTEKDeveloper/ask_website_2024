@@ -17,6 +17,9 @@ const case_study = () => {
       console.log("error while get all case study");
     }
   };
+  const formatTitleForURL = (title) => {
+    return title.replace(/\s+/g, "_"); // Replace spaces with underscores
+  };
   return (
     <Layout>
       <PageBanner pageName={"Case Studies"} />
@@ -66,7 +69,7 @@ const case_study = () => {
                     <Link
                       
                       legacyBehavior
-                      href={`/case-study-details?id=${caseStudy.CaseStudyId}`}
+                      href={`/case-study-details?id=${caseStudy.CaseStudyId}&title=${formatTitleForURL(caseStudy.CaseStudyTitle)}`}
                     >
                       <span className="read-more" style={{cursor:'pointer'}}>
                           Read More <i className="far fa-arrow-right" />

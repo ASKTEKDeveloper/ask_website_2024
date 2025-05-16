@@ -196,6 +196,7 @@ const BlogDetails = () => {
                                       pathname: "/case-study-details",
                                       query: {
                                         id: item.CaseStudyId,
+                                        title:formatTitleForURL(item.CaseStudyTitle),
                                       },
                                     }}
                                   >
@@ -241,6 +242,7 @@ const BlogDetails = () => {
                           pathname: "/case-study-details",
                           query: {
                             id: caseStudyData[prevIndex].CaseStudyId,
+                            title: caseStudyData[prevIndex].CaseStudyTitle,
                           },
                         }}
                       >
@@ -276,6 +278,7 @@ const BlogDetails = () => {
                           pathname: "/case-study-details",
                           query: {
                             id: caseStudyData[nextIndex].CaseStudyId,
+                            title: formatTitleForURL(caseStudyData[nextIndex].CaseStudyTitle),
                           },
                         }}
                       >

@@ -73,6 +73,10 @@ const Testimonials = () => {
     autoplaySpeed: 5000
   };
 
+  const formatTitleForURL = (title) => {
+    return title.replace(/\s+/g, "_"); // Replace spaces with underscores
+  };
+
   return (
     <>
       <section className="testimonials-area pt-100 mb-100 mt-50 rpy-100 rel z-1">
@@ -120,7 +124,7 @@ const Testimonials = () => {
                         </a>
                       </Link>)}
                       { data.CaseStudyId && (
-                      <Link legacyBehavior href={`/case-study-details?id=${data.CaseStudyId}`}>
+                      <Link legacyBehavior href={`/case-study-details?id=${data.CaseStudyId}&title=${formatTitleForURL(data.CaseStudyTitle)}`}>
                         <a className="theme-btn mt-15">
                           Read More <i className="fas fa-long-arrow-right" />
                         </a>
