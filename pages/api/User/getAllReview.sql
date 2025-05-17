@@ -5,6 +5,7 @@ SELECT
     ) AS SNo,
     cr.ReviewID,
     c.CaseStudyId,
+    c.CaseStudyTitle,
     cr.CompanyName,
     cr.LogoFileName,
     cr.UserName,

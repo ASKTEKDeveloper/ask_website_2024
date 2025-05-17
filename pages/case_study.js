@@ -18,7 +18,7 @@ const case_study = () => {
     }
   };
   const formatTitleForURL = (title) => {
-    return title.replace(/\s+/g, "_"); // Replace spaces with underscores
+    return title?.replace(/\s+/g, "_"); // Replace spaces with underscores
   };
   return (
     <Layout>

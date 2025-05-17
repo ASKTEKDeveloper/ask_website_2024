@@ -74,7 +74,8 @@ const Testimonials = () => {
   };
 
   const formatTitleForURL = (title) => {
-    return title.replace(/\s+/g, "_"); // Replace spaces with underscores
+    console.log(title,"Title")
+    return title?.replace(/\s+/g, "_"); // Replace spaces with underscores
   };
 
   return (
