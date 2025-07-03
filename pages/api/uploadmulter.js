@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
       // Forward the file to your server API
       const response = await axios.post(
-        "http://103.73.189.37/ASKFileSaveAPI/api/AskFileSave",
+        "http://vc.asktek.net/ASKFileSaveAPI/api/AskFileSave",
         formData,
         {
           headers: {

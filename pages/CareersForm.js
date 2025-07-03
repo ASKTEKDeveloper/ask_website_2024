@@ -69,7 +69,7 @@ const CareersForm = () => {
         .then((response) => {
           setOpenLoader(false);
           let fileName = response.data.path.fileName;
-          const createdPath = `http://103.73.189.37/askcareers/${fileName}`;
+          const createdPath = `http://vc.asktek.net/askcareers/${fileName}`;
           setSelectedFilePath(createdPath);
           console.log("createdPath", createdPath);
         })
@@ -101,7 +101,7 @@ const CareersForm = () => {
   //     });
   //     setOpenLoader(true);
   //     let fileName = response.data.path.fileName;
-  //     const createdPath = `http://103.73.189.37/askcareers/${fileName}`;
+  //     const createdPath = `http://vc.asktek.net/askcareers/${fileName}`;
   //     setSelectedFilePath(createdPath);
   //     console.log("createdPath", createdPath);
   //     // console.log("File path:", filePath);
@@ -151,7 +151,7 @@ const CareersForm = () => {
         <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ hr@asktek.net</p>
         <p><a href="http://www.asktek.net">www.asktek.net</a></p>
       `,
-        // attachment: "http://103.73.189.37/askcareers/resume.docx",
+        // attachment: "http://vc.asktek.net/askcareers/resume.docx",
         attachment: selectedFilePath,
       });
     } catch (error) {

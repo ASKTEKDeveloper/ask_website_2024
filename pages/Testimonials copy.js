@@ -86,7 +86,7 @@ const Testimonials = () => {
                   {reviewData.map((data, index) => (
                     <div key={index} className="testi-image-item">
                       <img
-                        src={`http://103.73.189.37/ASK_WEB_ADMIN_PANEL_API/api/ClientLogos/${data.LogoFileName}`}
+                        src={`http://vc.asktek.net/ASK_WEB_ADMIN_PANEL_API/api/ClientLogos/${data.LogoFileName}`}
                         alt="Author"
                       />
                     </div>
