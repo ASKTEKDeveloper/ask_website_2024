@@ -4,25 +4,51 @@ import { Dialog, Grid, LinearProgress, TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const ContactUsForm = () => {
   const theme = useTheme();
   const matchesSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [openLoader, setOpenLoader] = useState(false);
+  const recaptchaRef = useRef();
+  const [captchaValue, setCaptchaValue] = useState(null);
+
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
+  };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    if (!captchaValue) {
+      Swal.fire({
+        title: "CAPTCHA Required!",
+        text: "Please complete the CAPTCHA verification.",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+      setSubmitting(false);
+      return;
+    }
+
     setOpenLoader(true);
     try {
-      const response = await axios.post("/api/Contact/ContactUS", values);
+      const response = await axios.post("/api/Contact/ContactUS", {
+        ...values,
+        captchaToken: captchaValue,
+      });
       console.log("Form submitted successfully:", response.data);
-      SendMail(values);
-      SendMail2(values);
+      await SendMail(values);
+      await SendMail2(values);
       resetForm();
+      setCaptchaValue(null);
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setOpenLoader(false);
       Swal.fire({
         title: "Error!",
         text: "Error submitting form. Please try again later.",
@@ -35,7 +61,6 @@ const ContactUsForm = () => {
   };
 
   const SendMail = async (datas) => {
-    setOpenLoader(true);
     const subjectLine = "New Contact Form Submission: " + datas.subject;
     const bodyMessage = `
         <p>Dear Team,</p>
@@ -53,24 +78,22 @@ const ContactUsForm = () => {
         <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ sales@asktek.net</p>
         <p><a href="http://www.asktek.net">www.asktek.net</a></p>
     `;
-    const approvs = await axios
-      .post("/api/Email/SendMail3", {
+    try {
+      const res = await axios.post("/api/Email/SendMail3", {
         from: "sales@asktek.net",
         to: "sales@asktek.net",
         subject: subjectLine,
         text: bodyMessage,
-      })
-      .then((res) => {
-        if (res.data === "Email Send Succefully") {
-          setOpenLoader(false);
-        } else {
-          setOpenLoader(false);
-        }
       });
+      console.log("Email sent to team:", res.data);
+      return true;
+    } catch (error) {
+      console.error("Error sending email to team:", error);
+      return false;
+    }
   };
 
   const SendMail2 = async (datas) => {
-    setOpenLoader(true);
     const subjectLine = "Your Message has been Received";
     const bodyMessageToUser = `
         <p>Dear ${datas.name},</p>
@@ -88,27 +111,35 @@ const ContactUsForm = () => {
         <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ sales@asktek.net</p>
         <p><a href="http://www.asktek.net">www.asktek.net</a></p>
     `;
-    const approvs = await axios
-      .post("/api/Email/SendMail3", {
+    try {
+      const res = await axios.post("/api/Email/SendMail3", {
         from: "sales@asktek.net",
         to: `${datas.email}`,
         subject: subjectLine,
         text: bodyMessageToUser,
-      })
-      .then((res) => {
-        if (res.data === "Email Send Succefully") {
-          setOpenLoader(false);
-
-          Swal.fire({
-            title: "Thank you!",
-            text: "Your message has been successfully submitted. We'll review it and respond shortly.",
-            icon: "success",
-            confirmButtonText: "Done",
-          });
-        } else {
-          setOpenLoader(false);
-        }
       });
+      
+      setOpenLoader(false);
+      
+      Swal.fire({
+        title: "Thank you!",
+        text: "Your message has been successfully submitted. We'll review it and respond shortly.",
+        icon: "success",
+        confirmButtonText: "Done",
+      });
+      
+      return true;
+    } catch (error) {
+      console.error("Error sending email to user:", error);
+      setOpenLoader(false);
+      Swal.fire({
+        title: "Warning",
+        text: "Your message was submitted but we had trouble sending a confirmation email.",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+      return false;
+    }
   };
 
   return (
@@ -249,6 +280,15 @@ const ContactUsForm = () => {
                         />
                       )}
                     </Field>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey="6LeDGywsAAAAANcHPB67nh80mSPAwZD4rQYGcirX"
+                        onChange={handleCaptchaChange}
+                      />
+                    </div>
                   </Grid>
                   <Grid
                     item
