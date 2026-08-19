@@ -185,7 +185,7 @@ const BlogsByProduct = ({ code, productCode, productId, limit = 3 }) => {
                 fontWeight: "600",
               }}
             >
-              View All Articles
+              View All Blogs
             </Button>
           </Link>
         </div>

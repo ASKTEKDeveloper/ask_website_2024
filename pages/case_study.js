@@ -27,9 +27,9 @@ const case_study = () => {
       <section className="project-grid-area rel z-2 py-50 rpy-100">
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-xl-8 col-lg-10">
+            <div className="col-12">
               <div className="section-title text-center mb-50 wow fadeInUp delay-0-2s">
-                <h2>Explore Insights from Our Latest Case Studies</h2>
+                <h3>Explore Insights from Our Latest Case Studies</h3>
                 <p>
                   Discover how we solve real-world challenges through
                   innovation, strategy, and technology. Our case studies

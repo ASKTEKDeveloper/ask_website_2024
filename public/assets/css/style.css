@@ -11485,6 +11485,7 @@ blockquote .name:before {
   padding: 15px;
   background-color: white;
   border-radius: 20px;
+  width:105px
 }
 
 .footer-white {

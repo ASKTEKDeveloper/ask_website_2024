@@ -140,225 +140,7 @@ const GarmentManufacturing = () => {
           </div>
         </Container>
       </section>
-      <section className="services-area-three overflow-hidden rpt-100 pt-50 rpb-70 rel z-1">
-        <Container maxWidth={"lg"}>
-          <div className="row gap-100 align-items-center">
-            <div className="col-lg-12">
-              <div className="services-content-three mb-30 rmb-65 wow fadeInUp delay-0-2s">
-                <div className="section-title mb-30 text-center">
-                  <span className="sub-title mb-15">
-                    Garment Section Overview
-                  </span>
-                  <h2>Experience the Future of Apparel Manufacturing</h2>
-                </div>
-                <p>
-                  Welcome to Ask Technology, where innovation meets experience
-                  in the apparel industry. Founded in 2004, we have dedicated
-                  over two decades to addressing the unique challenges faced by
-                  apparel manufacturers. With a deep understanding of the
-                  industry’s intricacies, we’ve developed a cutting-edge
-                  Software solution designed to transform your operations.
-                </p>
-                <p>
-                  Our ERP System is more than just software; it’s a
-                  comprehensive solution that integrates every facet of your
-                  business, from marketing to shipment. Drawing on our extensive
-                  experience and the valuable insights we’ve gained from working
-                  closely with industry leaders, we have crafted a tool that
-                  simplifies even the most complex processes.
-                </p>
-                <p>
-                  Our application provides seamless connectivity and
-                  integration, allowing you to manage every aspect of your
-                  manufacturing process efficiently. Whether you’re a small or
-                  large-scale manufacturer, our Garment ERP software is tailored
-                  to support production, planning, sourcing, purchasing,
-                  logistics, warehousing, and financial administration.
-                </p>
-                <p>
-                  With Ask Technology, you’ll gain real-time insights into stock
-                  status, purchase management, material reconciliation, and cost
-                  analysis. Our advanced technology ensures that you can access
-                  and manage your data from anywhere in the world, keeping you
-                  agile and competitive in a fast-paced market.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-12">
-              <div className="row">
-                <div className="col-sm-6">
-                  <div className="feature-item style-two mt-25 wow fadeInUp delay-0-2s">
-                    <div className="icon">
-                      <i className="flaticon-trust" />
-                    </div>
-                    <Link legacyBehavior href="service-details">
-                      <h4>Comprehensive Support</h4>
-                    </Link>
-                    <p>
-                      Leverage our 20+ years of experience in the apparel sector
-                      for unmatched reliability and guidance in your operations.
-                    </p>
-                  </div>
-                  <div className="feature-item style-two wow fadeInUp delay-0-2s">
-                    <div className="icon">
-                      <i className="flaticon-social-media" />
-                    </div>
-                    <Link legacyBehavior href="service-details">
-                      <h4>Brand Enhancement</h4>
-                    </Link>
-                    <p>
-                      Elevate your market presence with our strategic marketing
-                      solutions tailored specifically for the apparel industry.
-                    </p>
-                  </div>
-                </div>
-                <div className="col-sm-6">
-                  <div className="feature-item style-two wow fadeInDown delay-0-2s">
-                    <div className="icon">
-                      <i className="flaticon-technical-support" />
-                    </div>
-                    <Link legacyBehavior href="service-details">
-                      <h4>Tailored Technical Assistance</h4>
-                    </Link>
-                    <p>
-                      Receive expert help customized for your technical needs,
-                      ensuring smooth operations throughout your manufacturing
-                      processes.
-                    </p>
-                  </div>
-                  <div className="feature-item style-two mt-25 wow fadeInDown delay-0-2s">
-                    <div className="icon">
-                      <i className="flaticon-brainstorming" />
-                    </div>
-                    <Link legacyBehavior href="service-details">
-                      <h4>Industry-Specific IT Solutions</h4>
-                    </Link>
-                    <p>
-                      Discover customized IT consulting services designed to
-                      meet the unique demands of your garment manufacturing
-                      business.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="services-area-three overflow-hidden rpt-50 pt-30 rpb-70 rel z-1">
-        <Container maxWidth={"lg"}>
-          <div className="row gap-100 align-items-center">
-            <div className="col-lg-12">
-              <div className="services-content-three mb-30 rmb-65 wow fadeInUp delay-0-2s">
-                <div className="section-title mb-30 text-center">
-                  <h2>All Our Integrations</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row align-items-center gap-100">
-            <div className="col">
-              <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
-                <div className="row gap-40">
-                  <div className="col-md-4">
-                    <div className="service-item style-three">
-                      <div className="mb-20">
-                        <img
-                          style={{ maxWidth: "120px" }}
-                          src="/assets/images/sap-erp.png"
-                          alt="Optimize Garment Potential"
-                        />
-                      </div>
-                      <h4 className="text-gradient-title">SAP + ERP</h4>
-                      <p>
-                        In order to increase data flow, expedite procedures, and
-                        boost overall business efficiency, SAP ERP integration
-                        entails integrating SAP's Enterprise Resource Planning
-                        (ERP) system with other corporate applications and
-                        systems. Beyond simple data sharing, this integration
-                        includes intricate process integration between several
-                        departments, such as supply chain management, finance,
-                        and procurement.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="service-item style-three">
-                      <div className="mb-20">
-                        <img
-                          style={{ maxWidth: "150px" }}
-                          src="/assets/images/oracle-netsuite.png"
-                          alt="Boost Garment Efficiency"
-                        />
-                      </div>
-                      <h4 className="text-gradient-title">
-                        Oracle NetSuite + ERP
-                      </h4>
-                      <p>
-                        Explore the world of NetSuite ERP integration with
-                        Oracle NetSuite + Apparel Fashion ERP, which is the only
-                        fashion program with a "Built for NetSuite PLM
-                        Connector" in the world. We are the obvious choice for
-                        NetSuite ERP users in the fashion sector because of this
-                        synergy.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <div className="service-item style-three">
-                      <div className="mb-20">
-                        <img
-                          style={{ maxWidth: "225px" }}
-                          src="/assets/images/decision-one.jpg"
-                          alt="Optimize Garment Potential"
-                        />
-                      </div>
-                      <h4 className="text-gradient-title">
-                        Decision one + ERP{" "}
-                      </h4>
-                      <p>
-                        DecisionOne works to control operations in an economical
-                        way and continuously enhance "ON-TIME" production. The
-                        complete business process, from "Yarn to Fabric" or "Cut
-                        to Pack," as well as important events involved in
-                        routine garment and textile manufacturing processes, may
-                        be planned and tracked with this straightforward,
-                        understandable, and reasonably priced production
-                        planning software program.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-      <section className="services-area-five  rpt-35  rpb-100 rel z-2">
-        <Container>
-          <div className="col-lg-12">
-            <div className="about-content my-55 rel z-1 wow fadeInLeft delay-0-2s">
-              <div className="section-title text-center rmb-40">
-                {/* <h2
-                  className="text-gradient-title2 mb-15"
-                  style={{ fontFamily: "Play", textTransform: "uppercase" }}
-                >
-                  Our Garment Industry Solutions
-                </h2> */}
-                <span className="sub-title mb-15">
-                  Explore our comprehensive suite of software solutions designed
-                  to enhance efficiency, streamline operations, and boost
-                  productivity in the garment sector. Each of our products is
-                  crafted to meet the unique needs of the industry, ensuring you
-                  have the tools necessary for success.
-                </span>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-      {/* Services Area Two start */}
+       {/* Services Area Two start */}
       <section className="services-area-two py-50 rel z-2">
         <Container maxWidth={"xl"}>
           <div className="row">
@@ -806,6 +588,225 @@ const GarmentManufacturing = () => {
           </div>
         </Container>
       </section>
+      <section className="services-area-three overflow-hidden rpt-100 pt-50 rpb-70 rel z-1">
+        <Container maxWidth={"lg"}>
+          <div className="row gap-100 align-items-center">
+            <div className="col-lg-12">
+              <div className="services-content-three mb-30 rmb-65 wow fadeInUp delay-0-2s">
+                <div className="section-title mb-30 text-center">
+                  <span className="sub-title mb-15">
+                    Garment Section Overview
+                  </span>
+                  <h2>Experience the Future of Apparel Manufacturing</h2>
+                </div>
+                <p>
+                  Welcome to Ask Technology, where innovation meets experience
+                  in the apparel industry. Founded in 2004, we have dedicated
+                  over two decades to addressing the unique challenges faced by
+                  apparel manufacturers. With a deep understanding of the
+                  industry’s intricacies, we’ve developed a cutting-edge
+                  Software solution designed to transform your operations.
+                </p>
+                <p>
+                  Our ERP System is more than just software; it’s a
+                  comprehensive solution that integrates every facet of your
+                  business, from marketing to shipment. Drawing on our extensive
+                  experience and the valuable insights we’ve gained from working
+                  closely with industry leaders, we have crafted a tool that
+                  simplifies even the most complex processes.
+                </p>
+                <p>
+                  Our application provides seamless connectivity and
+                  integration, allowing you to manage every aspect of your
+                  manufacturing process efficiently. Whether you’re a small or
+                  large-scale manufacturer, our Garment ERP software is tailored
+                  to support production, planning, sourcing, purchasing,
+                  logistics, warehousing, and financial administration.
+                </p>
+                <p>
+                  With Ask Technology, you’ll gain real-time insights into stock
+                  status, purchase management, material reconciliation, and cost
+                  analysis. Our advanced technology ensures that you can access
+                  and manage your data from anywhere in the world, keeping you
+                  agile and competitive in a fast-paced market.
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-12">
+              <div className="row">
+                <div className="col-sm-6">
+                  <div className="feature-item style-two mt-25 wow fadeInUp delay-0-2s">
+                    <div className="icon">
+                      <i className="flaticon-trust" />
+                    </div>
+                    <Link legacyBehavior href="service-details">
+                      <h4>Comprehensive Support</h4>
+                    </Link>
+                    <p>
+                      Leverage our 20+ years of experience in the apparel sector
+                      for unmatched reliability and guidance in your operations.
+                    </p>
+                  </div>
+                  <div className="feature-item style-two wow fadeInUp delay-0-2s">
+                    <div className="icon">
+                      <i className="flaticon-social-media" />
+                    </div>
+                    <Link legacyBehavior href="service-details">
+                      <h4>Brand Enhancement</h4>
+                    </Link>
+                    <p>
+                      Elevate your market presence with our strategic marketing
+                      solutions tailored specifically for the apparel industry.
+                    </p>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="feature-item style-two wow fadeInDown delay-0-2s">
+                    <div className="icon">
+                      <i className="flaticon-technical-support" />
+                    </div>
+                    <Link legacyBehavior href="service-details">
+                      <h4>Tailored Technical Assistance</h4>
+                    </Link>
+                    <p>
+                      Receive expert help customized for your technical needs,
+                      ensuring smooth operations throughout your manufacturing
+                      processes.
+                    </p>
+                  </div>
+                  <div className="feature-item style-two mt-25 wow fadeInDown delay-0-2s">
+                    <div className="icon">
+                      <i className="flaticon-brainstorming" />
+                    </div>
+                    <Link legacyBehavior href="service-details">
+                      <h4>Industry-Specific IT Solutions</h4>
+                    </Link>
+                    <p>
+                      Discover customized IT consulting services designed to
+                      meet the unique demands of your garment manufacturing
+                      business.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="services-area-three overflow-hidden rpt-50 pt-30 rpb-70 rel z-1">
+        <Container maxWidth={"lg"}>
+          <div className="row gap-100 align-items-center">
+            <div className="col-lg-12">
+              <div className="services-content-three mb-30 rmb-65 wow fadeInUp delay-0-2s">
+                <div className="section-title mb-30 text-center">
+                  <h2>All Our Integrations</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row align-items-center gap-100">
+            <div className="col">
+              <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
+                <div className="row gap-40">
+                  <div className="col-md-4">
+                    <div className="service-item style-three">
+                      <div className="mb-20">
+                        <img
+                          style={{ maxWidth: "120px" }}
+                          src="/assets/images/sap-erp.png"
+                          alt="Optimize Garment Potential"
+                        />
+                      </div>
+                      <h4 className="text-gradient-title">SAP + ERP</h4>
+                      <p>
+                        In order to increase data flow, expedite procedures, and
+                        boost overall business efficiency, SAP ERP integration
+                        entails integrating SAP's Enterprise Resource Planning
+                        (ERP) system with other corporate applications and
+                        systems. Beyond simple data sharing, this integration
+                        includes intricate process integration between several
+                        departments, such as supply chain management, finance,
+                        and procurement.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="service-item style-three">
+                      <div className="mb-20">
+                        <img
+                          style={{ maxWidth: "150px" }}
+                          src="/assets/images/oracle-netsuite.png"
+                          alt="Boost Garment Efficiency"
+                        />
+                      </div>
+                      <h4 className="text-gradient-title">
+                        Oracle NetSuite + ERP
+                      </h4>
+                      <p>
+                        Explore the world of NetSuite ERP integration with
+                        Oracle NetSuite + Apparel Fashion ERP, which is the only
+                        fashion program with a "Built for NetSuite PLM
+                        Connector" in the world. We are the obvious choice for
+                        NetSuite ERP users in the fashion sector because of this
+                        synergy.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="service-item style-three">
+                      <div className="mb-20">
+                        <img
+                          style={{ maxWidth: "225px" }}
+                          src="/assets/images/decision-one.jpg"
+                          alt="Optimize Garment Potential"
+                        />
+                      </div>
+                      <h4 className="text-gradient-title">
+                        Decision one + ERP{" "}
+                      </h4>
+                      <p>
+                        DecisionOne works to control operations in an economical
+                        way and continuously enhance "ON-TIME" production. The
+                        complete business process, from "Yarn to Fabric" or "Cut
+                        to Pack," as well as important events involved in
+                        routine garment and textile manufacturing processes, may
+                        be planned and tracked with this straightforward,
+                        understandable, and reasonably priced production
+                        planning software program.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+      <section className="services-area-five  rpt-35  rpb-100 rel z-2">
+        <Container>
+          <div className="col-lg-12">
+            <div className="about-content my-55 rel z-1 wow fadeInLeft delay-0-2s">
+              <div className="section-title text-center rmb-40">
+                {/* <h2
+                  className="text-gradient-title2 mb-15"
+                  style={{ fontFamily: "Play", textTransform: "uppercase" }}
+                >
+                  Our Garment Industry Solutions
+                </h2> */}
+                <span className="sub-title mb-15">
+                  Explore our comprehensive suite of software solutions designed
+                  to enhance efficiency, streamline operations, and boost
+                  productivity in the garment sector. Each of our products is
+                  crafted to meet the unique needs of the industry, ensuring you
+                  have the tools necessary for success.
+                </span>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+     
 
       {/* Partners Area start */}
       <OurPartners />
