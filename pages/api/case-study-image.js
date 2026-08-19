@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const externalUrl = `http://vc.asktek.net/ASK_WEB_ADMIN_PANEL_API/api/CaseStudy/${BlogFileName}`;
+    const externalUrl = `https://live.asktek.net/asktek.net_website_manager_api/api/CaseStudy/${BlogFileName}`;
     // const externalUrl = `http://localhost:1311/api/CaseStudy/${BlogFileName}`;
     console.log("Fetching image from:", externalUrl);
 

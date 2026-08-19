@@ -213,7 +213,14 @@ const Footer = () => {
               fontSize={matchesSmallScreen && "8px"}
             >
               © Copyright 2024 by Ask Technology. <br />
-              All Rights Reserved And Designed by <a href="http://vc.asktek.net/ASK_WEB_ADMIN_PANEL_UI" target="_blank"> Ask Technology.</a>
+              All Rights Reserved And Designed by{" "}
+              <a
+                href="https://live.asktek.net/asktek.net_website_manager_ui/"
+                target="_blank"
+              >
+                {" "}
+                Ask Technology.
+              </a>
             </Typography>
           </div>
         </div>
