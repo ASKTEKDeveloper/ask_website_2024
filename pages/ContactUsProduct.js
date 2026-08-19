@@ -64,7 +64,7 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
     GERP: "Garment ERP Software for Knit and Woven (RMG)",
     TBMS: "Buying House Management",
     IOG: "Garment Inspection Software",
-    ERP: "Garment ERP for Retailers",
+    ERP: "Garment ERP for Brands",
     OB: "Operation Bulletin (QUICK OB)",
     HRMS: "Target HRMS – HR & Payroll Solution",
     AI: "AI Solutions for Garment Manufacturing",
@@ -725,7 +725,7 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                   Garment Inspection Software
                                 </MenuItem>
                                 <MenuItem value="ERP">
-                                  Garment ERP for Retailers
+                                  Garment ERP for Brands
                                 </MenuItem>
                                 <MenuItem value="OB">
                                   Operation Bulletin (QUICK OB)

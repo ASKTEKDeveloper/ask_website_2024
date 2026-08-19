@@ -366,7 +366,7 @@ const GarmentManufacturing = () => {
                     <h4>
                       {" "}
                       <Link legacyBehavior href="garments_sampling_software">
-                        Garment ERP for Retailers
+                        Garment ERP for Brands
                       </Link>{" "}
                     </h4>
                     <div className="d-flex justify-content-start">
