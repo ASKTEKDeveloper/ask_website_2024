@@ -21,6 +21,8 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import countryList from "react-select-country-list";
 import Slide from "@mui/material/Slide";
+import { BsLightningCharge, BsCpu } from "react-icons/bs";
+import { HiOutlineChip } from "react-icons/hi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -32,6 +34,7 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
   const [open, setOpen] = useState(false);
   const [openLoader, setOpenLoader] = useState(false);
   const countryOptions = useMemo(() => countryList().getData(), []);
+  const isAI = initialValue === "AI" || TypeOF === "ai";
 
   const handleButtonClick = () => {
     setOpen(true);
@@ -54,19 +57,23 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
     UIUX: "UI/UX Strategy",
     DigitalMarketing: "Digital Marketing",
     ERPDevelopment: "ERP Software Development",
+    AI: "AI Solutions for Garment Manufacturing",
   };
 
   const productsMapping = {
-    ERP: "ERP for Textile & Garment Industries",
-    SCM: "Target SCM - Supply Chain Management",
-    HRMS: "HRMS - Target HR & Payroll Solutions",
-    TOMS: "TOMS - Target Order Management Solutions",
-    // TCMS: "TCMS - Cargo and courier Management Solutions",
-    TBMS: "TBMS - Buying House Management Solutions",
+    GERP: "Garment ERP Software for Knit and Woven (RMG)",
+    TBMS: "Buying House Management",
+    IOG: "Garment Inspection Software",
+    ERP: "Garment ERP for Retailers",
+    OB: "Operation Bulletin (QUICK OB)",
+    HRMS: "Target HRMS – HR & Payroll Solution",
+    AI: "AI Solutions for Garment Manufacturing",
+    // SCM: "Target SCM - Supply Chain Management",
+    // TOMS: "TOMS - Target Order Management Solutions",
+    // AI: "AI Solutions for Garment Manufacturing",
   };
 
   const garmentsMapping = {
-    OB: "Operation Bulletin - Production Monitoring and Piece Rate Software",
     SM: "Sampling Module",
     IOG: "Garment Inspection Software",
     GERP: "Garment ERP Software for Knit and Woven (RMG)",
@@ -82,13 +89,15 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
       TypeOF === "s" ? SendMailService(values) : SendMailProduct(values);
       SendMailInternal(values);
       Swal.fire({
-        title: "Thank you!",
-        text:
-          TypeOF === "s"
+        title: isAI ? "🚀 AI Solutions Inquiry Received!" : "Thank you!",
+        text: isAI
+          ? "Your AI Solutions inquiry has been submitted successfully. Our AI experts will get back to you shortly with innovative solutions tailored for your fashion business."
+          : TypeOF === "s"
             ? "Your service request has been submitted successfully. Our team will get back to you shortly."
             : "Your product demo request has been submitted successfully. We'll get back to you shortly to schedule the demo.",
         icon: "success",
-        confirmButtonText: "Done",
+        confirmButtonText: isAI ? "Explore AI" : "Done",
+        confirmButtonColor: isAI ? "#764ba2" : "#1976d2",
       }).then((result) => {
         if (result.isConfirmed) {
           resetForm();
@@ -105,17 +114,36 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
 
   const SendMailProduct = async (datas) => {
     try {
+      const productName = isAI
+        ? "AI Solutions for Garment Manufacturing"
+        : productsMapping[datas.product] || datas.product;
+
       const response = await axios.post("/api/Email/SendMail3", {
         from: "sales@asktek.net",
         to: datas.email,
-        subject: "Your Product Demo Request Confirmation",
+        subject: isAI
+          ? "Your AI Solutions Inquiry Confirmation"
+          : "Your Product Demo Request Confirmation",
         text: `
           <p>Dear ${datas.name},</p>
-          <p>Thank you for your interest in our <b>${
-            productsMapping[datas.product] || datas.product
-          }</b> demo!</p>
+          <p>Thank you for your interest in our <b>${productName}</b> ${isAI ? "AI solutions" : "demo"}!</p>
           <p>Your request has been received successfully. We're excited to assist you further.</p>
+          ${
+            isAI
+              ? `
+          <p>Our AI experts will review your business requirements and get back to you with tailored AI solutions that can transform your fashion operations.</p>
+          <p>We'll help you leverage AI for:</p>
+          <ul>
+            <li>Smart inventory management</li>
+            <li>Predictive analytics</li>
+            <li>Automated quality control</li>
+            <li>Intelligent production planning</li>
+          </ul>
+          `
+              : `
           <p>Our team will review your request and get back to you shortly to schedule the demo.</p>
+          `
+          }
           <p>If you have any immediate questions or concerns, please don't hesitate to contact us.</p>
           <p>Best Regards,</p>
           <p>ASK Technology</p>
@@ -133,19 +161,37 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
 
   const SendMailService = async (datas) => {
     try {
+      const serviceName = isAI
+        ? "AI Solutions for Garment Manufacturing"
+        : servicesMapping[datas.product] || datas.product;
+
       const approvs = await axios.post("/api/Email/SendMail3", {
         from: "sales@asktek.net",
         to: datas.email,
-        subject: "Your Service Request Confirmation",
+        subject: isAI
+          ? "Your AI Solutions Inquiry Confirmation"
+          : "Your Service Request Confirmation",
         text: `
         <p>Dear ${datas.name},</p>
-        <p>Thank you for your interest in our <b>${
-          servicesMapping[datas.product] || datas.product
-        }</b></p>
+        <p>Thank you for your interest in our <b>${serviceName}</b></p>
         <p>Your service request has been received successfully. We're excited to assist you further.</p>
+        ${
+          isAI
+            ? `
+        <p>Our AI team will contact you shortly to discuss how our intelligent solutions can revolutionize your fashion business operations.</p>
+        <p>With Target AI Solutions, you can expect:</p>
+        <ul>
+          <li>AI-powered data conversion from PDF techpacks</li>
+          <li>Smart production planning and control</li>
+          <li>Real-time inventory optimization</li>
+          <li>Intelligent sales order management</li>
+        </ul>
+        `
+            : `
         <p>Our team will review your request and get back to you shortly.</p>
+        `
+        }
         <p>If you have any immediate questions or concerns, please don't hesitate to contact us.</p>
-        <p>Best Regards,</p>
         <p>Best Regards,</p>
         <p>ASK Technology</p>
         <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ sales@asktek.net</p>
@@ -163,15 +209,38 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
 
   const SendMailInternal = async (datas) => {
     try {
-      const subjectLine =
-        TypeOF === "s"
-          ? "New Service Request Received: " +
-            (servicesMapping[datas.product] || datas.product)
-          : "New Product Demo Request Received: " +
-            (productsMapping[datas.product] || datas.product);
+      const productName = isAI
+        ? "AI Solutions for Garment Manufacturing"
+        : TypeOF === "s"
+          ? servicesMapping[datas.product] || datas.product
+          : productsMapping[datas.product] || datas.product;
 
-      const bodyMessage =
-        TypeOF === "s"
+      const subjectLine = isAI
+        ? "New AI Solutions Inquiry Received: " + productName
+        : TypeOF === "s"
+          ? "New Service Request Received: " + productName
+          : "New Product Demo Request Received: " + productName;
+
+      const bodyMessage = isAI
+        ? `
+        <p>Dear Team,</p>
+        <p>A new AI Solutions inquiry has been received from our website:</p>
+        <p><strong>Name:</strong> ${datas.name}</p>
+        <p><strong>Email:</strong> ${datas.email}</p>
+        <p><strong>Phone Number:</strong> ${datas.phone_number}</p>
+        <p><strong>Company Name:</strong> ${datas.company_name}</p>
+        <p><strong>City:</strong> ${datas.city}</p>
+        <p><strong>Country:</strong> ${datas.country.label}</p>
+        <p><strong>AI Solution Interest:</strong> ${productName}</p>
+        <p><strong>Additional Details:</strong></p>
+        <p>${datas.enquiry_details || "No additional details provided"}</p>
+        <p>Please review the inquiry and assign to the AI solutions team for follow-up.</p>
+        <p>Best regards,</p>
+        <p>ASK TECHNOLOGY</p>
+        <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ sales@asktek.net</p>
+        <p><a href="http://www.asktek.net">www.asktek.net</a></p>
+      `
+        : TypeOF === "s"
           ? `
         <p>Dear Team,</p>
         <p>A new service request has been received from our website:</p>
@@ -181,9 +250,7 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
         <p><strong>Company Name:</strong> ${datas.company_name}</p>
         <p><strong>City:</strong> ${datas.city}</p>
         <p><strong>Country:</strong> ${datas.country.label}</p>
-        <p><strong>Service :</strong> ${
-          servicesMapping[datas.product] || datas.product
-        }</p>
+        <p><strong>Service :</strong> ${productName}</p>
         <p><strong>Other Details:</strong></p>
         <p>${datas.enquiry_details}</p>
         <p>Please review the request and respond accordingly.</p>
@@ -201,9 +268,7 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
         <p><strong>Company Name:</strong> ${datas.company_name}</p>
         <p><strong>City:</strong> ${datas.city}</p>
         <p><strong>Country:</strong> ${datas.country.label}</p>
-        <p><strong>Product:</strong> ${
-          productsMapping[datas.product] || datas.product
-        }</p>
+        <p><strong>Product:</strong> ${productName}</p>
         <p><strong>Enquiry Details:</strong></p>
         <p>${datas.enquiry_details}</p>
         <p>Please review the request and respond accordingly.</p>
@@ -226,63 +291,178 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
 
   return (
     <>
+      {/* Sticky Button - Fixed position to right edge */}
       <div className="sticky-button-container">
         <Button
           onClick={handleButtonClick}
           variant="contained"
-          color="primary"
-          className="sticky-button headShake "
+          className={`sticky-button ${isAI ? "ai-button" : ""}`}
+          style={
+            isAI
+              ? {
+                  background:
+                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  color: "white",
+                  fontWeight: "700",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  border: "none",
+                  fontSize: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  letterSpacing: "0.5px",
+                  textTransform: "none",
+                  minWidth: "auto",
+                  height: "auto",
+                  lineHeight: "1.4",
+                  boxShadow: "0 4px 15px rgba(102, 126, 234, 0.4)",
+                  animation: "glowing 1500ms infinite",
+                }
+              : {
+                  backgroundColor: "#FF7F3E",
+                  color: "#ffffff",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "10px 20px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  textTransform: "none",
+                  lineHeight: "1.4",
+                  animation: "glowing 1500ms infinite",
+                }
+          }
         >
-          Book Demo
+          {isAI ? (
+            <>
+              <BsLightningCharge style={{ fontSize: "1rem" }} />
+              Unlock AI
+            </>
+          ) : (
+            "Book Demo"
+          )}
         </Button>
       </div>
-      {/* Contact Form Section Start */}
+
+      {/* Contact Form Section */}
       <section
         id="callback"
-        className="contact-form-area  pb-100 px-3  rpy-100  mt-100 mb-4 bgs-cover"
+        className={`contact-form-area pb-100 px-3 rpy-100 mt-100 mb-4 bgs-cover ${isAI ? "" : ""}`}
         style={{
-          backgroundImage: "url(assets/images/background/feature-bg.jpg)",
+          backgroundImage: isAI
+            ? "inherit"
+            : "url(assets/images/background/feature-bg.jpg)",
         }}
       >
         <Container>
-          <div className="row gap-100 align-items-center   shadowbox-2 bg-white">
-            <div className="col-lg-12 pt-50 ">
+          <div
+            className={`row gap-100 align-items-center shadowbox-2 ${isAI ? "ai-form-container" : "bg-white"}`}
+            style={
+              isAI
+                ? {
+                    background: "white",
+                    borderRadius: "30px",
+                    boxShadow: "0 20px 60px rgba(102, 126, 234, 0.15)",
+                    padding: "30px",
+                    border: "1px solid rgba(102, 126, 234, 0.1)",
+                  }
+                : {}
+            }
+          >
+            <div className="col-lg-12 pt-50">
               <div
-                className={`d-flex bg-white justify-content-center ${
+                className={`d-flex ${isAI ? "bg-transparent" : "bg-white"} justify-content-center ${
                   matchesSmallScreen && "flex-column-reverse"
-                }  align-items-center gap-5 contact-info-wrap wow fadeInLeft delay-0-2s`}
+                } align-items-center gap-5 contact-info-wrap wow fadeInLeft delay-0-2s`}
               >
                 <div className="why-choose-image d-flex justify-content-center align-items-center gap-2 fadeInUp rmb-55">
                   <img
                     src={
-                      TypeOF == "s"
-                        ? "/assets/images/projects/erp/Calling-amico.png"
-                        : "/assets/images/projects/erp/Demo-amico.png"
+                      isAI
+                        ? "/assets/images/projects/erp/AI-amico.png"
+                        : TypeOF == "s"
+                          ? "/assets/images/projects/erp/Calling-amico.png"
+                          : "/assets/images/projects/erp/Demo-amico.png"
                     }
                     alt="Why Choose"
-                    style={{ maxWidth: "200px" }}
+                    style={{ maxWidth: isAI ? "200px" : "180px" }}
                   />
                 </div>
                 <div
-                  className={`section-title mb-40   ${
-                    matchesSmallScreen && "text-center"
-                  }`}
+                  className={`section-title mb-40 ${matchesSmallScreen && "text-center"}`}
                 >
-                  <h2 className="text-gradient-title2">
-                    {TypeOF == "s"
-                      ? "Request a Call Back Today"
-                      : "Request a Demo Today"}
-                  </h2>
-                  <span className="sub-title  mb-10 text-gradient-title2">
-                    {TypeOF == "s"
-                      ? "Explore Our Services"
-                      : "Experience Our Products"}
-                  </span>
+                  {isAI ? (
+                    <>
+                      <span
+                        className="sub-title mb-10"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, #667eea, #764ba2)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          fontWeight: "700",
+                          fontSize: "0.9rem",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
+                      >
+                        <HiOutlineChip style={{ fontSize: "1.2rem" }} />
+                        AI-Powered Solutions
+                      </span>
+                      <h2
+                        style={{
+                          fontSize: "2rem",
+                          fontWeight: "800",
+                          background:
+                            "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        Transform Your Fashion Business <br />
+                        <span
+                          style={{
+                            background:
+                              "linear-gradient(to right, #ffd700, #f7971e)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                          }}
+                        >
+                          with AI Innovation
+                        </span>
+                      </h2>
+                      <p style={{ color: "#555", fontSize: "0.95rem" }}>
+                        Leverage AI to optimize operations, predict trends, and
+                        make data-driven decisions.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h2
+                        className="text-gradient-title2"
+                        style={{ fontSize: "2rem" }}
+                      >
+                        {TypeOF == "s"
+                          ? "Request a Call Back Today"
+                          : "Request a Demo Today"}
+                      </h2>
+                      <span
+                        className="sub-title mb-10 text-gradient-title2"
+                        style={{ fontSize: "0.9rem" }}
+                      >
+                        {TypeOF == "s"
+                          ? "Explore Our Services"
+                          : "Experience Our Products"}
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-            <div className="col-lg-12 ">
-              <div className="   rmb-55 wow fadeInRight delay-0-2s">
+            <div className="col-lg-12">
+              <div className="rmb-55 wow fadeInRight delay-0-2s">
                 <Formik
                   initialValues={{
                     name: "",
@@ -291,8 +471,8 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                     email: "",
                     city: "",
                     country: "",
-                    TypeOfReq: TypeOF,
-                    product: initialValue,
+                    TypeOfReq: isAI ? "ai" : TypeOF,
+                    product: isAI ? "AI" : initialValue,
                     enquiry_details: "",
                   }}
                   validationSchema={Yup.object({
@@ -302,44 +482,40 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                       .required("Please provide your full name."),
 
                     phone_number: Yup.string()
-                    .matches(
-                      /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-                      "Please provide a valid phone number."
-                    )
-                    .required(
-                      "Please enter your phone number."
-                    ),
+                      .matches(
+                        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+                        "Please provide a valid phone number.",
+                      )
+                      .required("Please enter your phone number."),
 
                     email: Yup.string()
                       .matches(
                         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                        "Please provide a valid email address"
+                        "Please provide a valid email address",
                       )
                       .required("Email address is required."),
 
                     city: Yup.string()
-                    .max(50, "should not exceed 50 characters.").matches(
-                      /^[A-Za-z\s]+$/,
-                      "enter valid city name"
-                    ),
+                      .max(50, "should not exceed 50 characters.")
+                      .matches(/^[A-Za-z\s]+$/, "enter valid city name"),
                     country: Yup.object().required(
-                      "Please select your country."
+                      "Please select your country.",
                     ),
-                    // .required("Please specify your city."),
 
-                    company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                      "Please specify the name of your company."
-                    ),
+                    company_name: Yup.string()
+                      .max(80, "should not exceed 80 characters.")
+                      .required("Please specify the name of your company."),
                     enquiry_details: Yup.string().max(
                       200,
-                      "should not exceed 200 characters."
+                      "should not exceed 200 characters.",
                     ),
-                    // .required("type your requirements  here"),
                   })}
                   onSubmit={handleSubmit}
                 >
-                  <Form className="bg-white p-10 m-25">
-                    <Grid container spacing={3}>
+                  <Form
+                    className={`p-10 m-25 ${isAI ? "bg-transparent" : "bg-white"}`}
+                  >
+                    <Grid container spacing={2}>
                       <Grid item xs={12} sm={6}>
                         <Field name="name">
                           {({ field, form }) => (
@@ -348,10 +524,14 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                               fullWidth
                               label="Name"
                               variant="standard"
-                              color="info"
-                              // required
+                              color={isAI ? "secondary" : "info"}
+                              size="small"
                               error={form.errors.name && form.touched.name}
                               helperText={<ErrorMessage name="name" />}
+                              InputLabelProps={{
+                                style: { fontSize: "0.85rem" },
+                              }}
+                              inputProps={{ style: { fontSize: "0.9rem" } }}
                             />
                           )}
                         </Field>
@@ -364,12 +544,17 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                               fullWidth
                               label="Phone no"
                               variant="standard"
-                              // required
+                              color={isAI ? "secondary" : "info"}
+                              size="small"
                               error={
                                 form.errors.phone_number &&
                                 form.touched.phone_number
                               }
                               helperText={<ErrorMessage name="phone_number" />}
+                              InputLabelProps={{
+                                style: { fontSize: "0.85rem" },
+                              }}
+                              inputProps={{ style: { fontSize: "0.9rem" } }}
                             />
                           )}
                         </Field>
@@ -378,16 +563,21 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                         <Field name="company_name">
                           {({ field, form }) => (
                             <TextField
-                              // required
                               {...field}
                               fullWidth
                               label="Your Company Name"
                               variant="standard"
+                              color={isAI ? "secondary" : "info"}
+                              size="small"
                               error={
                                 form.errors.company_name &&
                                 form.touched.company_name
                               }
                               helperText={<ErrorMessage name="company_name" />}
+                              InputLabelProps={{
+                                style: { fontSize: "0.85rem" },
+                              }}
+                              inputProps={{ style: { fontSize: "0.9rem" } }}
                             />
                           )}
                         </Field>
@@ -398,32 +588,42 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                             <TextField
                               {...field}
                               fullWidth
-                              // required
                               label="Email"
                               variant="standard"
                               type="email"
+                              color={isAI ? "secondary" : "info"}
+                              size="small"
                               error={form.errors.email && form.touched.email}
                               helperText={<ErrorMessage name="email" />}
+                              InputLabelProps={{
+                                style: { fontSize: "0.85rem" },
+                              }}
+                              inputProps={{ style: { fontSize: "0.9rem" } }}
                             />
                           )}
                         </Field>
                       </Grid>
-                      <Grid item xs={12} sm={4}>
+                      <Grid item xs={12} sm={isAI ? 6 : 4}>
                         <Field name="city">
                           {({ field, form }) => (
                             <TextField
                               {...field}
                               fullWidth
                               label="City"
-                              // required
                               variant="standard"
+                              color={isAI ? "secondary" : "info"}
+                              size="small"
                               error={form.errors.city && form.touched.city}
                               helperText={<ErrorMessage name="city" />}
+                              InputLabelProps={{
+                                style: { fontSize: "0.85rem" },
+                              }}
+                              inputProps={{ style: { fontSize: "0.9rem" } }}
                             />
                           )}
                         </Field>
                       </Grid>
-                      <Grid item xs={12} sm={4}>
+                      <Grid item xs={12} sm={isAI ? 6 : 4}>
                         <Field name="country">
                           {({ field, form }) => (
                             <Autocomplete
@@ -442,17 +642,25 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                   fullWidth
                                   label="Country"
                                   variant="standard"
+                                  color={isAI ? "secondary" : "info"}
+                                  size="small"
                                   error={
                                     form.errors.country && form.touched.country
                                   }
                                   helperText={<ErrorMessage name="country" />}
+                                  InputLabelProps={{
+                                    style: { fontSize: "0.85rem" },
+                                  }}
+                                  inputProps={{ style: { fontSize: "0.9rem" } }}
                                 />
                               )}
                             />
                           )}
                         </Field>
                       </Grid>
-                      {TypeOF == "s" ? (
+
+                      {/* Hide dropdown for AI - only show hidden field */}
+                      {!isAI && TypeOF == "s" ? (
                         <Grid item xs={12} sm={4}>
                           <Field name="product">
                             {({ field }) => (
@@ -462,6 +670,11 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 select
                                 label="Services"
                                 variant="standard"
+                                size="small"
+                                InputLabelProps={{
+                                  style: { fontSize: "0.85rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.9rem" } }}
                               >
                                 <MenuItem value="MobileAppSolutions">
                                   Mobile App Solutions
@@ -479,11 +692,14 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 <MenuItem value="ERPDevelopment">
                                   ERP Software Development
                                 </MenuItem>
+                                <MenuItem value="AI">
+                                  AI Solutions for Garment Manufacturing
+                                </MenuItem>
                               </TextField>
                             )}
                           </Field>
                         </Grid>
-                      ) : (
+                      ) : !isAI && TypeOF != "s" ? (
                         <Grid item xs={12} sm={4}>
                           <Field name="product">
                             {({ field }) => (
@@ -491,11 +707,37 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 {...field}
                                 fullWidth
                                 select
-                                // required
                                 label="Products"
                                 variant="standard"
+                                size="small"
+                                InputLabelProps={{
+                                  style: { fontSize: "0.85rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.9rem" } }}
                               >
-                                <MenuItem value="ERP" defaultChecked>
+                                <MenuItem value="GERP">
+                                  Garment ERP Software for Knit and Woven (RMG)
+                                </MenuItem>
+                                <MenuItem value="TBMS">
+                                  Buying House Management
+                                </MenuItem>
+                                <MenuItem value="IOG">
+                                  Garment Inspection Software
+                                </MenuItem>
+                                <MenuItem value="ERP">
+                                  Garment ERP for Retailers
+                                </MenuItem>
+                                <MenuItem value="OB">
+                                  Operation Bulletin (QUICK OB)
+                                </MenuItem>
+                                <MenuItem value="HRMS">
+                                  Target HRMS – HR & Payroll Solution
+                                </MenuItem>
+                                <MenuItem value="AI">
+                                  AI Solutions for Garment Manufacturing
+                                </MenuItem>
+
+                                {/* <MenuItem value="ERP" defaultChecked>
                                   Target ERP - for Textile & Garment Industries
                                 </MenuItem>
                                 <MenuItem value="TBMS">
@@ -510,16 +752,14 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 <MenuItem value="HRMS">
                                   HRMS - Target HR & Payroll Solutions
                                 </MenuItem>
-                                {/*
-                                <MenuItem value="TCMS">
-                                  Target - Cargo & Courier Management
-                                </MenuItem>
-                            */}
+                                <MenuItem value="AI">
+                                  AI Solutions for Garment Manufacturing
+                                </MenuItem> */}
                               </TextField>
                             )}
                           </Field>
                         </Grid>
-                      )}
+                      ) : null}
 
                       <Grid item xs={12}>
                         <Field name="enquiry_details">
@@ -528,9 +768,16 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                               {...field}
                               fullWidth
                               multiline
-                              rows={3}
-                              label="Remarks"
+                              rows={2}
+                              label={isAI ? "Your AI Requirements" : "Remarks"}
                               variant="standard"
+                              color={isAI ? "secondary" : "info"}
+                              size="small"
+                              placeholder={
+                                isAI
+                                  ? "Tell us about your business challenges..."
+                                  : ""
+                              }
                               error={
                                 form.errors.enquiry_details &&
                                 form.touched.enquiry_details
@@ -538,6 +785,10 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                               helperText={
                                 <ErrorMessage name="enquiry_details" />
                               }
+                              InputLabelProps={{
+                                style: { fontSize: "0.85rem" },
+                              }}
+                              inputProps={{ style: { fontSize: "0.9rem" } }}
                             />
                           )}
                         </Field>
@@ -547,9 +798,57 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                         xs={12}
                         className="d-flex justify-content-center align-items-center gap-2"
                       >
-                        <button type="submit" className="theme-btn style-four">
-                          Request Call Back
-                          <i className="far fa-long-arrow-right" />
+                        <button
+                          type="submit"
+                          className="theme-btn style-four"
+                          style={
+                            isAI
+                              ? {
+                                  background:
+                                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                  color: "white",
+                                  padding: "10px 35px",
+                                  borderRadius: "50px",
+                                  fontWeight: "600",
+                                  fontSize: "0.95rem",
+                                  border: "none",
+                                  boxShadow:
+                                    "0 8px 25px rgba(102, 126, 234, 0.4)",
+                                  transition: "all 0.3s ease",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "8px",
+                                  cursor: "pointer",
+                                }
+                              : {}
+                          }
+                          onMouseEnter={(e) => {
+                            if (isAI) {
+                              e.target.style.transform = "translateY(-3px)";
+                              e.target.style.boxShadow =
+                                "0 12px 35px rgba(102, 126, 234, 0.5)";
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (isAI) {
+                              e.target.style.transform = "translateY(0)";
+                              e.target.style.boxShadow =
+                                "0 8px 25px rgba(102, 126, 234, 0.4)";
+                            }
+                          }}
+                        >
+                          {isAI ? (
+                            <>
+                              <BsLightningCharge style={{ fontSize: "1rem" }} />
+                              Unlock AI Power
+                              <i className="far fa-long-arrow-right" />
+                            </>
+                          ) : (
+                            <>
+                              Request Call Back
+                              <i className="far fa-long-arrow-right" />
+                            </>
+                          )}
                         </button>
                       </Grid>
                     </Grid>
@@ -560,58 +859,115 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
           </div>
         </Container>
       </section>
-      {/* Contact Form Section End */}
+
+      {/* Dialog - AI Customized with compact size and no scroll */}
       <Dialog
         open={open}
         onClose={handleClose}
-        maxWidth={"lg"}
+        maxWidth={"md"}
         TransitionComponent={Transition}
         keepMounted
+        PaperProps={{
+          style: {
+            borderRadius: "20px",
+            maxHeight: "90vh",
+            overflow: "hidden",
+          },
+        }}
       >
-        <DialogContent className=" p-0 m-0 ">
-          <Container>
-            <div className="row gap-20 align-items-center   bg-white">
-              <div className="col-lg-12 ">
+        <DialogContent className="p-0 m-0" style={{ overflow: "hidden" }}>
+          <Container style={{ padding: isAI ? "15px 20px" : "20px" }}>
+            <div
+              className={`row gap-20 align-items-center ${isAI ? "ai-dialog" : ""}`}
+              style={
+                isAI
+                  ? {
+                      // background:
+                      //   "linear-gradient(135deg, #f8f6ff 0%, #f0edff 100%)",
+                      borderRadius: "15px",
+                      padding: "15px",
+                    }
+                  : {}
+              }
+            >
+              <div className="col-lg-12">
                 <div
-                  className={`d-flex bg-white pt-50 justify-content-center ${
+                  className={`d-flex ${isAI ? "bg-transparent" : "bg-white"} pt-20 justify-content-center ${
                     matchesSmallScreen && "flex-column-reverse"
-                  }  align-items-center gap-5 contact-info-wrap wow fadeInLeft delay-0-2s`}
+                  } align-items-center gap-3 contact-info-wrap wow fadeInLeft delay-0-2s`}
                 >
                   {!matchesSmallScreen && (
-                    <>
-                      <div className="why-choose-image d-flex justify-content-center align-items-center gap-2 fadeInUp rmb-55">
-                        <img
-                          src={
-                            TypeOF == "s"
+                    <div className="why-choose-image d-flex justify-content-center align-items-center gap-2 fadeInUp rmb-55">
+                      <img
+                        src={
+                          isAI
+                            ? "/assets/images/projects/erp/AI-amico.png"
+                            : TypeOF == "s"
                               ? "/assets/images/projects/erp/Calling-amico.png"
                               : "/assets/images/projects/erp/Demo-amico.png"
-                          }
-                          alt="Why Choose"
-                          style={{ maxWidth: "100px" }}
-                        />
-                      </div>
-                    </>
+                        }
+                        alt="Why Choose"
+                        style={{ maxWidth: isAI ? "120px" : "80px" }}
+                      />
+                    </div>
                   )}
                   <div
-                    className={`section-title ${
-                      matchesSmallScreen && "text-center"
-                    }`}
+                    className={`section-title ${matchesSmallScreen && "text-center"}`}
                   >
-                    <h3 className="text-gradient-title3">
-                      {TypeOF == "s"
-                        ? "Request a Call Back Today"
-                        : "Request a Demo Today"}
-                    </h3>
-                    <span className="sub-title  mb-10 text-gradient-title2">
-                      {TypeOF == "s"
-                        ? "Explore Our Services"
-                        : "Experience Our Products"}
-                    </span>
+                    {isAI ? (
+                      <>
+                        <h4
+                          style={{
+                            background:
+                              "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            fontWeight: "700",
+                            fontSize: "1.3rem",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          🚀 Unlock AI Innovation
+                        </h4>
+                        <span
+                          className="sub-title mb-0"
+                          style={{
+                            background:
+                              "linear-gradient(to right, #ffd700, #f7971e)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            fontWeight: "600",
+                            fontSize: "0.8rem",
+                          }}
+                        >
+                          Transform Your Fashion Business with AI
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <h3
+                          className="text-gradient-title3"
+                          style={{ fontSize: "1.5rem" }}
+                        >
+                          {TypeOF == "s"
+                            ? "Request a Call Back"
+                            : "Request a Demo"}
+                        </h3>
+                        <span
+                          className="sub-title mb-10 text-gradient-title2"
+                          style={{ fontSize: "0.85rem" }}
+                        >
+                          {TypeOF == "s"
+                            ? "Explore Our Services"
+                            : "Experience Our Products"}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="col-lg-12 ">
-                <div className="    rmb-55 wow fadeInRight delay-0-2s">
+              <div className="col-lg-12">
+                <div className="rmb-55 wow fadeInRight delay-0-2s">
                   <Formik
                     initialValues={{
                       name: "",
@@ -620,8 +976,8 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                       email: "",
                       city: "",
                       country: "",
-                      TypeOfReq: TypeOF,
-                      product: initialValue,
+                      TypeOfReq: isAI ? "ai" : TypeOF,
+                      product: isAI ? "AI" : initialValue,
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
@@ -632,39 +988,39 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                       phone_number: Yup.string()
                         .matches(
                           /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
-                          "Please enter a valid phone number."
+                          "Please enter a valid phone number.",
                         )
                         .required("Please enter your phone number."),
 
                       email: Yup.string()
                         .matches(
                           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                          "Please provide a valid email address"
+                          "Please provide a valid email address",
                         )
                         .required("Email address is required."),
 
                       city: Yup.string().matches(
                         /^[A-Za-z\s]+$/,
-                        "enter valid city name"
+                        "enter valid city name",
                       ),
                       country: Yup.object().required(
-                        "Please select your country."
+                        "Please select your country.",
                       ),
-                      // .required("Please specify your city."),
 
                       company_name: Yup.string().required(
-                        "Please specify the name of your company."
+                        "Please specify the name of your company.",
                       ),
                       enquiry_details: Yup.string().max(
                         200,
-                        "should not exceed 200 characters."
+                        "should not exceed 200 characters.",
                       ),
-                      // .required("type your requirements  here"),
                     })}
                     onSubmit={handleSubmit}
                   >
-                    <Form className="bg-white p-10 m-25">
-                      <Grid container spacing={3}>
+                    <Form
+                      className={`p-5 m-10 ${isAI ? "bg-transparent" : "bg-white"}`}
+                    >
+                      <Grid container spacing={1.5}>
                         <Grid item xs={12} sm={6}>
                           <Field name="name">
                             {({ field, form }) => (
@@ -673,10 +1029,14 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 fullWidth
                                 label="Name"
                                 variant="standard"
-                                color="info"
-                                size={matchesSmallScreen && "small"}
+                                color={isAI ? "secondary" : "info"}
+                                size="small"
                                 error={form.errors.name && form.touched.name}
                                 helperText={<ErrorMessage name="name" />}
+                                InputLabelProps={{
+                                  style: { fontSize: "0.8rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.85rem" } }}
                               />
                             )}
                           </Field>
@@ -689,7 +1049,8 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 fullWidth
                                 label="Phone no"
                                 variant="standard"
-                                size={matchesSmallScreen && "small"}
+                                color={isAI ? "secondary" : "info"}
+                                size="small"
                                 error={
                                   form.errors.phone_number &&
                                   form.touched.phone_number
@@ -697,6 +1058,10 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 helperText={
                                   <ErrorMessage name="phone_number" />
                                 }
+                                InputLabelProps={{
+                                  style: { fontSize: "0.8rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.85rem" } }}
                               />
                             )}
                           </Field>
@@ -705,11 +1070,12 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                           <Field name="company_name">
                             {({ field, form }) => (
                               <TextField
-                                size={matchesSmallScreen && "small"}
+                                size="small"
                                 {...field}
                                 fullWidth
                                 label="Your Company Name"
                                 variant="standard"
+                                color={isAI ? "secondary" : "info"}
                                 error={
                                   form.errors.company_name &&
                                   form.touched.company_name
@@ -717,6 +1083,10 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 helperText={
                                   <ErrorMessage name="company_name" />
                                 }
+                                InputLabelProps={{
+                                  style: { fontSize: "0.8rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.85rem" } }}
                               />
                             )}
                           </Field>
@@ -727,32 +1097,42 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                               <TextField
                                 {...field}
                                 fullWidth
-                                size={matchesSmallScreen && "small"}
+                                size="small"
                                 label="Email"
                                 variant="standard"
                                 type="email"
+                                color={isAI ? "secondary" : "info"}
                                 error={form.errors.email && form.touched.email}
                                 helperText={<ErrorMessage name="email" />}
+                                InputLabelProps={{
+                                  style: { fontSize: "0.8rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.85rem" } }}
                               />
                             )}
                           </Field>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={isAI ? 6 : 4}>
                           <Field name="city">
                             {({ field, form }) => (
                               <TextField
                                 {...field}
                                 fullWidth
                                 label="City"
-                                size={matchesSmallScreen && "small"}
+                                size="small"
                                 variant="standard"
+                                color={isAI ? "secondary" : "info"}
                                 error={form.errors.city && form.touched.city}
                                 helperText={<ErrorMessage name="city" />}
+                                InputLabelProps={{
+                                  style: { fontSize: "0.8rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.85rem" } }}
                               />
                             )}
                           </Field>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={isAI ? 6 : 4}>
                           <Field name="country">
                             {({ field, form }) => (
                               <Autocomplete
@@ -771,19 +1151,28 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                     fullWidth
                                     label="Country"
                                     variant="standard"
-                                    size={matchesSmallScreen && "small"}
+                                    size="small"
+                                    color={isAI ? "secondary" : "info"}
                                     error={
                                       form.errors.country &&
                                       form.touched.country
                                     }
                                     helperText={<ErrorMessage name="country" />}
+                                    InputLabelProps={{
+                                      style: { fontSize: "0.8rem" },
+                                    }}
+                                    inputProps={{
+                                      style: { fontSize: "0.85rem" },
+                                    }}
                                   />
                                 )}
                               />
                             )}
                           </Field>
                         </Grid>
-                        {TypeOF == "s" ? (
+
+                        {/* Hide dropdown for AI */}
+                        {!isAI && TypeOF == "s" ? (
                           <Grid item xs={12} sm={4}>
                             <Field name="product">
                               {({ field }) => (
@@ -793,7 +1182,13 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                   select
                                   label="Services"
                                   variant="standard"
-                                  size={matchesSmallScreen && "small"}
+                                  size="small"
+                                  InputLabelProps={{
+                                    style: { fontSize: "0.8rem" },
+                                  }}
+                                  inputProps={{
+                                    style: { fontSize: "0.85rem" },
+                                  }}
                                 >
                                   <MenuItem value="MobileAppSolutions">
                                     Mobile App Solutions
@@ -813,11 +1208,14 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                   <MenuItem value="ERPDevelopment">
                                     ERP Software Development
                                   </MenuItem>
+                                  <MenuItem value="AI">
+                                    AI Solutions for Garment Manufacturing
+                                  </MenuItem>
                                 </TextField>
                               )}
                             </Field>
                           </Grid>
-                        ) : (
+                        ) : !isAI && TypeOF != "s" ? (
                           <Grid item xs={12} sm={4}>
                             <Field name="product">
                               {({ field }) => (
@@ -825,9 +1223,15 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                   {...field}
                                   fullWidth
                                   select
-                                  size={matchesSmallScreen && "small"}
+                                  size="small"
                                   label="Products"
                                   variant="standard"
+                                  InputLabelProps={{
+                                    style: { fontSize: "0.8rem" },
+                                  }}
+                                  inputProps={{
+                                    style: { fontSize: "0.85rem" },
+                                  }}
                                 >
                                   <MenuItem value="TBMS" defaultChecked>
                                     TARGET BMS - Buying house management
@@ -844,11 +1248,14 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                   <MenuItem value="TOMS">
                                     TOMS - Target Order Management Solutions
                                   </MenuItem>
+                                  <MenuItem value="AI">
+                                    AI Solutions for Garment Manufacturing
+                                  </MenuItem>
                                 </TextField>
                               )}
                             </Field>
                           </Grid>
-                        )}
+                        ) : null}
 
                         <Grid item xs={12}>
                           <Field name="enquiry_details">
@@ -857,10 +1264,18 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 {...field}
                                 fullWidth
                                 multiline
-                                rows={3}
-                                label="Remarks"
-                                size={matchesSmallScreen && "small"}
+                                rows={1}
+                                label={
+                                  isAI ? "Your AI Requirements" : "Remarks"
+                                }
+                                size="small"
                                 variant="standard"
+                                color={isAI ? "secondary" : "info"}
+                                placeholder={
+                                  isAI
+                                    ? "Tell us about your business challenges..."
+                                    : ""
+                                }
                                 error={
                                   form.errors.enquiry_details &&
                                   form.touched.enquiry_details
@@ -868,6 +1283,10 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                                 helperText={
                                   <ErrorMessage name="enquiry_details" />
                                 }
+                                InputLabelProps={{
+                                  style: { fontSize: "0.8rem" },
+                                }}
+                                inputProps={{ style: { fontSize: "0.85rem" } }}
                               />
                             )}
                           </Field>
@@ -880,9 +1299,56 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
                           <button
                             type="submit"
                             className="theme-btn style-four"
+                            style={
+                              isAI
+                                ? {
+                                    background:
+                                      "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                                    color: "white",
+                                    padding: "8px 30px",
+                                    borderRadius: "50px",
+                                    fontWeight: "600",
+                                    fontSize: "0.9rem",
+                                    border: "none",
+                                    boxShadow:
+                                      "0 8px 25px rgba(102, 126, 234, 0.4)",
+                                    transition: "all 0.3s ease",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "6px",
+                                    cursor: "pointer",
+                                  }
+                                : {}
+                            }
+                            onMouseEnter={(e) => {
+                              if (isAI) {
+                                e.target.style.transform = "translateY(-2px)";
+                                e.target.style.boxShadow =
+                                  "0 12px 35px rgba(102, 126, 234, 0.5)";
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if (isAI) {
+                                e.target.style.transform = "translateY(0)";
+                                e.target.style.boxShadow =
+                                  "0 8px 25px rgba(102, 126, 234, 0.4)";
+                              }
+                            }}
                           >
-                            Request Call Back
-                            <i className="far fa-long-arrow-right" />
+                            {isAI ? (
+                              <>
+                                <BsLightningCharge
+                                  style={{ fontSize: "0.9rem" }}
+                                />
+                                Unlock AI Power
+                                <i className="far fa-long-arrow-right" />
+                              </>
+                            ) : (
+                              <>
+                                Request Call Back
+                                <i className="far fa-long-arrow-right" />
+                              </>
+                            )}
                           </button>
                         </Grid>
                       </Grid>
@@ -894,16 +1360,138 @@ const ContactUsProduct = ({ TypeOF, initialValue }) => {
           </Container>
         </DialogContent>
       </Dialog>
-      {/* loader popup dialog box */}
+
+      {/* Loader Dialog */}
       <Dialog
         open={openLoader}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
       >
-        <LinearProgress />
+        <LinearProgress color={isAI ? "secondary" : "primary"} />
       </Dialog>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        .sticky-button-container {
+          position: fixed;
+          top: 50%;
+          right: -43px;
+          transform: translateY(-50%);
+          z-index: 1000;
+        }
+
+        .sticky-button {
+          transform: rotate(-90deg);
+          white-space: nowrap;
+          border-radius: 5px;
+          min-width: auto;
+          padding: 10px 20px;
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: none;
+          line-height: 1.4;
+          cursor: pointer;
+          border: none;
+          transition: all 0.3s ease;
+        }
+
+        .sticky-button:hover {
+          transform: rotate(-90deg) scale(1.05);
+        }
+
+        @keyframes glowing {
+          0% {
+            box-shadow: 0 0 5px rgba(255, 127, 62, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(255, 127, 62, 0.8);
+          }
+          100% {
+            box-shadow: 0 0 5px rgba(255, 127, 62, 0.5);
+          }
+        }
+
+        .sticky-button.ai-button {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .sticky-button.ai-button:hover {
+          box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        @keyframes glowing {
+          0% {
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+          }
+          50% {
+            box-shadow: 0 0 25px rgba(102, 126, 234, 0.6);
+          }
+          100% {
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+          }
+        }
+
+        .ai-form-section {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ai-form-section::before {
+          content: "";
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+          background: rgba(102, 126, 234, 0.05);
+          top: -100px;
+          right: -100px;
+          animation: pulse 4s ease-in-out infinite;
+        }
+
+        .ai-form-container {
+          position: relative;
+          z-index: 1;
+        }
+
+        .ai-dialog {
+          position: relative;
+        }
+
+        @keyframes pulse {
+          0%,
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+          }
+        }
+
+        /* Compact form styles */
+        .MuiFormControl-root {
+          margin-top: 4px !important;
+        }
+
+        .MuiFormLabel-root {
+          font-size: 0.8rem !important;
+        }
+
+        .MuiInput-root {
+          font-size: 0.85rem !important;
+        }
+
+        .MuiFormHelperText-root {
+          font-size: 0.7rem !important;
+          margin-top: 2px !important;
+        }
+      `}</style>
     </>
   );
 };
+
 export default ContactUsProduct;

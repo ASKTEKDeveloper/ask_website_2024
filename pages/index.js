@@ -50,7 +50,6 @@ import Testimonials from "./Testimonials";
 import ContactUsGarments from "./ContactUsGarments";
 import OurPartners from "./OurPartners";
 
-
 const icons = [
   "angular.png",
   "AngularIonic.png",
@@ -96,20 +95,25 @@ const Index = () => {
 
   const clientImages = Array.from(
     { length: 22 },
-    (_, i) => `assets/images/clients/${i + 1}.jpeg`
+    (_, i) => `assets/images/clients/${i + 1}.jpeg`,
   );
 
   return (
-    <Layout  header={2}>
+    <Layout header={2}>
       <Slider
         {...sliderTwoActive}
         ref={sliderRef}
         className="slider-two-active"
+        style={{ background: "#2975870a", backgroundColor: "#2975870a" }}
       >
         <div
           className={`slider-item-two ${
             matchesSmallScreen ? "pt-100" : "pt-150"
           }`}
+          style={{
+            background: "#2975870a",
+            backgroundColor: "#2975870a",
+          }}
         >
           <Container>
             <div className="slide-content">
@@ -285,7 +289,7 @@ const Index = () => {
           </div>
 
           <Slider {...settings} className="project-slider-active">
-            {/*1,ERP for Textile & Garment Industries - 'TARGET'{" "} */}
+            {/*1 Garment ERP for Knit & Woven*/}
             <div className="project-slider-item">
               <div
                 className="row"
@@ -366,244 +370,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* 2. Target SCM - Supply Chain Management */}
-            <div className="project-slider-item">
-              <div
-                className="row"
-                style={{ zIndex: currentSlide === 1 ? 9999 : 1 }}
-              >
-                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img
-                    src="assets/images/projects/scm-mockup.png"
-                    alt="Video"
-                  />
-                </div>
-                <div className="col-xl-8 col-md-12  content">
-                  <h3>
-                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                      <span style={{ color: "#87A922" }}>Target SCM </span> -
-                      Supply Chain Management
-                    </span>
-                    <br />
-                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
-                      Powering Your Supply Chain Dynamics
-                    </span>
-                  </h3>
-                  <p className="my-3">
-                    Transform your supply chain with Target SCM, a versatile
-                    solution applicable across industries. Boost purchase and
-                    distribution processes, and gain real-time visibility into
-                    your supply chain. With online tools for customer purchase
-                    orders and tracking, Target SCM ensures efficiency and
-                    transparency in every link of your supply chain
-                  </p>
-
-                  <div className="row medium-gap m-1 mt-2">
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <FaBoxes />
-                      </div>
-                      <h6 className="mb-0">Optimized Stock</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <AiOutlineFileDone />
-                      </div>
-                      <h6 className="mb-0">Efficient Order Fulfilment</h6>
-                    </div>
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <CiShop />
-                      </div>
-                      <h6 className="mb-0">Collaborative Vendor Sourcing</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <MdOutlineMonitorHeart />
-                      </div>
-                      <h6 className="mb-0">Live Monitoring</h6>
-                    </div>
-
-                    <div
-                      className="content col-12 mt-3 "
-                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
-                    >
-                      <Link
-                        legacyBehavior
-                        href="/Target_SCM_Supply_Chain_Managements"
-                      >
-                        <a className="theme-btn style-four ">
-                          Know More
-                          <i className="fas fa-long-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. HRMS - Target HR & Payroll Solutions */}
-            <div className="project-slider-item">
-              <div
-                className="row"
-                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
-              >
-                <div className="col-xl-8 col-md-12  content">
-                  <h3>
-                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                      <span style={{ color: "#EE4266" }}>Target HRMS </span> -
-                      HR & Payroll Solutions
-                    </span>
-                    <br />
-                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
-                      Empowering Your Workforce, Streamlining Payroll
-                    </span>
-                  </h3>
-                  <p className="my-3">
-                    Say goodbye to HR and payroll complexities with Target HRMS.
-                    Tailored for diverse industries, especially manufacturing
-                    and compliance-focused factories, our solution provides a
-                    complete HR and payroll package. Experience the ease of
-                    mobile-responsive dashboards, ensuring that your workforce
-                    management is as dynamic as your business
-                  </p>
-
-                  <div className="row medium-gap m-1 mt-2">
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <GrCompliance />
-                      </div>
-                      <h6 className="mb-0">Regulatory Compliance</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <MdOutlineWorkHistory />
-                      </div>
-                      <h6 className="mb-0">Automated Payroll</h6>
-                    </div>
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <IoPersonCircleOutline />
-                      </div>
-                      <h6 className="mb-0">Self Service Portal</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <LuMonitorDot />
-                      </div>
-                      <h6 className="mb-0">Book Free Demo</h6>
-                    </div>
-
-                    <div
-                      className="content col-12 mt-3 "
-                      style={{ padding: 0, cursor: "pointer" }}
-                    >
-                      <Link
-                        legacyBehavior
-                        href="/Target_HRMS_HR_and_Payroll_Solutions"
-                      >
-                        <a className="theme-btn style-four ">
-                          Know More
-                          <i className="fas fa-long-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img
-                    src="assets/images/projects/hrms-mockup.png"
-                    alt="Video"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 4. TOMS */}
-            <div className="project-slider-item">
-              <div
-                className="row"
-                style={{ zIndex: currentSlide === 3 ? 9999 : 1 }}
-              >
-                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img
-                    src="assets/images/projects/mockup-erp.png"
-                    alt="Video"
-                  />
-                </div>
-                <div className="col-xl-8 col-md-12  content">
-                  <h3>
-                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                      <span style={{ color: "#337357" }}>TOMS </span> -
-                      Streamline Your Order and Inventory Management
-                    </span>
-                    <br />
-                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
-                      Revolutionizing Your Order and Inventory Management
-                    </span>
-                  </h3>
-                  <p className="my-3">
-                    TOMS streamlines operations, manages orders, tracks
-                    inventory, and ensures seamless supply chain management.
-                    From order processing to inventory replenishment, TOMS
-                    reduces costs and delivers exceptional customer experiences.
-                    Say goodbye to manual processes—choose TOMS for simplified
-                    management
-                  </p>
-
-                  <div className="row medium-gap m-1 mt-2">
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <LiaLuggageCartSolid />
-                      </div>
-                      <h6 className="mb-0">Order Processing Efficiency</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <CiBoxes />
-                      </div>
-                      <h6 className="mb-0">Inventory Optimization</h6>
-                    </div>
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <LiaShippingFastSolid />
-                      </div>
-                      <h6 className="mb-0">Supply Chain Visibility</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <LuFilePieChart />
-                      </div>
-                      <h6 className="mb-0">Analytics and Reporting</h6>
-                    </div>
-
-                    <div
-                      className="content col-12 mt-3 "
-                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
-                    >
-                      <Link
-                        legacyBehavior
-                        href="/Target_Order_Management_System"
-                      >
-                        <a className="theme-btn style-four ">
-                          Know More
-                          <i className="fas fa-long-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 5. BMS - Target HR & Payroll Solutions */}
+            {/* 2. BMS - Buying House Management */}
             <div className="project-slider-item">
               <div
                 className="row"
@@ -682,79 +449,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* 5. Operation Bulletin */}
-            <div className="project-slider-item">
-              <div
-                className="row"
-                style={{ zIndex: currentSlide === 1 ? 9999 : 1 }}
-              >
-                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img src="assets/images/projects/ob-mockup.png" alt="Video" />
-                </div>
-                <div className="col-xl-8 col-md-12 content">
-                  <h3>
-                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                      <span style={{ color: "#87A922" }}>Quick OB </span> -
-                      Operation Bulletin
-                    </span>
-                    <br />
-                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
-                      Streamlining Your Garment Production
-                    </span>
-                  </h3>
-                  <p className="my-3">
-                    Welcome to Ask Technology, where innovation meets experience
-                    in the apparel industry. Quick OB is a cloud-based
-                    application designed to help garment manufacturers
-                    streamline their operation bulletin planning, improve
-                    accuracy, and optimize resource allocation.
-                  </p>
-
-                  <div className="row medium-gap m-1 mt-2">
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <FaBoxes />
-                      </div>
-                      <h6 className="mb-0">Operation Bulletin Planning</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <AiOutlineFileDone />
-                      </div>
-                      <h6 className="mb-0">Accurate SMV Calculation</h6>
-                    </div>
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <CiShop />
-                      </div>
-                      <h6 className="mb-0">Real-Time Production Tracking</h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <MdOutlineMonitorHeart />
-                      </div>
-                      <h6 className="mb-0">Comprehensive Reporting</h6>
-                    </div>
-
-                    <div
-                      className="content col-12 mt-3"
-                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
-                    >
-                      <Link legacyBehavior href="/operation_bulletin">
-                        <a className="theme-btn style-four">
-                          Know More
-                          <i className="fas fa-long-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 6. Inspection on go */}
+            {/* 3. Garment Inspection Software*/}
             <div className="project-slider-item">
               <div
                 className="row"
@@ -831,7 +526,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* 6. TARGET - GARMENTS SAMPLING */}
+            {/* 4. Garment ERP for Brands */}
             <div className="project-slider-item">
               <div
                 className="row"
@@ -911,8 +606,317 @@ const Index = () => {
               </div>
             </div>
 
-            {/* 8. Exports */}
+            {/* 5. Operation Bulletin (QUICK OB) */}
             <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 1 ? 9999 : 1 }}
+              >
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img src="assets/images/projects/ob-mockup.png" alt="Video" />
+                </div>
+                <div className="col-xl-8 col-md-12 content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#87A922" }}>Quick OB </span> -
+                      Operation Bulletin
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Streamlining Your Garment Production
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Welcome to Ask Technology, where innovation meets experience
+                    in the apparel industry. Quick OB is a cloud-based
+                    application designed to help garment manufacturers
+                    streamline their operation bulletin planning, improve
+                    accuracy, and optimize resource allocation.
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <FaBoxes />
+                      </div>
+                      <h6 className="mb-0">Operation Bulletin Planning</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <AiOutlineFileDone />
+                      </div>
+                      <h6 className="mb-0">Accurate SMV Calculation</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiShop />
+                      </div>
+                      <h6 className="mb-0">Real-Time Production Tracking</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineMonitorHeart />
+                      </div>
+                      <h6 className="mb-0">Comprehensive Reporting</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3"
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
+                    >
+                      <Link legacyBehavior href="/operation_bulletin">
+                        <a className="theme-btn style-four">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 6. HRMS - Target HR & Payroll Solutions */}
+            <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
+              >
+                <div className="col-xl-8 col-md-12  content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#EE4266" }}>Target HRMS </span> -
+                      HR & Payroll Solutions
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Empowering Your Workforce, Streamlining Payroll
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Say goodbye to HR and payroll complexities with Target HRMS.
+                    Tailored for diverse industries, especially manufacturing
+                    and compliance-focused factories, our solution provides a
+                    complete HR and payroll package. Experience the ease of
+                    mobile-responsive dashboards, ensuring that your workforce
+                    management is as dynamic as your business
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <GrCompliance />
+                      </div>
+                      <h6 className="mb-0">Regulatory Compliance</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineWorkHistory />
+                      </div>
+                      <h6 className="mb-0">Automated Payroll</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <IoPersonCircleOutline />
+                      </div>
+                      <h6 className="mb-0">Self Service Portal</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <LuMonitorDot />
+                      </div>
+                      <h6 className="mb-0">Book Free Demo</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3 "
+                      style={{ padding: 0, cursor: "pointer" }}
+                    >
+                      <Link
+                        legacyBehavior
+                        href="/Target_HRMS_HR_and_Payroll_Solutions"
+                      >
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/hrms-mockup.png"
+                    alt="Video"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Target SCM - Supply Chain Management */}
+            {/* <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 1 ? 9999 : 1 }}
+              >
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/scm-mockup.png"
+                    alt="Video"
+                  />
+                </div>
+                <div className="col-xl-8 col-md-12  content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#87A922" }}>Target SCM </span> -
+                      Supply Chain Management
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Powering Your Supply Chain Dynamics
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Transform your supply chain with Target SCM, a versatile
+                    solution applicable across industries. Boost purchase and
+                    distribution processes, and gain real-time visibility into
+                    your supply chain. With online tools for customer purchase
+                    orders and tracking, Target SCM ensures efficiency and
+                    transparency in every link of your supply chain
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <FaBoxes />
+                      </div>
+                      <h6 className="mb-0">Optimized Stock</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <AiOutlineFileDone />
+                      </div>
+                      <h6 className="mb-0">Efficient Order Fulfilment</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiShop />
+                      </div>
+                      <h6 className="mb-0">Collaborative Vendor Sourcing</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineMonitorHeart />
+                      </div>
+                      <h6 className="mb-0">Live Monitoring</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3 "
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
+                    >
+                      <Link
+                        legacyBehavior
+                        href="/Target_SCM_Supply_Chain_Managements"
+                      >
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
+            {/* 4. TOMS */}
+            {/* <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 3 ? 9999 : 1 }}
+              >
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/mockup-erp.png"
+                    alt="Video"
+                  />
+                </div>
+                <div className="col-xl-8 col-md-12  content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#337357" }}>TOMS </span> -
+                      Streamline Your Order and Inventory Management
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Revolutionizing Your Order and Inventory Management
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    TOMS streamlines operations, manages orders, tracks
+                    inventory, and ensures seamless supply chain management.
+                    From order processing to inventory replenishment, TOMS
+                    reduces costs and delivers exceptional customer experiences.
+                    Say goodbye to manual processes—choose TOMS for simplified
+                    management
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <LiaLuggageCartSolid />
+                      </div>
+                      <h6 className="mb-0">Order Processing Efficiency</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiBoxes />
+                      </div>
+                      <h6 className="mb-0">Inventory Optimization</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <LiaShippingFastSolid />
+                      </div>
+                      <h6 className="mb-0">Supply Chain Visibility</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <LuFilePieChart />
+                      </div>
+                      <h6 className="mb-0">Analytics and Reporting</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3 "
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
+                    >
+                      <Link
+                        legacyBehavior
+                        href="/Target_Order_Management_System"
+                      >
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
+            {/* 8. Exports */}
+            {/* <div className="project-slider-item">
               <div
                 className="row"
                 style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
@@ -984,7 +988,7 @@ const Index = () => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </Slider>
         </Container>
         <div className="project-shapes">
@@ -1551,7 +1555,7 @@ const Index = () => {
       {/* Why Choose Us Area end */}
 
       {/* Partners Area start */}
-      <OurPartners/>
+      <OurPartners />
       {/* Partners Area end */}
 
       {/* Work Process Area start */}
@@ -1631,7 +1635,7 @@ const Index = () => {
       {/* Work Process Area End */}
 
       {/* Techveel Area start */}
-      <section className=" about-area-four px-3  pt-25 mb-100 rpt-0 rel z-2">
+      {/* <section className=" about-area-four px-3  pt-25 mb-100 rpt-0 rel z-2">
         <Container>
           <div className="row align-items-center">
             <div className="col-xl-6">
@@ -1754,7 +1758,7 @@ const Index = () => {
             </div>
           </div>
         </Container>
-      </section>
+      </section> */}
       {/* Techveel Area end */}
 
       {/* Statistics Area start */}

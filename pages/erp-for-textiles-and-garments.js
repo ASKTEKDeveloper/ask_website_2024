@@ -24,6 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import ContactUsGarments from "./ContactUsGarments";
 import countryList from "react-select-country-list";
+import FAQ from "@/src/components/FAQ";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -170,7 +171,7 @@ const ProjectGrid = () => {
                           style={{ color: "white" }}
                         >
                           Download Brochure
-                        </a>                       
+                        </a>
                         <b class="top">Click to </b>
                         <b class="bottom">Document</b>
                       </div>
@@ -605,6 +606,19 @@ const ProjectGrid = () => {
           {/* Contact Form Section Start */}
           {!open && <ContactUsGarments TypeOF={"p"} initialValue={"GERP"} />}
           {/* Contact Form Section End */}
+          {/* FAQ Section */}
+          <section className="pb-70">
+            <Container>
+              <div className="section-title text-center mb-50">
+                <h2 style={{ fontWeight: "700" }}>
+                  Frequently Asked Questions
+                </h2>
+              </div>
+              <div style={{ margin: "0 auto" }}>
+                <FAQ code="GERP" defaultActive={0} />
+              </div>
+            </Container>
+          </section>
         </>
         <Dialog
           open={open}
@@ -641,26 +655,31 @@ const ProjectGrid = () => {
                       company_name: "",
                       email: "",
                       city: "",
-                      country:'',
+                      country: "",
                       TypeOfReq: "d",
                       product: "ERP",
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
-                      name: Yup.string().max(50, "should not exceed 50 characters.").required(
-                        "Please provide your full name."
-                      ),
-                      phone_number: Yup.string().matches(/^\+?[1-9][0-9-]*(?: [0-9-]+)*$/, "Please enter a valid phone number.").required(
-                  "Please enter your phone number."
-                ),
+                      name: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please provide your full name."),
+                      phone_number: Yup.string()
+                        .matches(
+                          /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
+                          "Please enter a valid phone number.",
+                        )
+                        .required("Please enter your phone number."),
                       email: Yup.string()
                         .email("Please provide a valid email address.")
                         .required("Email address is required."),
                       city: Yup.string().required("Please specify your city."),
-                      country: Yup.object().required("Please select your country."),
-                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                        "Please specify the name of your company."
+                      country: Yup.object().required(
+                        "Please select your country.",
                       ),
+                      company_name: Yup.string()
+                        .max(80, "should not exceed 80 characters.")
+                        .required("Please specify the name of your company."),
                     })}
                     onSubmit={handleSubmit}
                   >
@@ -757,7 +776,7 @@ const ProjectGrid = () => {
                           <Field name="country">
                             {({ field, form }) => (
                               <Autocomplete
-                                options={countryOptions || []} 
+                                options={countryOptions || []}
                                 getOptionLabel={(option) => option.label}
                                 value={field.value || null}
                                 onChange={(event, value) =>

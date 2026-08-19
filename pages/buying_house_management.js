@@ -23,6 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import countryList from "react-select-country-list";
 import Slide from "@mui/material/Slide";
 import ContactUsGarments from "./ContactUsGarments";
+import FAQ from "@/src/components/FAQ";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -685,8 +686,21 @@ const ProjectGrid = () => {
             </Container>
           </section>
           {/* Contact Form Section Start */}
-          {!open && <ContactUsGarments TypeOF={"p"} initialValue={"BMS"} />}
+          {!open && <ContactUsGarments TypeOF={"p"} initialValue={"TBMS"} />}
           {/* Contact Form Section End */}
+          {/* FAQ Section */}
+          <section className="pb-70">
+            <Container>
+              <div className="section-title text-center mb-50">
+                <h2 style={{ fontWeight: "700" }}>
+                  Frequently Asked Questions
+                </h2>
+              </div>
+              <div style={{ margin: "0 auto" }}>
+                <FAQ code="TBMS" defaultActive={0} />
+              </div>
+            </Container>
+          </section>
         </>
         <Dialog
           open={open}
@@ -730,34 +744,30 @@ const ProjectGrid = () => {
                     }}
                     validationSchema={Yup.object({
                       name: Yup.string()
-                      .max(50, "should not exceed 50 characters.")
-                      .required(
-                        "Please provide your full name."
-                      ),
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please provide your full name."),
                       phone_number: Yup.string()
-                      .matches(
-                        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-                        "Please provide a valid phone number."
-                      )
-                      .required(
-                        "Please enter your phone number."
-                      ),
+                        .matches(
+                          /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+                          "Please provide a valid phone number.",
+                        )
+                        .required("Please enter your phone number."),
                       email: Yup.string()
-                      .matches(
-                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                        "Please provide a valid email address"
-                      )
-                      .required("Email address is required."),
-                      city: Yup.string().max(50, "should not exceed 50 characters.").matches(
-                        /^[A-Za-z\s]+$/,
-                        "enter valid city name"
-                      ).required("Please specify your city."),
+                        .matches(
+                          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                          "Please provide a valid email address",
+                        )
+                        .required("Email address is required."),
+                      city: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .matches(/^[A-Za-z\s]+$/, "enter valid city name")
+                        .required("Please specify your city."),
                       country: Yup.object().required(
-                        "Please select your country."
+                        "Please select your country.",
                       ),
-                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                        "Please specify the name of your company."
-                      ),
+                      company_name: Yup.string()
+                        .max(80, "should not exceed 80 characters.")
+                        .required("Please specify the name of your company."),
                     })}
                     onSubmit={handleSubmit}
                   >

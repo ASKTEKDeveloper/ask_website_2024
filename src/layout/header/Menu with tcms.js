@@ -197,7 +197,7 @@ const MobileMenu = () => {
               </Link>
             </li>
 
-            <li className="dropdown">
+            {/* <li className="dropdown">
               <a href="#" onClick={() => active("hire_a_developer")}>
                 Hire a Developer
               </a>
@@ -212,7 +212,7 @@ const MobileMenu = () => {
               >
                 <span className="fas fa-chevron-down" />
               </div>
-            </li>
+            </li> */}
           </ul>
         </Accordion.Collapse>
       </Accordion>

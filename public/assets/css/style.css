@@ -57,7 +57,7 @@
 
 body {
   color: var(--base-color);
-  background: white;
+  background: #fff;
   font-weight: 400;
   line-height: 32px;
   font-size: 16px;
@@ -5570,6 +5570,13 @@ h6,
 .slider-area-two {
   overflow: hidden;
 }
+
+.slider-two-active,
+.slider-item-two {
+  background: #2975870a;
+  background-color: #2975870a;
+}
+
 .slider-area-two:after {
   width: 40%;
   height: 70%;

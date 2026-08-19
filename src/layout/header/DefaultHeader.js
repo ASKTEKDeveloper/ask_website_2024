@@ -53,13 +53,13 @@ const DefaultHeader = () => {
                   </a>
               </Link>
             </div>
-            <div className="menu-btns">
+            {/* <div className="menu-btns">
               <Link legacyBehavior href="hire_a_developer">
                 <a className="theme-btn">
                   Hire A Developer <i className="fas fa-long-arrow-right" />
                 </a>
               </Link>
-            </div>
+            </div> */}
             {/* Header Social */}
             {/* <div className="social-style-two">
               <a href="#">

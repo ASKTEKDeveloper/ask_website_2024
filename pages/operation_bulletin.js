@@ -30,6 +30,7 @@ import Link from "next/link";
 import Slider from "react-slick";
 import ContactUsGarments from "./ContactUsGarments";
 import countryList from "react-select-country-list";
+import FAQ from "@/src/components/FAQ";
 
 const Counter = dynamic(() => import("@/src/components/Counter"), {
   ssr: false,
@@ -1046,6 +1047,20 @@ const ProjectGrid = () => {
 
           {/* Contact Form Section Start */}
         {!open &&  <ContactUsGarments TypeOF={"p"} initialValue={"OB"} />}
+          {/* FAQ Section */}
+                  <section className="pb-70">
+                    <Container>
+                      <div className="section-title text-center mb-50">
+                        <h2 style={{ fontWeight: "700" }}>
+                          Frequently Asked Questions
+                        </h2>
+                      </div>
+                      <div style={{ margin: "0 auto" }}>
+                        <FAQ code="OB" defaultActive={0} />
+                      </div>
+                    </Container>
+                  </section>
+
           {/* Contact Form Section End */}
         </>
         <Dialog

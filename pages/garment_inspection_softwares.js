@@ -24,6 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import ContactUsGarments from "./ContactUsGarments";
 import countryList from "react-select-country-list";
+import FAQ from "@/src/components/FAQ";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -154,7 +155,9 @@ const ProjectGrid = () => {
                   <div className="section-title text-center mb-50 wow fadeInUp delay-0-2s">
                     <h2>
                       TARGET -{" "}
-                      <span className="text-success">INSPECTION ON GO</span>{" "}
+                      <span className="text-success">
+                        INSPECTION ON GO
+                      </span>{" "}
                     </h2>
                     <h5>Tailored for Garment Industry Quality</h5>
                     <div className="image my-50 wow fadeInUp delay-0-2s">
@@ -556,8 +559,21 @@ const ProjectGrid = () => {
             </Container>
           </section>
           {/* Contact Form Section Start */}
-         { !open && <ContactUsGarments TypeOF={"p"} initialValue={"IOG"} />}
+          {!open && <ContactUsGarments TypeOF={"p"} initialValue={"IOG"} />}
           {/* Contact Form Section End */}
+          {/* FAQ Section */}
+          <section className="pb-70">
+            <Container>
+              <div className="section-title text-center mb-50">
+                <h2 style={{ fontWeight: "700" }}>
+                  Frequently Asked Questions
+                </h2>
+              </div>
+              <div style={{ margin: "0 auto" }}>
+                <FAQ code="IOG" defaultActive={0} />
+              </div>
+            </Container>
+          </section>
         </>
         <Dialog
           open={open}
@@ -594,26 +610,33 @@ const ProjectGrid = () => {
                       company_name: "",
                       email: "",
                       city: "",
-                      country:'',
+                      country: "",
                       TypeOfReq: "d",
                       product: "IOG",
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
-                      name: Yup.string().max(50, "should not exceed 50 characters.").required(
-                        "Please provide your full name."
-                      ),
-                      phone_number: Yup.string().matches(/^\+?[1-9][0-9-]*(?: [0-9-]+)*$/, "Please enter a valid phone number.").required(
-                  "Please enter your phone number."
-                ),
+                      name: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please provide your full name."),
+                      phone_number: Yup.string()
+                        .matches(
+                          /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
+                          "Please enter a valid phone number.",
+                        )
+                        .required("Please enter your phone number."),
                       email: Yup.string()
                         .email("Please provide a valid email address.")
                         .required("Email address is required."),
-                      city: Yup.string().max(50, "should not exceed 50 characters.").required("Please specify your city."),
-                      country: Yup.object().required("Please select your country."),
-                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                        "Please specify the name of your company."
+                      city: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please specify your city."),
+                      country: Yup.object().required(
+                        "Please select your country.",
                       ),
+                      company_name: Yup.string()
+                        .max(80, "should not exceed 80 characters.")
+                        .required("Please specify the name of your company."),
                     })}
                     onSubmit={handleSubmit}
                   >
@@ -710,7 +733,7 @@ const ProjectGrid = () => {
                           <Field name="country">
                             {({ field, form }) => (
                               <Autocomplete
-                                options={countryOptions || []} 
+                                options={countryOptions || []}
                                 getOptionLabel={(option) => option.label}
                                 value={field.value || null}
                                 onChange={(event, value) =>

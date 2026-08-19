@@ -8,6 +8,7 @@ import { Dialog, Divider, IconButton, LinearProgress } from "@mui/material";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ContactUsProduct from "./ContactUsProduct";
 
 const BlogDetails = () => {
   const router = useRouter();
@@ -186,7 +187,7 @@ const BlogDetails = () => {
                                       query: {
                                         id: index,
                                         title: formatTitleForURL(
-                                          blogData[index].BlogTitle
+                                          blogData[index].BlogTitle,
                                         ),
                                       },
                                     }}
@@ -202,7 +203,7 @@ const BlogDetails = () => {
                                 </span>
                               </div>
                             </li>
-                          )
+                          ),
                       )}
                     </ul>
                   </div>
@@ -234,7 +235,7 @@ const BlogDetails = () => {
                           query: {
                             id: prevIndex,
                             title: formatTitleForURL(
-                              blogData[prevIndex].BlogTitle
+                              blogData[prevIndex].BlogTitle,
                             ),
                           },
                         }}
@@ -272,7 +273,7 @@ const BlogDetails = () => {
                           query: {
                             id: nextIndex,
                             title: formatTitleForURL(
-                              blogData[nextIndex].BlogTitle
+                              blogData[nextIndex].BlogTitle,
                             ),
                           },
                         }}
@@ -289,6 +290,9 @@ const BlogDetails = () => {
               )}
             </div>
             <Divider />
+            <div className="col-lg-12 contactus">
+              <ContactUsProduct />
+            </div>
           </div>
         </div>
       </section>

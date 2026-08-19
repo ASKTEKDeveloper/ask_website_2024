@@ -22,6 +22,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import Slide from "@mui/material/Slide";
 import countryList from "react-select-country-list";
+import FAQ from "@/src/components/FAQ";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -627,7 +628,21 @@ const ProjectGrid = () => {
             </Container>
           </section>
           {/* Contact Form Section Start */}
-        { !open && <ContactUsProduct TypeOF={"p"} initialValue={"HRMS"} />}
+          {!open && <ContactUsProduct TypeOF={"p"} initialValue={"HRMS"} />}
+          {/* FAQ Section */}
+          <section className="pb-70">
+            <Container>
+              <div className="section-title text-center mb-50">
+                <h2 style={{ fontWeight: "700" }}>
+                  Frequently Asked Questions
+                </h2>
+              </div>
+              <div style={{ margin: "0 auto" }}>
+                <FAQ code="HRMS" defaultActive={0} />
+              </div>
+            </Container>
+          </section>
+
           {/* Contact Form Section End */}
           <Dialog
             open={open}
@@ -664,28 +679,30 @@ const ProjectGrid = () => {
                         company_name: "",
                         email: "",
                         city: "",
-                        country:'',
+                        country: "",
                         TypeOfReq: "d",
                         product: "HRMS",
                         enquiry_details: "",
                       }}
                       validationSchema={Yup.object({
-                        name: Yup.string().max(50, "should not exceed 50 characters.").required(
-                          "Please provide your full name."
-                        ),
+                        name: Yup.string()
+                          .max(50, "should not exceed 50 characters.")
+                          .required("Please provide your full name."),
                         phone_number: Yup.string().required(
-                          "Please enter your phone number."
+                          "Please enter your phone number.",
                         ),
                         email: Yup.string()
                           .email("Please provide a valid email address.")
                           .required("Email address is required."),
-                        city: Yup.string().max(50, "should not exceed 50 characters.").required(
-                          "Please specify your city."
+                        city: Yup.string()
+                          .max(50, "should not exceed 50 characters.")
+                          .required("Please specify your city."),
+                        country: Yup.object().required(
+                          "Please select your country.",
                         ),
-                        country: Yup.object().required("Please select your country."),
-                        company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                          "Please specify the name of your company."
-                        ),
+                        company_name: Yup.string()
+                          .max(80, "should not exceed 80 characters.")
+                          .required("Please specify the name of your company."),
                       })}
                       onSubmit={handleSubmit}
                     >
@@ -781,36 +798,38 @@ const ProjectGrid = () => {
                             </Field>
                           </Grid>
                           <Grid item xs={12} className="mb-10">
-                          <Field name="country">
-                            {({ field, form }) => (
-                              <Autocomplete
-                                options={countryOptions || []} 
-                                getOptionLabel={(option) => option.label}
-                                value={field.value || null}
-                                onChange={(event, value) =>
-                                  form.setFieldValue(field.name, value)
-                                }
-                                onBlur={() =>
-                                  form.setFieldTouched(field.name, true)
-                                }
-                                renderInput={(params) => (
-                                  <TextField
-                                    {...params}
-                                    fullWidth
-                                    label="Country"
-                                    size="small"
-                                    variant="outlined"
-                                    error={
-                                      form.errors.country &&
-                                      form.touched.country
-                                    }
-                                    helperText={<ErrorMessage name="country" />}
-                                  />
-                                )}
-                              />
-                            )}
-                          </Field>
-                        </Grid>
+                            <Field name="country">
+                              {({ field, form }) => (
+                                <Autocomplete
+                                  options={countryOptions || []}
+                                  getOptionLabel={(option) => option.label}
+                                  value={field.value || null}
+                                  onChange={(event, value) =>
+                                    form.setFieldValue(field.name, value)
+                                  }
+                                  onBlur={() =>
+                                    form.setFieldTouched(field.name, true)
+                                  }
+                                  renderInput={(params) => (
+                                    <TextField
+                                      {...params}
+                                      fullWidth
+                                      label="Country"
+                                      size="small"
+                                      variant="outlined"
+                                      error={
+                                        form.errors.country &&
+                                        form.touched.country
+                                      }
+                                      helperText={
+                                        <ErrorMessage name="country" />
+                                      }
+                                    />
+                                  )}
+                                />
+                              )}
+                            </Field>
+                          </Grid>
                           <Grid
                             item
                             xs={12}

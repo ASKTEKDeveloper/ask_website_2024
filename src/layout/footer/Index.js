@@ -73,24 +73,24 @@ const Footer = () => {
                         href="Our_Engagement_Model"
                       >{`Engagement Model`}</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         legacyBehavior
                         href="Industries_we_serve"
                       >{`Industries`}</Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link legacyBehavior href="contact">{`Contact US`}</Link>
                     </li>
                     <li>
                       <Link legacyBehavior href="Careers">{`Careers`}</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         legacyBehavior
                         href="hire_a_developer"
                       >{`Hire a Developer`}</Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>

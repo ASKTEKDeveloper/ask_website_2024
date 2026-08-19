@@ -54,15 +54,23 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
     UIUX: "UI/UX Strategy",
     DigitalMarketing: "Digital Marketing",
     ERPDevelopment: "ERP Software Development",
+    AI: "AI Solutions for Garment Manufacturing",
   };
 
   const productsMapping = {
-    OB: "Operation Bulletin - Production Monitoring and Piece Rate Software",
-    SM: "Sampling Module",
+    GERP: "Garment ERP for Knit & Woven",
+    TBMS: "Buying House Management",
     IOG: "Garment Inspection Software",
-    GERP: "Garment ERP Software for Knit and Woven (RMG)",
-    GEA: "Garment Export Application",
-    BMS: "Target - Buying House Management Solutions",
+    ERP: "Garment ERP for Retailers",
+    OB: "Operation Bulletin (QUICK OB)",
+    HRMS: "Target HRMS – HR & Payroll Solution",
+    AI: "AI Solutions for Garment Manufacturing",
+    // OB: "Operation Bulletin - Production Monitoring and Piece Rate Software",
+    // SM: "Sampling Module",
+    // IOG: "Garment Inspection Software",
+    // GERP: "Garment ERP Software for Knit and Woven (RMG)",
+    // GEA: "Garment Export Application",
+    // BMS: "Target - Buying House Management Solutions",
   };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -294,34 +302,33 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                       .required("Please provide your full name."),
 
                     phone_number: Yup.string()
-                    .matches(
-                      /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
-                      "Please provide a valid phone number."
-                    )
-                    .required(" Please enter your phone number."),
+                      .matches(
+                        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
+                        "Please provide a valid phone number.",
+                      )
+                      .required(" Please enter your phone number."),
 
                     email: Yup.string()
                       .matches(
                         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                        "Please provide a valid email address"
+                        "Please provide a valid email address",
                       )
                       .required("Email address is required."),
 
-                    city: Yup.string().max(50, "should not exceed 50 characters.").matches(
-                      /^[A-Za-z\s]+$/,
-                      "enter valid city name"
-                    ),
+                    city: Yup.string()
+                      .max(50, "should not exceed 50 characters.")
+                      .matches(/^[A-Za-z\s]+$/, "enter valid city name"),
                     country: Yup.object().required(
-                      "Please select your country."
+                      "Please select your country.",
                     ),
                     // .required("Please specify your city."),
 
-                    company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                      "Please specify the name of your company."
-                    ),
+                    company_name: Yup.string()
+                      .max(80, "should not exceed 80 characters.")
+                      .required("Please specify the name of your company."),
                     enquiry_details: Yup.string().max(
                       200,
-                      "should not exceed 200 characters."
+                      "should not exceed 200 characters.",
                     ),
                     // .required("type your requirements  here"),
                   })}
@@ -468,6 +475,9 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                                 <MenuItem value="ERPDevelopment">
                                   ERP Software Development
                                 </MenuItem>
+                                <MenuItem value="AI">
+                                  AI Solutions for Garment Manufacturing
+                                </MenuItem>
                               </TextField>
                             )}
                           </Field>
@@ -484,7 +494,29 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                                 label="Products"
                                 variant="standard"
                               >
-                                <MenuItem value="OB" defaultChecked>
+                                <MenuItem value="GERP">
+                                  Garment ERP for Knit & Woven
+                                </MenuItem>
+                                <MenuItem value="TBMS">
+                                  Buying House Management
+                                </MenuItem>
+                                <MenuItem value="IOG">
+                                  Garment Inspection Software
+                                </MenuItem>
+                                <MenuItem value="ERP">
+                                  Garment ERP for Retailers
+                                </MenuItem>
+                                <MenuItem value="OB">
+                                  Operation Bulletin (QUICK OB)
+                                </MenuItem>
+                                <MenuItem value="HRMS">
+                                  Target HRMS – HR & Payroll Solution
+                                </MenuItem>
+                                <MenuItem value="AI">
+                                  AI Solutions for Garment Manufacturing
+                                </MenuItem>
+
+                                {/* <MenuItem value="OB" defaultChecked>
                                   Operation Bulletin - Production Monitoring and
                                   Piece Rate Software
                                 </MenuItem>
@@ -497,14 +529,14 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                                 </MenuItem>
                                 <MenuItem value="GEA">
                                   Garment Export Application
-                                </MenuItem>
+                                </MenuItem> */}
                               </TextField>
                             )}
                           </Field>
                         </Grid>
                       )}
 
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12}>
                         <Field name="enquiry_details">
                           {({ field, form }) => (
                             <TextField
@@ -615,32 +647,32 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                       phone_number: Yup.string()
                         .matches(
                           /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
-                          "Please enter a valid phone number."
+                          "Please enter a valid phone number.",
                         )
                         .required("Please enter your phone number."),
 
                       email: Yup.string()
                         .matches(
                           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                          "Please provide a valid email address"
+                          "Please provide a valid email address",
                         )
                         .required("Email address is required."),
 
                       city: Yup.string().matches(
                         /^[A-Za-z\s]+$/,
-                        "enter valid city name"
+                        "enter valid city name",
                       ),
                       // .required("Please specify your city."),
 
                       company_name: Yup.string().required(
-                        "Please specify the name of your company."
+                        "Please specify the name of your company.",
                       ),
                       country: Yup.object().required(
-                        "Please select your country."
+                        "Please select your country.",
                       ),
                       enquiry_details: Yup.string().max(
                         200,
-                        "should not exceed 200 characters."
+                        "should not exceed 200 characters.",
                       ),
                       // .required("type your requirements  here"),
                     })}
@@ -797,6 +829,9 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                                   <MenuItem value="ERPDevelopment">
                                     ERP Software Development
                                   </MenuItem>
+                                  <MenuItem value="AI">
+                                    AI Solutions for Garment Manufacturing
+                                  </MenuItem>
                                 </TextField>
                               )}
                             </Field>
@@ -813,7 +848,28 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                                   label="Products"
                                   variant="standard"
                                 >
-                                  <MenuItem value="OB" defaultChecked>
+                                  <MenuItem value="GERP">
+                                    Garment ERP for Knit & Woven
+                                  </MenuItem>
+                                  <MenuItem value="TBMS">
+                                    Buying House Management
+                                  </MenuItem>
+                                  <MenuItem value="IOG">
+                                    Garment Inspection Software
+                                  </MenuItem>
+                                  <MenuItem value="ERP">
+                                    Garment ERP for Retailers
+                                  </MenuItem>
+                                  <MenuItem value="OB">
+                                    Operation Bulletin (QUICK OB)
+                                  </MenuItem>
+                                  <MenuItem value="HRMS">
+                                    Target HRMS – HR & Payroll Solution
+                                  </MenuItem>{" "}
+                                  <MenuItem value="AI">
+                                    AI Solutions for Garment Manufacturing
+                                  </MenuItem>
+                                  {/* <MenuItem value="OB" defaultChecked>
                                     Operation Bulletin - Production Monitoring
                                     and Piece Rate Software
                                   </MenuItem>
@@ -829,7 +885,7 @@ const ContactUsGarments = ({ TypeOF, initialValue }) => {
                                   </MenuItem>
                                   <MenuItem value="GEA">
                                     Garment Export Application
-                                  </MenuItem>
+                                  </MenuItem> */}
                                 </TextField>
                               )}
                             </Field>

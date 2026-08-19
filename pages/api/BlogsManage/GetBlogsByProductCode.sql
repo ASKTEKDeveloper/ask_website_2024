@@ -23,11 +23,13 @@ FROM
     Tbl_Blogs b
 LEFT JOIN Tbl_ProductMaster pm ON pm.ProductID = b.ProductID
 WHERE
-    b.ActiveStatus = 'Y'
+    pm.ShortCode = @ShortCode
+    AND b.ActiveStatus = 'Y'
     AND (
         b.IsScheduled <> 'Y'
+        OR b.IsScheduled IS NULL
         OR b.ScheduledDateTime IS NULL
         OR DATEADD(MINUTE, 330, b.ScheduledDateTime) <= GETDATE()
     )
 ORDER BY
-    b.BlogID DESC
+    b.BlogID DESC;

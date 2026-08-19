@@ -246,7 +246,6 @@ const GarmentManufacturing = () => {
         </Container>
       </section>
 
-     
       <section className="services-area-three overflow-hidden rpt-50 pt-30 rpb-70 rel z-1">
         <Container maxWidth={"lg"}>
           <div className="row gap-100 align-items-center">
@@ -262,12 +261,11 @@ const GarmentManufacturing = () => {
             <div className="col">
               <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
                 <div className="row gap-40">
-                  
                   <div className="col-md-4">
                     <div className="service-item style-three">
                       <div className="mb-20">
                         <img
-                          style={{maxWidth:'120px'}}
+                          style={{ maxWidth: "120px" }}
                           src="/assets/images/sap-erp.png"
                           alt="Optimize Garment Potential"
                         />
@@ -287,9 +285,9 @@ const GarmentManufacturing = () => {
                   </div>
                   <div className="col-md-4">
                     <div className="service-item style-three">
-                      <div className="mb-20" >
+                      <div className="mb-20">
                         <img
-                          style={{maxWidth:'150px'}}
+                          style={{ maxWidth: "150px" }}
                           src="/assets/images/oracle-netsuite.png"
                           alt="Boost Garment Efficiency"
                         />
@@ -309,9 +307,9 @@ const GarmentManufacturing = () => {
                   </div>
                   <div className="col-md-4">
                     <div className="service-item style-three">
-                    <div className="mb-20" >
+                      <div className="mb-20">
                         <img
-                          style={{maxWidth:'225px'}}
+                          style={{ maxWidth: "225px" }}
                           src="/assets/images/decision-one.jpg"
                           alt="Optimize Garment Potential"
                         />
@@ -364,258 +362,7 @@ const GarmentManufacturing = () => {
       <section className="services-area-two py-50 rel z-2">
         <Container maxWidth={"xl"}>
           <div className="row">
-            <div className="col-lg-6 round-2">
-              <div
-                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
-                style={{ maxHeight: "400px" }}
-              >
-                <img
-                  src="assets/images/hire/tbmspng.png"
-                  alt="Services"
-                  style={{ objectFit: "cover" }}
-                />
-                <div className="content" id="maxxwid">
-                  <div className="icon-title">
-                    <div className="icon2" style={{ marginBottom: 50 }}>
-                      <img
-                        src="assets/images/services/garments.jpg"
-                        alt="Icon"
-                        style={{
-                          borderRadius: 20,
-                          minWidth: "120px",
-                          height: "120px",
-                          objectFit: "contain",
-                          backgroundColor: "none",
-                        }}
-                      />
-                    </div>
-
-                    <h4>
-                      {" "}
-                      <Link legacyBehavior href="buying_house_management">
-                        Buying House Management
-                      </Link>{" "}
-                    </h4>
-                    <div className="d-flex justify-content-start">
-                      <Link legacyBehavior href="buying_house_management">
-                        <a
-                          className="read-more "
-                          style={{
-                            color: "white",
-                            backgroundColor: "#198754",
-                            borderRadius: "5px",
-                            padding: "7px",
-                            marginBottom: "10px",
-                            fontFamily: "inherit",
-                          }}
-                        >
-                          Know More <i className="far fa-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="bottom-part">
-                    <p>
-                      Efficiently manage buying processes, streamline
-                      communication, and ensure smooth order management for your
-                      business.
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-text">TBMS</span>
-              </div>
-            </div>
-
-            <div className="col-lg-6 round-2">
-              <div
-                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
-                style={{ maxHeight: "400px" }}
-              >
-                <img
-                  src="assets/images/hire/ob.png"
-                  alt="Services"
-                  style={{ objectFit: "cover" }}
-                />
-                <div className="content" id="maxxwid">
-                  <div className="icon-title">
-                    <div className="icon2" style={{ marginBottom: 50 }}>
-                      <img
-                        src="assets/images/projects/ob/obb.png"
-                        alt="Icon"
-                        style={{
-                          borderRadius: 20,
-                          minWidth: "120px",
-                          height: "120px",
-                          objectFit: "contain",
-                          backgroundColor: "none",
-                        }}
-                      />
-                    </div>
-
-                    <h4>
-                      {" "}
-                      <Link legacyBehavior href="operation_bulletin">
-                        Operation Bulletin (QUICK OB)
-                      </Link>{" "}
-                    </h4>
-                    <div className="d-flex justify-content-start">
-                      <Link legacyBehavior href="operation_bulletin">
-                        <a
-                          className="read-more "
-                          style={{
-                            color: "white",
-                            backgroundColor: "#198754",
-                            borderRadius: "5px",
-                            padding: "7px",
-                            marginBottom: "10px",
-                            fontFamily: "inherit",
-                          }}
-                        >
-                          Know More <i className="far fa-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="bottom-part">
-                    <p>
-                      Track production in real-time and manage piece rates to
-                      improve factory efficiency and overall productivity.
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-text">QUICK OB</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-lg-6 round-2">
-              <div
-                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
-                style={{ maxHeight: "400px" }}
-              >
-                <img
-                  src="assets/images/hire/gar3.png"
-                  alt="Services"
-                  style={{ objectFit: "cover" }}
-                />
-                <div className="content" id="maxxwid">
-                  <div className="icon-title">
-                    <div className="icon2" style={{ marginBottom: 50 }}>
-                      <img
-                        src="assets/images/services/production.png"
-                        alt="Icon"
-                        style={{
-                          borderRadius: 20,
-                          minWidth: "120px",
-                          height: "120px",
-                          objectFit: "contain",
-                          backgroundColor: "white",
-                          padding: 5,
-                        }}
-                      />
-                    </div>
-
-                    <h4>
-                      {" "}
-                      <Link legacyBehavior href="garments_sampling_software">
-                        Garments Sampling Module
-                      </Link>{" "}
-                    </h4>
-                    <div className="d-flex justify-content-start">
-                      <Link legacyBehavior href="garments_sampling_software">
-                        <a
-                          className="read-more "
-                          style={{
-                            color: "white",
-                            backgroundColor: "#198754",
-                            borderRadius: "5px",
-                            padding: "7px",
-                            marginBottom: "10px",
-                            fontFamily: "inherit",
-                          }}
-                        >
-                          Know More <i className="far fa-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="bottom-part">
-                    <p>
-                      Simplify the sampling process, track approvals, and ensure
-                      timely prototype delivery for faster market readiness.
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-text">SAMPLING</span>
-              </div>
-            </div>
-
-            <div className="col-lg-6 round-2">
-              <div
-                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
-                style={{ maxHeight: "400px" }}
-              >
-                <img
-                  src="assets/images/hire/manufacturing.png"
-                  alt="Services"
-                  style={{ objectFit: "cover" }}
-                />
-                <div className="content" id="maxxwid">
-                  <div className="icon-title">
-                    <div className="icon2" style={{ marginBottom: 50 }}>
-                      <img
-                        src="assets/images/projects/ob/output-onlinepngtools.png"
-                        alt="Icon"
-                        style={{
-                          borderRadius: 20,
-                          minWidth: "120px",
-                          height: "120px",
-                          objectFit: "contain",
-                          backgroundColor: "none",
-                          backgroundColor: "white",
-                          padding: 10,
-                        }}
-                      />
-                    </div>
-
-                    <h4>
-                      {" "}
-                      <Link legacyBehavior href="garment_inspection_softwares">
-                        Garment Inspection Software
-                      </Link>{" "}
-                    </h4>
-                    <div className="d-flex justify-content-start">
-                      <Link legacyBehavior href="garment_inspection_softwares">
-                        <a
-                          className="read-more "
-                          style={{
-                            color: "white",
-                            backgroundColor: "#198754",
-                            borderRadius: "5px",
-                            padding: "7px",
-                            marginBottom: "10px",
-                            fontFamily: "inherit",
-                          }}
-                        >
-                          Know More <i className="far fa-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="bottom-part">
-                    <p>
-                      Manage quality control effectively, reduce defects, and
-                      ensure every product meets your highest quality standards.
-                    </p>
-                  </div>
-                </div>
-                <span className="bg-text">QUALITY</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
+            {/* Garment ERP for Knit & Woven */}
             <div className="col-lg-6 round-2">
               <div
                 className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
@@ -679,7 +426,323 @@ const GarmentManufacturing = () => {
               </div>
             </div>
 
+            {/* Buying House Management */}
             <div className="col-lg-6 round-2">
+              <div
+                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
+                style={{ maxHeight: "400px" }}
+              >
+                <img
+                  src="assets/images/hire/tbmspng.png"
+                  alt="Services"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="content" id="maxxwid">
+                  <div className="icon-title">
+                    <div className="icon2" style={{ marginBottom: 50 }}>
+                      <img
+                        src="assets/images/services/garments.jpg"
+                        alt="Icon"
+                        style={{
+                          borderRadius: 20,
+                          minWidth: "120px",
+                          height: "120px",
+                          objectFit: "contain",
+                          backgroundColor: "none",
+                        }}
+                      />
+                    </div>
+
+                    <h4>
+                      {" "}
+                      <Link legacyBehavior href="buying_house_management">
+                        Buying House Management
+                      </Link>{" "}
+                    </h4>
+                    <div className="d-flex justify-content-start">
+                      <Link legacyBehavior href="buying_house_management">
+                        <a
+                          className="read-more "
+                          style={{
+                            color: "white",
+                            backgroundColor: "#198754",
+                            borderRadius: "5px",
+                            padding: "7px",
+                            marginBottom: "10px",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          Know More <i className="far fa-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bottom-part">
+                    <p>
+                      Efficiently manage buying processes, streamline
+                      communication, and ensure smooth order management for your
+                      business.
+                    </p>
+                  </div>
+                </div>
+                <span className="bg-text">TBMS</span>
+              </div>
+            </div>
+            
+            {/* Garment Inspection Software */}
+            <div className="col-lg-6 round-2">
+              <div
+                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
+                style={{ maxHeight: "400px" }}
+              >
+                <img
+                  src="assets/images/hire/manufacturing.png"
+                  alt="Services"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="content" id="maxxwid">
+                  <div className="icon-title">
+                    <div className="icon2" style={{ marginBottom: 50 }}>
+                      <img
+                        src="assets/images/projects/ob/output-onlinepngtools.png"
+                        alt="Icon"
+                        style={{
+                          borderRadius: 20,
+                          minWidth: "120px",
+                          height: "120px",
+                          objectFit: "contain",
+                          backgroundColor: "none",
+                          backgroundColor: "white",
+                          padding: 10,
+                        }}
+                      />
+                    </div>
+
+                    <h4>
+                      {" "}
+                      <Link legacyBehavior href="garment_inspection_softwares">
+                        Garment Inspection Software
+                      </Link>{" "}
+                    </h4>
+                    <div className="d-flex justify-content-start">
+                      <Link legacyBehavior href="garment_inspection_softwares">
+                        <a
+                          className="read-more "
+                          style={{
+                            color: "white",
+                            backgroundColor: "#198754",
+                            borderRadius: "5px",
+                            padding: "7px",
+                            marginBottom: "10px",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          Know More <i className="far fa-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bottom-part">
+                    <p>
+                      Manage quality control effectively, reduce defects, and
+                      ensure every product meets your highest quality standards.
+                    </p>
+                  </div>
+                </div>
+                <span className="bg-text">QUALITY</span>
+              </div>
+            </div>
+
+            {/* Garment ERP for Brands */}
+            <div className="col-lg-6 round-2">
+              <div
+                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
+                style={{ maxHeight: "400px" }}
+              >
+                <img
+                  src="assets/images/hire/gar3.png"
+                  alt="Services"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="content" id="maxxwid">
+                  <div className="icon-title">
+                    <div className="icon2" style={{ marginBottom: 50 }}>
+                      <img
+                        src="assets/images/services/production.png"
+                        alt="Icon"
+                        style={{
+                          borderRadius: 20,
+                          minWidth: "120px",
+                          height: "120px",
+                          objectFit: "contain",
+                          backgroundColor: "white",
+                          padding: 5,
+                        }}
+                      />
+                    </div>
+
+                    <h4>
+                      {" "}
+                      <Link legacyBehavior href="garments_sampling_software">
+                        Garment ERP for Retailers
+                      </Link>{" "}
+                    </h4>
+                    <div className="d-flex justify-content-start">
+                      <Link legacyBehavior href="garments_sampling_software">
+                        <a
+                          className="read-more "
+                          style={{
+                            color: "white",
+                            backgroundColor: "#198754",
+                            borderRadius: "5px",
+                            padding: "7px",
+                            marginBottom: "10px",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          Know More <i className="far fa-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bottom-part">
+                    <p>
+                      Simplify the sampling process, track approvals, and ensure
+                      timely prototype delivery for faster market readiness.
+                    </p>
+                  </div>
+                </div>
+                <span className="bg-text">SAMPLING</span>
+              </div>
+            </div>
+
+            {/* Operation Bulletin (QUICK OB) */}
+            <div className="col-lg-6 round-2">
+              <div
+                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
+                style={{ maxHeight: "400px" }}
+              >
+                <img
+                  src="assets/images/hire/ob.png"
+                  alt="Services"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="content" id="maxxwid">
+                  <div className="icon-title">
+                    <div className="icon2" style={{ marginBottom: 50 }}>
+                      <img
+                        src="assets/images/projects/ob/obb.png"
+                        alt="Icon"
+                        style={{
+                          borderRadius: 20,
+                          minWidth: "120px",
+                          height: "120px",
+                          objectFit: "contain",
+                          backgroundColor: "none",
+                        }}
+                      />
+                    </div>
+
+                    <h4>
+                      {" "}
+                      <Link legacyBehavior href="operation_bulletin">
+                        Operation Bulletin (QUICK OB)
+                      </Link>{" "}
+                    </h4>
+                    <div className="d-flex justify-content-start">
+                      <Link legacyBehavior href="operation_bulletin">
+                        <a
+                          className="read-more "
+                          style={{
+                            color: "white",
+                            backgroundColor: "#198754",
+                            borderRadius: "5px",
+                            padding: "7px",
+                            marginBottom: "10px",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          Know More <i className="far fa-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bottom-part">
+                    <p>
+                      Track production in real-time and manage piece rates to
+                      improve factory efficiency and overall productivity.
+                    </p>
+                  </div>
+                </div>
+                <span className="bg-text">QUICK OB</span>
+              </div>
+            </div>
+
+            {/* Target HRMS – HR & Payroll Solutions */}
+            <div className="col-lg-6 round-2">
+              <div
+                className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
+                style={{ maxHeight: "400px" }}
+              >
+                <img
+                  src="assets/images/hire/hrms.jpg"
+                  alt="Services"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="content" id="maxxwid">
+                  <div className="icon-title">
+                    <div className="icon2" style={{ marginBottom: 50 }}>
+                      <img
+                        src="assets/images/services/hrms.png"
+                        alt="Icon"
+                        style={{
+                          borderRadius: 20,
+                          minWidth: "120px",
+                          height: "120px",
+                          objectFit: "contain",
+                          backgroundColor: "white",
+                          padding: 5,
+                        }}
+                      />
+                    </div>
+
+                    <h4>
+                      {" "}
+                      <Link legacyBehavior href="Target_HRMS_HR_and_Payroll_Solutions">
+                        HR & Payroll Solutions
+                      </Link>{" "}
+                    </h4>
+                    <div className="d-flex justify-content-start">
+                      <Link legacyBehavior href="Target_HRMS_HR_and_Payroll_Solutions">
+                        <a
+                          className="read-more "
+                          style={{
+                            color: "white",
+                            backgroundColor: "#198754",
+                            borderRadius: "5px",
+                            padding: "7px",
+                            marginBottom: "10px",
+                            fontFamily: "inherit",
+                          }}
+                        >
+                          Know More <i className="far fa-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="bottom-part">
+                    <p>
+                      Say goodbye to HR and payroll<br/> complexities with <br/>Target
+                      HRMS
+                    </p>
+                  </div>
+                </div>
+                <span className="bg-text">HRMS</span>
+              </div>
+            </div>
+
+            {/* Garment Export Application */}
+            {/* <div className="col-lg-6 round-2">
               <div
                 className=" service-item-five industries-grid wow fadeInUp delay-0-2s"
                 style={{ maxHeight: "400px" }}
@@ -739,7 +802,7 @@ const GarmentManufacturing = () => {
                 </div>
                 <span className="bg-text">EXPORT</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </Container>
       </section>

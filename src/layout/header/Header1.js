@@ -126,7 +126,7 @@ const Header1 = () => {
                 </a>
                 </Link>
             </div>
-            <div className="menu-btns">
+            {/* <div className="menu-btns">
               <Link legacyBehavior href="/contact">
                 <a
                   className="theme-btn"
@@ -135,7 +135,7 @@ const Header1 = () => {
                   Hire A Developer <i className="fas fa-long-arrow-right" />
                 </a>
               </Link>
-            </div>
+            </div> */}
           </div>
         </Container>
       </div>

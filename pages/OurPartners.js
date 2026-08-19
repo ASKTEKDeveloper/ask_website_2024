@@ -2,28 +2,28 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 const OurPartners = () => {
-  const [data1,setData1]=useState([])
-  const [data2,setData2]=useState([])
-  useEffect(()=>{
-    getAllData()
-  },[])
-  async function getAllData(){
-      try{
-        const res=await axios.get("/api/OurPartners")
-        const [arr1, arr2] = res.data.reduce(
-          ([a, b], item, index) => {
-            if (index % 2 === 0) a.push(item);
-            else b.push(item);
-            return [a, b];
-          },
-          [[], []]
-        );
-    
-        setData1(arr1);
-        setData2(arr2);
-      }catch(e){
-        console.log("ourPartners Error",e.message)
-      }
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
+  useEffect(() => {
+    getAllData();
+  }, []);
+  async function getAllData() {
+    try {
+      const res = await axios.get("/api/OurPartners");
+      const [arr1, arr2] = res.data.reduce(
+        ([a, b], item, index) => {
+          if (index % 2 === 0) a.push(item);
+          else b.push(item);
+          return [a, b];
+        },
+        [[], []],
+      );
+
+      setData1(arr1);
+      setData2(arr2);
+    } catch (e) {
+      console.log("ourPartners Error", e.message);
+    }
   }
 
   return (
@@ -48,7 +48,7 @@ const OurPartners = () => {
                   <img
                     src={`/api/partner-image?logoName=${src.logoName}`}
                     alt={`Partner ${index + 1}`}
-                    style={{ margin: 20 }}
+                    style={{ margin: 20, }}
                     className="client-logo"
                   />
                 </div>
@@ -77,7 +77,7 @@ const OurPartners = () => {
           </div>
         </div>
       </section>
-   
+
       {/* Partners Area end */}
     </>
   );
