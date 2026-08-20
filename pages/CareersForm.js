@@ -115,8 +115,7 @@ const CareersForm = () => {
     try {
       const response = await axios.post("/api/Careers/CareersForm", values);
       console.log("Form submitted successfully:", response.data);
-      SendMail(values);
-      SendMail2(values);
+      await Promise.all([SendMail(values), SendMail2(values)]);
       resetForm();
       setSelectedFileName("");
       setSelectedFilePath("");
@@ -130,6 +129,7 @@ const CareersForm = () => {
         confirmButtonText: "Ok",
       });
     } finally {
+      setOpenLoader(false);
       setSubmitting(false);
     }
   };
@@ -140,6 +140,7 @@ const CareersForm = () => {
         from: "hr@asktek.net",
         to: `${datas.email}`,
         subject: "Application for Job Opportunity at ASK Technology",
+        SMTPProfileCode: "HR",
         text: `
         <p>Dear ${datas.name},</p>
         <p>Thank you for considering a career opportunity at ASK Technology.</p>
@@ -156,7 +157,7 @@ const CareersForm = () => {
       });
     } catch (error) {
       console.error("Error sending email:", error);
-      setOpenLoader(false);
+      throw error;
     }
   };
 
@@ -167,6 +168,7 @@ const CareersForm = () => {
           from: "hr@asktek.net",
           to: "hr@asktek.net",
           subject: "New Job Application Received",
+          SMTPProfileCode: "HR",
           text: `
         <p>Dear HR Team,</p>
         <p>A new job application has been received from:</p>
@@ -196,7 +198,7 @@ const CareersForm = () => {
         });
     } catch (error) {
       console.error("Error sending email:", error);
-      setOpenLoader(false);
+      throw error;
     }
   };
 

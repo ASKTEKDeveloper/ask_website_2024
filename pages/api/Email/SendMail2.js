@@ -6,8 +6,8 @@ import { getSMTPProfile } from "../../../lib/smtpProfile";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { from, to, subject, text, attachment } = req.body;
-      const smtpProfile = await getSMTPProfile("HR");
+      const { from, to, subject, text, attachment, SMTPProfileCode = "HR" } = req.body;
+      const smtpProfile = await getSMTPProfile(SMTPProfileCode);
 
       const transporter = nodemailer.createTransport({
         host: smtpProfile.SMTPHost,
@@ -19,33 +19,28 @@ export default async function handler(req, res) {
         },
       });
 
-      // Download the file from the URL and convert to Buffer
-      const attachmentUrl = attachment;
-      const attachmentResponse = await axios.get(attachmentUrl, {
-        responseType: "arraybuffer",
-      });
-      const attachmentData = Buffer.from(attachmentResponse.data, "binary");
-
-      // Get the original filename and extension
-      const originalFileName = path.basename(attachmentUrl);
-      const fileExtension = path.extname(originalFileName);
-
-      // Generate a new filename
-      const newFilename = `Resume${fileExtension}`;
-
       const mailOptions = {
         from: from || smtpProfile.FromEmail,
         to: to,
         subject: subject,
         html: text,
-        attachments: [
-          {
-            filename: newFilename,
-            content: attachmentData,
-            contentType: `application/${fileExtension.substring(1)}`,
-          },
-        ],
       };
+
+      if (attachment) {
+        const attachmentResponse = await axios.get(attachment, {
+          responseType: "arraybuffer",
+        });
+        const attachmentData = Buffer.from(attachmentResponse.data, "binary");
+        const fileExtension = path.extname(path.basename(attachment)) || ".pdf";
+
+        mailOptions.attachments = [
+          {
+            filename: `Resume${fileExtension}`,
+            content: attachmentData,
+            contentType: fileExtension === ".pdf" ? "application/pdf" : undefined,
+          },
+        ];
+      }
 
       const info = await transporter.sendMail(mailOptions);
 

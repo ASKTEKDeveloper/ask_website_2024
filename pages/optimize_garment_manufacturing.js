@@ -710,6 +710,29 @@ const GarmentManufacturing = () => {
               <div className="about-content rel z-1 wow fadeInLeft delay-0-2s">
                 <div className="row gap-40">
                   <div className="col-md-4">
+  <div className="service-item style-three">
+    <div className="mb-20">
+      <img
+        style={{ maxWidth: "225px" }}
+        src="/assets/images/decision-one.jpg"
+        alt="Target 360 + Decision One Integration"
+      />
+    </div>
+    <h4 className="text-gradient-title">
+      Target 360 + Decision One
+    </h4>
+    <p>
+      Target 360 integrates with Decision One, a leading Production Planning & 
+      Control (PPC) solution built exclusively for apparel and textile manufacturing. 
+      Together, they deliver advanced line planning, capacity planning, production 
+      scheduling, and material tracking. The integrated platform features an 
+      intuitive drag-and-drop interface for efficient master planning across 
+      multiple factories, providing end-to-end visibility and control from yarn 
+      to finished garment with greater operational efficiency and precision.
+    </p>
+  </div>
+</div>
+                  <div className="col-md-4">
                     <div className="service-item style-three">
                       <div className="mb-20">
                         <img
@@ -753,30 +776,7 @@ const GarmentManufacturing = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="col-md-4">
-                    <div className="service-item style-three">
-                      <div className="mb-20">
-                        <img
-                          style={{ maxWidth: "225px" }}
-                          src="/assets/images/decision-one.jpg"
-                          alt="Optimize Garment Potential"
-                        />
-                      </div>
-                      <h4 className="text-gradient-title">
-                        Decision one + ERP{" "}
-                      </h4>
-                      <p>
-                        DecisionOne works to control operations in an economical
-                        way and continuously enhance "ON-TIME" production. The
-                        complete business process, from "Yarn to Fabric" or "Cut
-                        to Pack," as well as important events involved in
-                        routine garment and textile manufacturing processes, may
-                        be planned and tracked with this straightforward,
-                        understandable, and reasonably priced production
-                        planning software program.
-                      </p>
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
             </div>
