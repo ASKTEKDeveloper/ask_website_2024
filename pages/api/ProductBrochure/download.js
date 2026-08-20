@@ -47,7 +47,11 @@ export default async function handler(req, res) {
     const fileResponse = await fetch(adminFileUrl);
     if (!fileResponse.ok) {
       console.error("Admin brochure API returned:", fileResponse.status, adminFileUrl);
-      return res.status(404).json({ message: "Brochure file is not available." });
+      return res.status(fileResponse.status === 404 ? 404 : 502).json({
+        message: fileResponse.status === 404
+          ? "Brochure file is not available in the live admin API."
+          : "The admin brochure API could not provide the file.",
+      });
     }
 
     const fileBuffer = await fileResponse.arrayBuffer();
@@ -57,6 +61,6 @@ export default async function handler(req, res) {
     return res.status(200).send(Buffer.from(fileBuffer));
   } catch (error) {
     console.error("Error downloading product brochure:", error);
-    return res.status(500).json({ message: "Unable to download brochure right now." });
+    return res.status(502).json({ message: "Unable to connect to the admin brochure API." });
   }
 }
