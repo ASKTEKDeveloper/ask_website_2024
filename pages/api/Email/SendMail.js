@@ -1,5 +1,3 @@
-import nodemailer from "nodemailer";
-import path from "path";
 import axios from "axios";
 
 export default async function handler(req, res) {

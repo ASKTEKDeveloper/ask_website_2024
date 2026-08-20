@@ -1,24 +1,24 @@
 import nodemailer from "nodemailer";
-import path from "path";
-import axios from "axios";
+import { getSMTPProfile } from "../../../lib/smtpProfile";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
       const { from, to, subject, text, attachment } = req.body;
+      const smtpProfile = await getSMTPProfile("SALES");
 
       const transporter = nodemailer.createTransport({
-        host: "us2.smtp.mailhostbox.com",
-        port: 587,
-        secure: false,
+        host: smtpProfile.SMTPHost,
+        port: Number(smtpProfile.SMTPPort),
+        secure: smtpProfile.IsSecure === "Y",
         auth: {
-          user: "sales@asktek.net",
-          pass: "Ask@99559#",
+          user: smtpProfile.SMTPUserName,
+          pass: smtpProfile.SMTPPassword,
         },
       });
       
       const mailOptions = {
-        from: from,
+        from: from || smtpProfile.FromEmail,
         to: to,
         subject: subject,
         html: text,

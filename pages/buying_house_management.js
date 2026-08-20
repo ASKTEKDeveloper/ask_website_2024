@@ -24,6 +24,7 @@ import countryList from "react-select-country-list";
 import Slide from "@mui/material/Slide";
 import ContactUsGarments from "./ContactUsGarments";
 import FAQ from "@/src/components/FAQ";
+import ProductBrochures from "@/src/components/ProductBrochures";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -128,7 +129,7 @@ const ProjectGrid = () => {
       console.log("path", brochuresPath[product]);
       const link = document.createElement("a");
       link.href = brochurePath;
-      link.setAttribute("download", `brochure_${product}.pdf`);
+      link.setAttribute("download", `brochure_${prozduct}.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -168,21 +169,8 @@ const ProjectGrid = () => {
                         style={{ objectFit: "contain", maxWidth: "60%" }}
                       />
                     </div>
-                    <div className="d-flex justify-content-center alig n-items-center my-50 ">
-                      <div class="button">
-                        <a
-                          onClick={handleButtonClick}
-                          style={{ color: "white" }}
-                        >
-                          Download Brochure
-                        </a>
-                        {/* 
-                        <a href="assets/docs/Blogs.docx" download onClick={handleButtonClick}>
-                          Download Brochure
-                        </a> */}
-                        <b class="top">Click to </b>
-                        <b class="bottom">Document</b>
-                      </div>
+                    <div className="d-flex justify-content-center align-items-center my-50 ">
+                      <ProductBrochures code="TBMS" />
                     </div>
                     <p>
                       TARGET - BMS is a comprehensive business management

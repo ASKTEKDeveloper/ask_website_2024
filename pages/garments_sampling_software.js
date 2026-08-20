@@ -25,6 +25,7 @@ import Slide from "@mui/material/Slide";
 import ContactUsGarments from "./ContactUsGarments";
 import countryList from "react-select-country-list";
 import FAQ from "@/src/components/FAQ";
+import ProductBrochures from "@/src/components/ProductBrochures";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -169,17 +170,8 @@ const ProjectGrid = () => {
                         style={{ objectFit: "contain", maxWidth: "60%" }}
                       />
                     </div>
-                    <div className="d-flex justify-content-center align-items-center my-50 ">
-                      <div class="button">
-                        <a
-                          onClick={handleButtonClick}
-                          style={{ color: "white" }}
-                        >
-                          Download Brochure
-                        </a>
-                        <b class="top">Click to </b>
-                        <b class="bottom">Document</b>
-                      </div>
+                  <div className="d-flex justify-content-center align-items-center my-50 ">
+                      <ProductBrochures code="ERP" />
                     </div>
                     <p>
                       Managing samples manually in the apparel industry often

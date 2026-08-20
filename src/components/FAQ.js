@@ -61,7 +61,10 @@ const FAQ = ({ defaultActive = 0, accordions, accordionsData, code, productCode 
   return (
     <>
       {loading && <p style={{ margin: 0, color: "#666" }}>Loading FAQs...</p>}
-      <Accordion defaultActiveKey={String(active)}>
+      <Accordion
+        defaultActiveKey={String(active)}
+        style={{ display: "grid", gap: 12 }}
+      >
         {visibleData.map((accordion, index) => {
           const eventKey = String(accordion.id ?? index);
 
@@ -69,8 +72,15 @@ const FAQ = ({ defaultActive = 0, accordions, accordionsData, code, productCode 
             <div
               className="accordion-item"
               key={accordion.id ?? `${accordion.title}-${index}`}
+              style={{
+                padding: "18px 20px",
+                border: "1px solid #e7ebf0",
+                borderRadius: 8,
+                boxShadow: "none",
+                background: "#fff",
+              }}
             >
-              <h5 className="accordion-header">
+              <h5 className="accordion-header" style={{ margin: 0 }}>
                 <Accordion.Toggle
                   as="button"
                   className={`accordion-button ${
@@ -78,6 +88,12 @@ const FAQ = ({ defaultActive = 0, accordions, accordionsData, code, productCode 
                   }`}
                   eventKey={eventKey}
                   onClick={() => toggleAccordion(accordion.id ?? index)}
+                  style={{
+                    fontWeight: 700,
+                    color: "#172033",
+                    lineHeight: 1.45,
+                    textAlign: "left",
+                  }}
                 >
                   {accordion.title}
                 </Accordion.Toggle>
@@ -86,8 +102,18 @@ const FAQ = ({ defaultActive = 0, accordions, accordionsData, code, productCode 
                 eventKey={eventKey}
                 data-bs-parent="#faq-accordion"
               >
-                <div className="accordion-body">
-                  <p>{accordion.answer}</p>
+                <div className="accordion-body" style={{ padding: 0 }}>
+                  <p
+                    style={{
+                      margin: "12px 0 0",
+                      color: "#667085",
+                      fontSize: "0.95rem",
+                      fontWeight: 400,
+                      lineHeight: 1.75,
+                    }}
+                  >
+                    {accordion.answer}
+                  </p>
                 </div>
               </Accordion.Collapse>
             </div>

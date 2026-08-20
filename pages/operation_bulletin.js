@@ -31,6 +31,7 @@ import Slider from "react-slick";
 import ContactUsGarments from "./ContactUsGarments";
 import countryList from "react-select-country-list";
 import FAQ from "@/src/components/FAQ";
+import ProductBrochures from "@/src/components/ProductBrochures";
 
 const Counter = dynamic(() => import("@/src/components/Counter"), {
   ssr: false,
@@ -178,7 +179,7 @@ const ProjectGrid = () => {
                         style={{ objectFit: "contain", maxWidth: "60%" }}
                       />
                     </div>
-                    <div className="d-flex justify-content-center alig n-items-center my-50 ">
+                    {/* <div className="d-flex justify-content-center alig n-items-center my-50 ">
                       <div class="button">
                         <a
                           onClick={handleButtonClick}
@@ -189,6 +190,9 @@ const ProjectGrid = () => {
                         <b class="top">Click to </b>
                         <b class="bottom">Document</b>
                       </div>
+                    </div> */}
+                    <div className="d-flex justify-content-center align-items-center my-50 ">
+                      <ProductBrochures code="OB" />
                     </div>
                     <p>
                       Quick OB is a user-friendly, cloud-based application
@@ -1046,20 +1050,20 @@ const ProjectGrid = () => {
           </section>
 
           {/* Contact Form Section Start */}
-        {!open &&  <ContactUsGarments TypeOF={"p"} initialValue={"OB"} />}
+          {!open && <ContactUsGarments TypeOF={"p"} initialValue={"OB"} />}
           {/* FAQ Section */}
-                  <section className="pb-70">
-                    <Container>
-                      <div className="section-title text-center mb-50">
-                        <h2 style={{ fontWeight: "700" }}>
-                          Frequently Asked Questions
-                        </h2>
-                      </div>
-                      <div style={{ margin: "0 auto" }}>
-                        <FAQ code="OB" defaultActive={0} />
-                      </div>
-                    </Container>
-                  </section>
+          <section className="pb-70">
+            <Container>
+              <div className="section-title text-center mb-50">
+                <h2 style={{ fontWeight: "700" }}>
+                  Frequently Asked Questions
+                </h2>
+              </div>
+              <div style={{ margin: "0 auto" }}>
+                <FAQ code="OB" defaultActive={0} />
+              </div>
+            </Container>
+          </section>
 
           {/* Contact Form Section End */}
         </>
@@ -1098,26 +1102,33 @@ const ProjectGrid = () => {
                       company_name: "",
                       email: "",
                       city: "",
-                      country:'',
+                      country: "",
                       TypeOfReq: "d",
                       product: "OB",
                       enquiry_details: "",
                     }}
                     validationSchema={Yup.object({
-                      name: Yup.string().max(50, "should not exceed 50 characters.").required(
-                        "Please provide your full name."
-                      ),
-                      phone_number: Yup.string().matches(/^\+?[1-9][0-9-]*(?: [0-9-]+)*$/, "Please enter a valid phone number.").required(
-                  "Please enter your phone number."
-                ),
+                      name: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please provide your full name."),
+                      phone_number: Yup.string()
+                        .matches(
+                          /^\+?[1-9][0-9-]*(?: [0-9-]+)*$/,
+                          "Please enter a valid phone number.",
+                        )
+                        .required("Please enter your phone number."),
                       email: Yup.string()
                         .email("Please provide a valid email address.")
                         .required("Email address is required."),
-                      city: Yup.string().max(50, "should not exceed 50 characters.").required("Please specify your city."),
-                      country: Yup.object().required("Please select your country."),
-                      company_name: Yup.string().max(80, "should not exceed 80 characters.").required(
-                        "Please specify the name of your company."
+                      city: Yup.string()
+                        .max(50, "should not exceed 50 characters.")
+                        .required("Please specify your city."),
+                      country: Yup.object().required(
+                        "Please select your country.",
                       ),
+                      company_name: Yup.string()
+                        .max(80, "should not exceed 80 characters.")
+                        .required("Please specify the name of your company."),
                     })}
                     onSubmit={handleSubmit}
                   >
@@ -1214,7 +1225,7 @@ const ProjectGrid = () => {
                           <Field name="country">
                             {({ field, form }) => (
                               <Autocomplete
-                                options={countryOptions || []} 
+                                options={countryOptions || []}
                                 getOptionLabel={(option) => option.label}
                                 value={field.value || null}
                                 onChange={(event, value) =>

@@ -9789,6 +9789,42 @@ color: white !important;
   margin-bottom: 15px;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .blog-details-area .blog-details-content h3 {
+    font-size: 32px;
+    line-height: 1.3;
+  }
+
+  .blog-details-area .blog-details-content > h4 {
+    font-size: 21px;
+  }
+
+  .blog-details-area .blog-details-content p,
+  .blog-details-area .blog-details-content p a {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .blog-details-area .blog-meta-two {
+    font-size: 13px;
+  }
+
+  .blog-details-area .widget-title {
+    font-size: 22px;
+  }
+
+  .blog-details-area .widget-recent-news ul li h5,
+  .blog-details-area .next-prev-post .post-item h5 {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .blog-details-area .widget-recent-news ul li .date,
+  .blog-details-area .next-prev-post .post-item .date {
+    font-size: 12px;
+  }
+}
+
 .tag-share {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;

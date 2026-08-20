@@ -24,11 +24,21 @@ const DownloadBroucher = ({ TypeOF, initialValue }) => {
   const matchesSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [openLoader, setOpenLoader] = useState(false);
 
-  const brochuresPath = {
-    ERP: "/assets/docs/ERP.pdf",
-    SCM: "/assets/docs/HRMS.pdf",
-    HRMS: "/assets/docs/HRMS.pdf",
-    BMS: "/assets/docs/BMS.pdf",
+  const getBrochureDownloadUrl = async (productShortCode) => {
+    const code = String(productShortCode || "").trim();
+    if (!code) return null;
+
+    try {
+      const response = await axios.get(`/api/ProductBrochure?code=${encodeURIComponent(code)}`);
+      const brochurePath = response?.data?.BrochureFileName;
+      if (!brochurePath) return null;
+
+      const normalizedPath = String(brochurePath).replace(/\\/g, "/");
+      return `http://localhost:1999/api/${normalizedPath}`;
+    } catch (error) {
+      console.error("Error fetching brochure from product master:", error);
+      return null;
+    }
   };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -37,22 +47,36 @@ const DownloadBroucher = ({ TypeOF, initialValue }) => {
       const response = await axios.post("/api/Enquiry/ProductEnquiry", values);
       console.log("Form submitted successfully:", response.data);
 
-      const product = values.product;
-      const brochurePath = brochuresPath[product];
-      console.log("path", brochuresPath[product]);
-      const link = document.createElement("a");
-      link.href = brochurePath;
-      link.setAttribute("download", `brochure_${product}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const product = String(values.product || "").trim();
+      const brochureUrl = await getBrochureDownloadUrl(product);
+
+      if (brochureUrl) {
+        const link = document.createElement("a");
+        link.href = brochureUrl;
+        link.setAttribute("download", `brochure_${product}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        Swal.fire({
+          title: "No brochure available",
+          text: "This product does not currently have a brochure uploaded in the system.",
+          icon: "info",
+          confirmButtonText: "Okay",
+        });
+      }
 
       SendMailProduct(values);
       SendMailInternal(values);
       resetForm();
     } catch (error) {
       console.error("Error submitting form:", error);
-      setError("Error submitting form. Please try again later.");
+      Swal.fire({
+        title: "Submission failed",
+        text: "Error submitting form. Please try again later.",
+        icon: "error",
+        confirmButtonText: "Okay",
+      });
     } finally {
       setOpenLoader(false);
       setSubmitting(false);
