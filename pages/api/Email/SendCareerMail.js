@@ -6,11 +6,14 @@ import { getSMTPProfile } from "../../../lib/smtpProfile";
 const getLocalAttachment = (resumeValue) => {
   if (!resumeValue || typeof resumeValue !== "string") return null;
 
+  const cleanValue = resumeValue.trim();
+  const fileNameFromUrl = cleanValue.includes("/") ? cleanValue.split("/").pop() : cleanValue;
+
   const possiblePaths = [
-    path.join(process.cwd(), "public", "uploads", "careers", resumeValue),
-    path.join(process.cwd(), "uploads", "careers", resumeValue),
-    path.join(process.cwd(), resumeValue),
-    resumeValue,
+    path.join(process.cwd(), "public", "uploads", "careers", fileNameFromUrl),
+    path.join(process.cwd(), "uploads", "careers", fileNameFromUrl),
+    path.join(process.cwd(), fileNameFromUrl),
+    fileNameFromUrl,
   ];
 
   for (const possiblePath of possiblePaths) {

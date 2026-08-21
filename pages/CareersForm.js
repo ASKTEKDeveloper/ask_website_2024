@@ -51,14 +51,13 @@ const CareersForm = () => {
   const pincodeRegex = /^\d{6}$/;
 
   const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+
     setOpenLoader(true);
     try {
-      const file = event.target.files[0];
-      if (!file) {
-        setOpenLoader(false);
-        return;
-      }
-
       setSelectedFilePhoto(file);
       setSelectedFileName(file.name);
 
@@ -69,28 +68,25 @@ const CareersForm = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        timeout: 30000,
       });
 
-      const normalized = response?.data?.path || response?.data || {};
-      const createdPath =
-        normalized?.url ||
-        normalized?.fileUrl ||
-        normalized?.fileName ||
-        (normalized?.fileName ? `https://asktek.net/uploads/careers/${normalized.fileName}` : "") ||
-        "";
+      const fileName = response?.data?.path?.fileName || response?.data?.fileName || "";
+      const createdPath = fileName ? fileName : "";
 
       setSelectedFilePath(createdPath);
       console.log("createdPath", createdPath);
-      setOpenLoader(false);
     } catch (error) {
       console.error("Error uploading file:", error);
-      setOpenLoader(false);
+      setSelectedFilePath("");
       Swal.fire({
         title: "Upload failed",
         text: "Your resume could not be uploaded. Please try again.",
         icon: "error",
         confirmButtonText: "Ok",
       });
+    } finally {
+      setOpenLoader(false);
     }
   };
 
