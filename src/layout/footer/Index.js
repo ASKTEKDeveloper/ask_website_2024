@@ -62,7 +62,7 @@ const Footer = () => {
                 style={{ gap: 8 }}
               >
                 <a
-                  href="https://www.facebook.com/people/Target-ByAsktek/pfbid02yS6174HdoPoxyCWDEuxUtfwSP2y2N4qZXQ48qgr66DJuxSpnjLTbBuXXJS3Qt49Cl/?mibextid=ZbWKwL"
+                  href="https://www.facebook.com/profile.php?id=61560307130188"
                   target="_blank"
                   style={{ width: 28, height: 28 }}
                 >
