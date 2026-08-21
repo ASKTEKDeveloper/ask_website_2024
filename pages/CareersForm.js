@@ -54,32 +54,41 @@ const CareersForm = () => {
     setOpenLoader(true);
     try {
       const file = event.target.files[0];
+      if (!file) {
+        setOpenLoader(false);
+        return;
+      }
+
       setSelectedFilePhoto(file);
       setSelectedFileName(file.name);
 
       const formData = new FormData();
       formData.append("file", file);
 
-      axios
-        .post("/api/uploadmulter", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          setOpenLoader(false);
-          let fileName = response.data.path.fileName;
-          const createdPath = `http://vc.asktek.net/askcareers/${fileName}`;
-          setSelectedFilePath(createdPath);
-          console.log("createdPath", createdPath);
-        })
-        .catch((error) => {
-          console.error("Error uploading file:", error);
-          setOpenLoader(false);
-        });
-    } catch (error) {
-      console.error("Error handling file change:", error);
+      const response = await axios.post("/api/uploadmulter", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const createdPath =
+        response?.data?.fileUrl ||
+        response?.data?.path?.url ||
+        response?.data?.path?.relativePath ||
+        "";
+
+      setSelectedFilePath(createdPath);
+      console.log("createdPath", createdPath);
       setOpenLoader(false);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      setOpenLoader(false);
+      Swal.fire({
+        title: "Upload failed",
+        text: "Your resume could not be uploaded. Please try again.",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -113,9 +122,14 @@ const CareersForm = () => {
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     setOpenLoader(true);
     try {
-      const response = await axios.post("/api/Careers/CareersForm", values);
+      const payload = {
+        ...values,
+        resume: selectedFilePath || values.resume || "",
+      };
+
+      const response = await axios.post("/api/Careers/CareersForm", payload);
       console.log("Form submitted successfully:", response.data);
-      await Promise.all([SendMail(values), SendMail2(values)]);
+      await Promise.all([SendMail(payload), SendMail2(payload)]);
       resetForm();
       setSelectedFileName("");
       setSelectedFilePath("");
@@ -166,7 +180,7 @@ const CareersForm = () => {
       const response = await axios
         .post("/api/Email/SendMail2", {
           from: "hr@asktek.net",
-          to: ["hr@asktek.net",'sathish.asktek@gmail.com'],
+          to: ["hr@asktek.net","sathish.asktech@gmail.com"],
           subject: "New Job Application Received",
           SMTPProfileCode: "HR",
           text: `

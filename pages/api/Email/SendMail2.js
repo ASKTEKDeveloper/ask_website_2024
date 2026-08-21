@@ -3,6 +3,27 @@ import path from "path";
 import axios from "axios";
 import { getSMTPProfile } from "../../../lib/smtpProfile";
 
+const normalizeAttachmentUrl = (rawUrl) => {
+  if (!rawUrl || typeof rawUrl !== "string") return "";
+
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return "";
+
+  try {
+    const parsed = new URL(trimmed);
+    if (["localhost", "127.0.0.1"].includes(parsed.hostname)) {
+      parsed.protocol = "https:";
+      parsed.hostname = "asktek.net";
+      parsed.port = "";
+      return parsed.toString();
+    }
+
+    return trimmed;
+  } catch (error) {
+    return trimmed;
+  }
+};
+
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
@@ -26,20 +47,34 @@ export default async function handler(req, res) {
         html: text,
       };
 
-      if (attachment) {
-        const attachmentResponse = await axios.get(attachment, {
-          responseType: "arraybuffer",
-        });
-        const attachmentData = Buffer.from(attachmentResponse.data, "binary");
-        const fileExtension = path.extname(path.basename(attachment)) || ".pdf";
+      if (attachment && typeof attachment === "string" && attachment.trim()) {
+        const normalizedAttachmentUrl = normalizeAttachmentUrl(attachment);
 
-        mailOptions.attachments = [
-          {
-            filename: `Resume${fileExtension}`,
-            content: attachmentData,
-            contentType: fileExtension === ".pdf" ? "application/pdf" : undefined,
-          },
-        ];
+        try {
+          const attachmentResponse = await axios.get(normalizedAttachmentUrl, {
+            responseType: "arraybuffer",
+            timeout: 120000,
+            validateStatus: (status) => status >= 200 && status < 300,
+          });
+
+          const attachmentData = Buffer.from(attachmentResponse.data, "binary");
+          const fileExtension = path.extname(path.basename(normalizedAttachmentUrl)) || ".pdf";
+
+          mailOptions.attachments = [
+            {
+              filename: `Resume${fileExtension}`,
+              content: attachmentData,
+              contentType: fileExtension === ".pdf" ? "application/pdf" : "application/octet-stream",
+            },
+          ];
+        } catch (attachmentError) {
+          console.warn(
+            "Attachment download failed, sending email without attachment:",
+            attachmentError.message,
+            "URL:",
+            normalizedAttachmentUrl
+          );
+        }
       }
 
       const info = await transporter.sendMail(mailOptions);
