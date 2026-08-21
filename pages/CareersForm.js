@@ -101,18 +101,18 @@ const CareersForm = () => {
 
     setOpenLoader(true);
     try {
-      const formData = new FormData();
-      formData.append("file", selectedFilePhoto);
-      formData.append("name", values.name || "");
-      formData.append("phone_number", values.phone_number || "");
-      formData.append("email", values.email || "");
-      formData.append("gender", values.gender || "");
-      formData.append("years_of_experience", values.years_of_experience || "");
-      formData.append("from", "hr@asktek.net");
-      formData.append("to", JSON.stringify([values.email, "sathish.asktech@gmail.com", "hr@asktek.net"]));
-      formData.append("subject", "Application for Job Opportunity at ASK Technology");
-      formData.append("SMTPProfileCode", "HR");
-      formData.append(
+      const applicantFormData = new FormData();
+      applicantFormData.append("file", selectedFilePhoto);
+      applicantFormData.append("name", values.name || "");
+      applicantFormData.append("phone_number", values.phone_number || "");
+      applicantFormData.append("email", values.email || "");
+      applicantFormData.append("gender", values.gender || "");
+      applicantFormData.append("years_of_experience", values.years_of_experience || "");
+      applicantFormData.append("from", "hr@asktek.net");
+      applicantFormData.append("to", String(values.email || ""));
+      applicantFormData.append("subject", "Application for Job Opportunity at ASK Technology");
+      applicantFormData.append("SMTPProfileCode", "HR");
+      applicantFormData.append(
         "text",
         `
         <p>Dear ${values.name},</p>
@@ -127,13 +127,46 @@ const CareersForm = () => {
         `
       );
 
-      const response = await axios.post("/api/Email/SendCareerMail", formData, {
+      const hrFormData = new FormData();
+      hrFormData.append("file", selectedFilePhoto);
+      hrFormData.append("name", values.name || "");
+      hrFormData.append("phone_number", values.phone_number || "");
+      hrFormData.append("email", values.email || "");
+      hrFormData.append("gender", values.gender || "");
+      hrFormData.append("years_of_experience", values.years_of_experience || "");
+      hrFormData.append("from", "hr@asktek.net");
+      hrFormData.append("to", "hr@asktek.net");
+      hrFormData.append("subject", "New Job Application Received");
+      hrFormData.append("SMTPProfileCode", "HR");
+      hrFormData.append(
+        "text",
+        `
+        <p>Dear HR Team,</p>
+        <p>A new job application has been received from:</p>
+        <p><strong>Name:</strong> ${values.name || ""}</p>
+        <p><strong>Email:</strong> ${values.email || ""}</p>
+        <p><strong>Phone Number:</strong> ${values.phone_number || ""}</p>
+        <p>Please review the application and proceed with the necessary steps in the recruitment process.</p>
+        <p>Best Regards,</p>
+        <p>ASK Technology HR Team</p>
+        <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ hr@asktek.net</p>
+        <p><a href="http://www.asktek.net">www.asktek.net</a></p>
+        `
+      );
+
+      const applicantMail = await axios.post("/api/Email/SendCareerMail", applicantFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      if (response?.data?.message) {
+      const hrMail = await axios.post("/api/Email/SendCareerMail", hrFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (applicantMail?.data?.message && hrMail?.data?.message) {
         resetForm();
         setSelectedFileName("");
         setSelectedFilePath("");
@@ -143,6 +176,13 @@ const CareersForm = () => {
           text: "Your job application has been submitted successfully. We'll review your application and get back to you shortly",
           icon: "success",
           confirmButtonText: "Done",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "There was an issue sending your application email. Please try again later.",
+          icon: "error",
+          confirmButtonText: "Ok",
         });
       }
     } catch (error) {

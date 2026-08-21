@@ -289,7 +289,7 @@ const Index = () => {
             </h2>
           </div>
 
-          <Slider {...settings} className="project-slider-active">
+          <Slider {...settings} className="project-slider-active mb-55">
             {/*1 Garment ERP for Knit & Woven*/}
             <div className="project-slider-item">
               <div
@@ -992,7 +992,7 @@ const Index = () => {
             </div> */}
           </Slider>
         </Container>
-        <div className="project-shapes">
+        {/* <div className="project-shapes">
           <img
             className="shape one"
             src="assets/images/shapes/project-left.png"
@@ -1003,7 +1003,7 @@ const Index = () => {
             src="assets/images/shapes/project-right.png"
             alt="shape"
           />
-        </div>
+        </div> */}
       </section>
       {/* Project Area end */}
 

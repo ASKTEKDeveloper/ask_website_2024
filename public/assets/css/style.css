@@ -914,10 +914,12 @@ a.theme-btn.style-four:not(:hover):after {
 .slick-dots {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-bottom:40px;
   margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
