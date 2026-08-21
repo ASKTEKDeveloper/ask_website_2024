@@ -11,9 +11,17 @@ const normalizeAttachmentUrl = (rawUrl) => {
 
   try {
     const parsed = new URL(trimmed);
-    if (["localhost", "127.0.0.1"].includes(parsed.hostname)) {
+    const host = parsed.hostname.toLowerCase();
+
+    if (["localhost", "127.0.0.1", "vc.asktek.net", "asktek.net"].includes(host)) {
       parsed.protocol = "https:";
-      parsed.hostname = "asktek.net";
+      parsed.hostname = "live.asktek.net";
+      parsed.port = "";
+      return parsed.toString();
+    }
+
+    if (host === "live.asktek.net") {
+      parsed.protocol = "https:";
       parsed.port = "";
       return parsed.toString();
     }

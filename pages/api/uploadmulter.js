@@ -60,21 +60,24 @@ export default async function handler(req, res) {
 
     const siteBaseUrl =
       process.env.NEXT_PUBLIC_SITE_URL ||
-      (host.includes("localhost") || host.includes("127.0.0.1")
-        ? "https://asktek.net"
+      (host.includes("localhost") || host.includes("127.0.0.1") || host.includes("vc.asktek.net") || host.includes("asktek.net")
+        ? "https://live.asktek.net"
         : `${protocol}://${host}`) ||
-      "https://asktek.net";
+      "https://live.asktek.net";
 
     const relativePath = `/uploads/careers/${req.file.filename}`;
     const fileUrl = `${siteBaseUrl.replace(/\/$/, "")}${relativePath}`;
+    const localPath = path.join(uploadFolder, req.file.filename);
 
     return res.status(200).json({
       message: "File uploaded successfully",
       fileUrl,
+      localPath,
       path: {
         fileName: req.file.filename,
         url: fileUrl,
         relativePath,
+        localPath,
       },
     });
   });

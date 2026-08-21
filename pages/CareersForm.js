@@ -72,9 +72,10 @@ const CareersForm = () => {
       });
 
       const createdPath =
-        response?.data?.fileUrl ||
+        response?.data?.path?.fileName ||
+        response?.data?.fileName ||
         response?.data?.path?.url ||
-        response?.data?.path?.relativePath ||
+        response?.data?.fileUrl ||
         "";
 
       setSelectedFilePath(createdPath);
@@ -150,7 +151,7 @@ const CareersForm = () => {
 
   const SendMail = async (datas) => {
     try {
-      const response = await axios.post("/api/Email/SendMail2", {
+      const response = await axios.post("/api/Email/SendCareerMail", {
         from: "hr@asktek.net",
         to: [`${datas.email}`,'sathish.asktech@gmail.com'],
         subject: "Application for Job Opportunity at ASK Technology",
@@ -178,7 +179,7 @@ const CareersForm = () => {
   const SendMail2 = async (datas) => {
     try {
       const response = await axios
-        .post("/api/Email/SendMail2", {
+        .post("/api/Email/SendCareerMail", {
           from: "hr@asktek.net",
           to: ["hr@asktek.net","sathish.asktech@gmail.com"],
           subject: "New Job Application Received",
