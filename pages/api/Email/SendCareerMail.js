@@ -9,7 +9,10 @@ const getLocalAttachment = (resumeValue) => {
   const cleanValue = resumeValue.trim();
   const fileNameFromUrl = cleanValue.includes("/") ? cleanValue.split("/").pop() : cleanValue;
 
+  const tempUploadFolder = path.join(require("os").tmpdir(), "asktek-careers");
+
   const possiblePaths = [
+    path.join(tempUploadFolder, fileNameFromUrl),
     path.join(process.cwd(), "public", "uploads", "careers", fileNameFromUrl),
     path.join(process.cwd(), "uploads", "careers", fileNameFromUrl),
     path.join(process.cwd(), fileNameFromUrl),

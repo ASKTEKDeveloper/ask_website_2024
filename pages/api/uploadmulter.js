@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
+import os from "os";
 import multer from "multer";
 
-const uploadFolder = path.join(process.cwd(), "public", "uploads", "careers");
+const uploadFolder = path.join(os.tmpdir(), "asktek-careers");
 fs.mkdirSync(uploadFolder, { recursive: true });
 
 const storage = multer.diskStorage({
@@ -47,16 +48,14 @@ export default async function handler(req, res) {
     }
 
     const fileName = req.file.filename;
-    const fileUrl = `https://asktek.net/uploads/careers/${fileName}`;
 
     return res.status(200).json({
       message: "File uploaded successfully",
       path: {
         fileName,
-        url: fileUrl,
-        relativePath: `/uploads/careers/${fileName}`,
+        relativePath: fileName,
       },
-      fileUrl,
+      fileName,
     });
   });
 }
