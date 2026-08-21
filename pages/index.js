@@ -284,7 +284,8 @@ const Index = () => {
         <Container>
           <div className="section-title text-center mb-55 wow fadeInUp delay-0-2s">
             <h2 className="new-font-play">
-              PRODUCTS & <span style={{ color: "#9376E0" }}>SERVICES</span>
+              OUR PRODUCTS 
+              {/* & <span style={{ color: "#9376E0" }}>SERVICES</span> */}
             </h2>
           </div>
 
@@ -1007,7 +1008,7 @@ const Index = () => {
       {/* Project Area end */}
 
       {/* Services Area start */}
-      <section className="services-area px-3  bgc-gray text-white pt-75 pb-10 rel z-1">
+      {/* <section className="services-area px-3  bgc-gray text-white pt-75 pb-10 rel z-1">
         <Container>
           <div className="row medium-gap">
             <div className="col-xl-12 col-md-12">
@@ -1225,7 +1226,7 @@ const Index = () => {
             </div>
           </div>
         </Container>
-      </section>
+      </section> */}
       {/* Services Area end */}
       {/* Why Choose Us Area start */}
       <section className="why-choose-us-area px-3  py-130 rpy-100 rel z-1">

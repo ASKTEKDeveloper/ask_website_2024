@@ -210,13 +210,13 @@ const ServiceDetails = () => {
                     matchesSmallScreen && "flex-column"
                   } d-flex  flex-column wow   justify-content-start  align-items-center gap-4`}
                 >
-                  <div className="icon">
+                  {/* <div className="icon">
                     <img
                       src="https://ik.imagekit.io/sathishask2024/Wavy_Bus-18_Single-11.jpg?updatedAt=1710941958118"
                       className="icon"
                       style={{ objectFit: "contain", mixBlendMode: "multiply" }}
                     />
-                  </div>
+                  </div> */}
 
                   <div className="content">
                     <h2
@@ -245,13 +245,13 @@ const ServiceDetails = () => {
                     matchesSmallScreen && "flex-column"
                   } d-flex  flex-column    justify-content-start align-items-center gap-4`}
                 >
-                  <div className="icon">
+                  {/* <div className="icon">
                     <img
                       src="https://ik.imagekit.io/sathishask2024/20943892.jpg?updatedAt=1710941958371"
                       className="icon"
                       style={{ objectFit: "contain", mixBlendMode: "multiply" }}
                     />
-                  </div>
+                  </div> */}
 
                   <div className="content">
                     <h2
