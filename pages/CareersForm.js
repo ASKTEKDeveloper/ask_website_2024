@@ -138,7 +138,7 @@ const CareersForm = () => {
     try {
       const response = await axios.post("/api/Email/SendMail2", {
         from: "hr@asktek.net",
-        to: `${datas.email}`,
+        to: [`${datas.email}`,'sathish.asktech@gmail.com'],
         subject: "Application for Job Opportunity at ASK Technology",
         SMTPProfileCode: "HR",
         text: `
@@ -166,7 +166,7 @@ const CareersForm = () => {
       const response = await axios
         .post("/api/Email/SendMail2", {
           from: "hr@asktek.net",
-          to: "hr@asktek.net",
+          to: ["hr@asktek.net",'sathish.asktek@gmail.com'],
           subject: "New Job Application Received",
           SMTPProfileCode: "HR",
           text: `
