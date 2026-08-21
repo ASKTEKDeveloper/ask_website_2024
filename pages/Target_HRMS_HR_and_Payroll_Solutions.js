@@ -23,6 +23,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Slide from "@mui/material/Slide";
 import countryList from "react-select-country-list";
 import FAQ from "@/src/components/FAQ";
+import ProductBrochures from "@/src/components/ProductBrochures";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -163,19 +164,9 @@ const ProjectGrid = () => {
                         style={{ objectFit: "contain", maxWidth: "60%" }}
                       />
                     </div>
-                    {/* <div className="d-flex justify-content-center align-items-center my-50 ">
-                      <div class="button">
-                        <a
-                          onClick={handleButtonClick}
-                          style={{ color: "white" }}
-                        >
-                          Download Brochure
-                        </a>
-
-                        <b class="top">Click to </b>
-                        <b class="bottom">Document</b>
-                      </div>
-                    </div> */}
+                      <div className="d-flex justify-content-center align-items-center my-50 ">
+                      <ProductBrochures code="HRMS" />
+                    </div>
                     <p>
                       Say goodbye to HR and payroll complexities with Target
                       HRMS. Tailored for diverse industries, especially
