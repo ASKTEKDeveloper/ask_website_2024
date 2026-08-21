@@ -83,8 +83,7 @@ export default async function handler(req, res) {
 
       const recipients = parseRecipients(body.to || body.email || "");
       const fallbackRecipients = [
-        body.email,
-        "sathish.asktech@gmail.com",
+        body.email,      
         "hr@asktek.net",
       ].filter(Boolean);
       const mailTo = recipients.length ? recipients : fallbackRecipients;
