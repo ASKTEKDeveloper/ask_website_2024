@@ -71,6 +71,7 @@ const Footer = () => {
                 <a
                   href="https://www.youtube.com/@asktechnology4871"
                   target="_blank"
+                  rel="noopener noreferrer"
                   style={{ width: 28, height: 28 }}
                 >
                   <i className="fab fa-youtube" />
@@ -83,7 +84,7 @@ const Footer = () => {
                   <i className="fab fa-instagram" />
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/askteksolutions/"
+                  href="https://www.linkedin.com/showcase/asktek-apparel-solutions/?viewAsMember=true"
                   target="_blank"
                   style={{ width: 28, height: 28 }}
                 >
