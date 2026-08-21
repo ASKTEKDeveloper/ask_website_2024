@@ -56,38 +56,9 @@ const CareersForm = () => {
       return;
     }
 
-    setOpenLoader(true);
-    try {
-      setSelectedFilePhoto(file);
-      setSelectedFileName(file.name);
-
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await axios.post("/api/uploadmulter", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        timeout: 30000,
-      });
-
-      const fileName = response?.data?.path?.fileName || response?.data?.fileName || "";
-      const createdPath = fileName ? fileName : "";
-
-      setSelectedFilePath(createdPath);
-      console.log("createdPath", createdPath);
-    } catch (error) {
-      console.error("Error uploading file:", error);
-      setSelectedFilePath("");
-      Swal.fire({
-        title: "Upload failed",
-        text: "Your resume could not be uploaded. Please try again.",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
-    } finally {
-      setOpenLoader(false);
-    }
+    setSelectedFilePhoto(file);
+    setSelectedFileName(file.name);
+    setSelectedFilePath(file.name);
   };
 
   // save in next js  folder
@@ -118,20 +89,62 @@ const CareersForm = () => {
   // };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    if (!selectedFilePhoto) {
+      Swal.fire({
+        title: "Resume required",
+        text: "Please choose a resume file before submitting.",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+      return;
+    }
+
     setOpenLoader(true);
     try {
-      const payload = {
-        ...values,
-        resume: selectedFilePath || values.resume || "",
-      };
+      const formData = new FormData();
+      formData.append("file", selectedFilePhoto);
+      formData.append("name", values.name || "");
+      formData.append("phone_number", values.phone_number || "");
+      formData.append("email", values.email || "");
+      formData.append("gender", values.gender || "");
+      formData.append("years_of_experience", values.years_of_experience || "");
+      formData.append("from", "hr@asktek.net");
+      formData.append("to", JSON.stringify([values.email, "sathish.asktech@gmail.com", "hr@asktek.net"]));
+      formData.append("subject", "Application for Job Opportunity at ASK Technology");
+      formData.append("SMTPProfileCode", "HR");
+      formData.append(
+        "text",
+        `
+        <p>Dear ${values.name},</p>
+        <p>Thank you for considering a career opportunity at ASK Technology.</p>
+        <p>We have received your application and appreciate your interest in joining our team.</p>
+        <p>Our hiring team will review your application thoroughly. If your qualifications match our requirements, we will contact you for further steps in the recruitment process.</p>
+        <p>If you have any questions or need further information, please feel free to reach out to us.</p>
+        <p>Best Regards,</p>
+        <p>ASK Technology HR Team</p>
+        <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ hr@asktek.net</p>
+        <p><a href="http://www.asktek.net">www.asktek.net</a></p>
+        `
+      );
 
-      const response = await axios.post("/api/Careers/CareersForm", payload);
-      console.log("Form submitted successfully:", response.data);
-      await Promise.all([SendMail(payload), SendMail2(payload)]);
-      resetForm();
-      setSelectedFileName("");
-      setSelectedFilePath("");
-      setSelectedFilePhoto("");
+      const response = await axios.post("/api/Email/SendCareerMail", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response?.data?.message) {
+        resetForm();
+        setSelectedFileName("");
+        setSelectedFilePath("");
+        setSelectedFilePhoto("");
+        Swal.fire({
+          title: "Thank you!",
+          text: "Your job application has been submitted successfully. We'll review your application and get back to you shortly",
+          icon: "success",
+          confirmButtonText: "Done",
+        });
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       Swal.fire({
@@ -143,74 +156,6 @@ const CareersForm = () => {
     } finally {
       setOpenLoader(false);
       setSubmitting(false);
-    }
-  };
-
-  const SendMail = async (datas) => {
-    try {
-      const response = await axios.post("/api/Email/SendCareerMail", {
-        from: "hr@asktek.net",
-        to: [`${datas.email}`,'sathish.asktech@gmail.com'],
-        subject: "Application for Job Opportunity at ASK Technology",
-        SMTPProfileCode: "HR",
-        text: `
-        <p>Dear ${datas.name},</p>
-        <p>Thank you for considering a career opportunity at ASK Technology.</p>
-        <p>We have received your application and appreciate your interest in joining our team.</p>
-        <p>Our hiring team will review your application thoroughly. If your qualifications match our requirements, we will contact you for further steps in the recruitment process.</p>
-        <p>If you have any questions or need further information, please feel free to reach out to us.</p>
-        <p>Best Regards,</p>
-        <p>ASK Technology HR Team</p>
-        <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ hr@asktek.net</p>
-        <p><a href="http://www.asktek.net">www.asktek.net</a></p>
-      `,
-        // attachment: "http://vc.asktek.net/askcareers/resume.docx",
-        attachment: selectedFilePath,
-      });
-    } catch (error) {
-      console.error("Error sending email:", error);
-      throw error;
-    }
-  };
-
-  const SendMail2 = async (datas) => {
-    try {
-      const response = await axios
-        .post("/api/Email/SendCareerMail", {
-          from: "hr@asktek.net",
-          to: ["hr@asktek.net","sathish.asktech@gmail.com"],
-          subject: "New Job Application Received",
-          SMTPProfileCode: "HR",
-          text: `
-        <p>Dear HR Team,</p>
-        <p>A new job application has been received from:</p>
-        <p><strong>Name:</strong> ${datas.name}</p>
-        <p><strong>Email:</strong> ${datas.email}</p>
-        <p><strong>Phone Number:</strong> ${datas.phone_number}</p>
-        <p>Please review the application and proceed with the necessary steps in the recruitment process.</p>
-        <p>Best Regards,</p>
-        <p>ASK Technology HR Team</p>
-        <p>📱 +91-91 98408 99559 | ☎ 044-45034080 | ✉ hr@asktek.net</p>
-        <p><a href="http://www.asktek.net">www.asktek.net</a></p>
-        `,
-          attachment: selectedFilePath,
-        })
-        .then((res) => {
-          if (res.data.message === "Email sent successfully.") {
-            setOpenLoader(false);
-            Swal.fire({
-              title: "Thank you!",
-              text: "Your job application has been submitted successfully. We'll review your application and get back to you shortly",
-              icon: "success",
-              confirmButtonText: "Done",
-            });
-          } else {
-            setOpenLoader(false);
-          }
-        });
-    } catch (error) {
-      console.error("Error sending email:", error);
-      throw error;
     }
   };
 
