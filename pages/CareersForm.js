@@ -41,6 +41,8 @@ const CareersForm = () => {
   const [selectedFilePhoto, setSelectedFilePhoto] = useState("");
   const [selectedFileName, setSelectedFileName] = useState("");
   const [selectedFilePath, setSelectedFilePath] = useState("");
+  const [selectedFileBase64, setSelectedFileBase64] = useState("");
+  const [selectedFileMimeType, setSelectedFileMimeType] = useState("");
 
   // Custom validation regex patterns
   const addressRegex = /^[a-zA-Z0-9\s.,:'/()\-\x{2013}\x{2014}]{1,100}$/;
@@ -74,11 +76,11 @@ const CareersForm = () => {
       const createdPath =
         response?.data?.path?.fileName ||
         response?.data?.fileName ||
-        response?.data?.path?.url ||
-        response?.data?.fileUrl ||
         "";
 
       setSelectedFilePath(createdPath);
+      setSelectedFileBase64(response?.data?.base64 || "");
+      setSelectedFileMimeType(response?.data?.mimeType || "application/octet-stream");
       console.log("createdPath", createdPath);
       setOpenLoader(false);
     } catch (error) {
@@ -126,6 +128,8 @@ const CareersForm = () => {
       const payload = {
         ...values,
         resume: selectedFilePath || values.resume || "",
+        attachmentBase64: selectedFileBase64 || "",
+        attachmentMimeType: selectedFileMimeType || "application/octet-stream",
       };
 
       const response = await axios.post("/api/Careers/CareersForm", payload);
@@ -135,6 +139,8 @@ const CareersForm = () => {
       setSelectedFileName("");
       setSelectedFilePath("");
       setSelectedFilePhoto("");
+      setSelectedFileBase64("");
+      setSelectedFileMimeType("");
     } catch (error) {
       console.error("Error submitting form:", error);
       Swal.fire({
