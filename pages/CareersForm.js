@@ -71,9 +71,12 @@ const CareersForm = () => {
         },
       });
 
+      const normalized = response?.data?.path || response?.data || {};
       const createdPath =
-        response?.data?.path?.fileName ||
-        response?.data?.fileName ||
+        normalized?.url ||
+        normalized?.fileUrl ||
+        normalized?.fileName ||
+        (normalized?.fileName ? `https://asktek.net/uploads/careers/${normalized.fileName}` : "") ||
         "";
 
       setSelectedFilePath(createdPath);
