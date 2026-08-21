@@ -12,12 +12,25 @@ const Footer = () => {
     <Container maxWidth="xl">
       <footer
         className="main-footer bgc-gray footer-white rel z-1"
-        style={{ borderTopLeftRadius: 50, borderTopRightRadius: 50, paddingTop: 18 }}
+        style={{
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
+          paddingTop: 18,
+        }}
       >
-        <div className="row align-items-start medium-gap" style={{ padding: "18px 20px 0", margin: 0 }}>
+        <div
+          className="row align-items-start medium-gap"
+          style={{ padding: "18px 20px 0", margin: 0 }}
+        >
           <div className="col-lg-4" style={{ paddingRight: 12 }}>
-            <div className="footer-widget widget_about wow fadeInUp delay-0-2s" style={{ marginBottom: 0 }}>
-              <div className="footer-logo mb-20 d-flex justify-content-center align-items-center" style={{ marginBottom: 14 }}>
+            <div
+              className="footer-widget widget_about wow fadeInUp delay-0-2s"
+              style={{ marginBottom: 0 }}
+            >
+              <div
+                className="footer-logo mb-20 d-flex justify-content-center align-items-center"
+                style={{ marginBottom: 14 }}
+              >
                 <img
                   src="assets/images/logos/logo-one.png"
                   alt="Logo"
@@ -25,13 +38,29 @@ const Footer = () => {
                   style={{ maxHeight: 62, objectFit: "contain" }}
                 />
               </div>
-              <p style={{ color: "#EEEEEE", marginBottom: 10, fontSize: 13, lineHeight: 1.6 }} className="text-center">
+              <p
+                style={{
+                  color: "#EEEEEE",
+                  marginBottom: 10,
+                  fontSize: 13,
+                  lineHeight: 1.6,
+                }}
+                className="text-center"
+              >
                 #36,2nd floor, Railway Border Rd, opposite to Kodambakkam
                 Railway Station, Akbarabad, Kodambakkam, Chennai, Tamil Nadu
                 600024.
               </p>
-              <h5 className="text-center" style={{ marginBottom: 8, fontSize: 15 }}>Follow Us</h5>
-              <div className="social-style-one text-center d-flex justify-content-center align-items-center" style={{ gap: 8 }}>
+              <h5
+                className="text-center"
+                style={{ marginBottom: 8, fontSize: 15 }}
+              >
+                Follow Us
+              </h5>
+              <div
+                className="social-style-one text-center d-flex justify-content-center align-items-center"
+                style={{ gap: 8 }}
+              >
                 <a
                   href="https://www.facebook.com/people/Target-ByAsktek/pfbid02yS6174HdoPoxyCWDEuxUtfwSP2y2N4qZXQ48qgr66DJuxSpnjLTbBuXXJS3Qt49Cl/?mibextid=ZbWKwL"
                   target="_blank"
@@ -67,19 +96,46 @@ const Footer = () => {
           <div className="col-lg-8" style={{ paddingLeft: 12 }}>
             <div className="row g-2 align-items-start">
               <div className="col-md-6">
-                <div className="footer-widget widget_nav_menu wow fadeInUp delay-0-3s" style={{ marginBottom: 0, textAlign: 'center' }}>
-                  <h4 className="footer-title" style={{ marginBottom: 10, fontSize: 18, textAlign: 'center' }}>Quick Links</h4>
-                  <ul className="list-style-two" style={{ marginBottom: 0, lineHeight: 1.7, listStyle: 'none', paddingLeft: 0, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <li style={{ textAlign: 'center' }}>
+                <div
+                  className="footer-widget widget_nav_menu wow fadeInUp delay-0-3s"
+                  style={{ marginBottom: 0, textAlign: "center" }}
+                >
+                  <h3
+                    className="footer-title"
+                    style={{
+                      marginBottom: 10,
+                      fontSize: 18,
+                      textAlign: "center",
+                    }}
+                  >
+                    Quick Links
+                  </h3>
+                  <ul
+                    className="list-style-two"
+                    style={{
+                      marginBottom: 0,
+                      lineHeight: 1.7,
+                      listStyle: "none",
+                      paddingLeft: 0,
+                      textAlign: "center",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="about-us">{`About Us`}</Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
-                      <Link legacyBehavior href="Our_Engagement_Model">{`Engagement Model`}</Link>
+                    <li style={{ textAlign: "center" }}>
+                      <Link
+                        legacyBehavior
+                        href="Our_Engagement_Model"
+                      >{`Engagement Model`}</Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="contact">{`Contact US`}</Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="Careers">{`Careers`}</Link>
                     </li>
                   </ul>
@@ -87,35 +143,62 @@ const Footer = () => {
               </div>
 
               <div className="col-md-6">
-                <div className="footer-widget widget_nav_menu wow fadeInUp delay-0-5s" style={{ marginBottom: 0, textAlign: 'center' }}>
-                  <h4 className="footer-title" style={{ marginBottom: 10, fontSize: 18, textAlign: 'center' }}>Products</h4>
-                  <ul className="list-style-two" style={{ marginBottom: 0, lineHeight: 1.7, listStyle: 'none', paddingLeft: 0, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <li style={{ textAlign: 'center' }}>
+                <div
+                  className="footer-widget widget_nav_menu wow fadeInUp delay-0-5s"
+                  style={{ marginBottom: 0, textAlign: "center" }}
+                >
+                  <h3
+                    className="footer-title"
+                    style={{
+                      marginBottom: 10,
+                      fontSize: 18,
+                      textAlign: "center",
+                    }}
+                  >
+                    Products
+                  </h3>
+                  <ul
+                    className="list-style-two"
+                    style={{
+                      marginBottom: 0,
+                      lineHeight: 1.7,
+                      listStyle: "none",
+                      paddingLeft: 0,
+                      textAlign: "center",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="erp-for-textiles-and-garments">
                         <a>Garment ERP for Knit &amp; Woven</a>
                       </Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="buying_house_management">
                         <a>Buying House Management</a>
                       </Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="garment_inspection_softwares">
                         <a>Garment Inspection Software</a>
                       </Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="operation_bulletin">
                         Operation Bulletin (QUICK OB)
                       </Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
-                      <Link legacyBehavior href="Target_HRMS_HR_and_Payroll_Solutions">
+                    <li style={{ textAlign: "center" }}>
+                      <Link
+                        legacyBehavior
+                        href="Target_HRMS_HR_and_Payroll_Solutions"
+                      >
                         <a>Target HRMS – HR &amp; Payroll Solution</a>
                       </Link>
                     </li>
-                    <li style={{ textAlign: 'center' }}>
+                    <li style={{ textAlign: "center" }}>
                       <Link legacyBehavior href="ai_solution">
                         <a>AI Solutions for Garment Manufacturing</a>
                       </Link>
@@ -127,7 +210,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="footer-shapes">
+        {/* <div className="footer-shapes">
           <img
             className="shape one"
             src="assets/images/footer/footer-bg-weve-shape.png"
@@ -143,7 +226,7 @@ const Footer = () => {
             src="assets/images/footer/footer-right.png"
             alt="Shape"
           />
-        </div>
+        </div> */}
         <div className="d-flex justify-content-center align-items-center text-center">
           <div>
             <Typography

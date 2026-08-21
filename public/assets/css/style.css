@@ -11528,7 +11528,7 @@ blockquote .name:before {
   color: #b6bace;
 }
 .footer-white a:not(:hover) {
-  color: #b6bace;
+  color: #fff;
 }
 .footer-white .read-more {
   color: var(--primary-color);
