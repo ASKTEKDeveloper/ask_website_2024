@@ -2,23 +2,35 @@ import Link from "next/link";
 import Search from "../Search";
 import HeaderTop from "./HeaderTop";
 import Menu from "./Menu";
+import { Container, Dialog, DialogContent, Slide } from "@mui/material";
+import ContactUsProduct from "@/pages/ContactUsProduct";
+import React, { useState } from "react";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const DefaultHeader = () => {
+  
   return (
+    <> 
     <header className="main-header header-two">
-      <HeaderTop />
+   
       {/*Header-Upper*/}
       <div className="header-upper bg-white">
-        <div className="container-fluid clearfix">
+      <HeaderTop />
+       {/* <div className="container-fluid clearfix>*/}      
+        <Container maxWidth={false} >
           <div className="header-inner rel d-flex align-items-center">
             <div className="logo-outer">
               <div className="logo">
-                <Link legacyBehavior href="/index">
+                <Link legacyBehavior href="/">
                   <a>
                     <img
-                      src="assets/images/logos/logo.png"
+                     src="/assets/images/logos/logo.png"
                       alt="Logo"
                       title="Logo"
+                      style={{ maxWidth: "50%" }}
                     />
                   </a>
                 </Link>
@@ -26,23 +38,30 @@ const DefaultHeader = () => {
             </div>
             <div className="nav-outer mx-auto clearfix">
               {/* Main Menu */}
-              <Menu />
+              <Menu  />
               {/* Main Menu End*/}
             </div>
             {/* Nav Search */}
-            <div className="nav-search ms-xl-auto py-10">
+            {/* <div className="nav-search ms-xl-auto py-10">
               <Search />
-            </div>
+            </div> */}
             {/* Menu Button */}
-            <div className="menu-btns">
-              <Link legacyBehavior href="/contact">
-                <a className="theme-btn">
-                  Get a Quote <i className="fas fa-long-arrow-right" />
-                </a>
+            <div className="menu-btns me-2" >
+              <Link legacyBehavior href="partner_with_us">
+                  <a className="theme-btn" onClick={null}>
+                  Partner With Us <i className="fas fa-long-arrow-right" />
+                  </a>
               </Link>
             </div>
+            {/* <div className="menu-btns">
+              <Link legacyBehavior href="hire_a_developer">
+                <a className="theme-btn">
+                  Hire A Developer <i className="fas fa-long-arrow-right" />
+                </a>
+              </Link>
+            </div> */}
             {/* Header Social */}
-            <div className="social-style-two">
+            {/* <div className="social-style-two">
               <a href="#">
                 <i className="fab fa-facebook-f" />
               </a>
@@ -55,12 +74,14 @@ const DefaultHeader = () => {
               <a href="#">
                 <i className="fab fa-linkedin-in" />
               </a>
-            </div>
+            </div> */}
           </div>
-        </div>
+        </Container>
       </div>
       {/*End Header Upper*/}
+    
     </header>
+  </>
   );
 };
 export default DefaultHeader;

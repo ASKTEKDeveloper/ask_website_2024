@@ -1,0 +1,1 @@
+select * from tbs_user_mst where User_Id=@User_Id

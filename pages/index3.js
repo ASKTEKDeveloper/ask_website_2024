@@ -204,7 +204,7 @@ const Index3 = () => {
       <section className="what-we-provide rel z-1">
         <div className="container">
           <div className="section-title text-center mb-55 wow fadeInUp delay-0-2s">
-            <span className="sub-title mb-10">What We Provides</span>
+            <span className="sub-title mb-10">Our Services</span>
             <h2>Digital Core Services</h2>
           </div>
           <Slider {...serviceThreeSlider} className="service-three-slider">
@@ -660,7 +660,7 @@ const Index3 = () => {
               <div className="services-content-three mb-30 rmb-65 wow fadeInUp delay-0-2s">
                 <div className="section-title mb-30">
                   <span className="sub-title mb-15">Amazing Services</span>
-                  <h2>We Provide Best IT Services to Growth you Business</h2>
+                  <h2>We Provide the Best IT Services to Growth you Business</h2>
                 </div>
                 <p>
                   Sed ut perspiciatis unde omnis iste natus sit voluptatem
@@ -859,7 +859,7 @@ const Index3 = () => {
                     <div className="content">
                       <span>Email Us</span>
                       <h5>
-                        <a href="mailto:support@gmail.com">support@gmail.com</a>
+                        <a href="mailto:sales@asktek.net">sales@asktek.net</a>
                       </h5>
                     </div>
                   </div>

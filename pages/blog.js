@@ -1,8 +1,46 @@
 import PageBanner from "@/components/PageBanner";
 import Layout from "@/layout";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import moment from "moment";
+import ContactinBlog from "./ContactinBlog";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ContactUsProduct from "./ContactUsProduct";
 
 const Blog = () => {
+  const [blogData, setblogData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const tokent =
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJldmVudGxpc3QiOlt7IlVzZXJJRCI6IjEiLCJMb2dpbkNvZGUiOiIwMSIsIkxvZ2luTmFtZSI6IkFkbWluIiwiRW1haWxJZCI6ImFkbWluQGdtYWlsLmNvbSIsIlVzZXJUeXBlIjoiQURNSU4ifV0sImlhdCI6MTYzODM1NDczMX0.ZW6zEHIXTxfT-QWEzS6-GuY7bRupf2Jc_tp4fXIRabQ";
+  useEffect(() => {
+    getAllBlog();
+  }, []);
+
+  const totalPages = Math.max(1, Math.ceil(blogData.length / pageSize));
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginatedBlogs = blogData.slice(startIndex, startIndex + pageSize);
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+  // get all Reviews Request
+  const getAllBlog = async () => {
+    try {
+      const res = await axios.get("/api/BlogsManage/Blogs", {
+        headers: { Authorization: tokent, "Content-Type": "application/json" },
+      });
+      setblogData(res.data);
+      setCurrentPage(1);
+      console.log("Reviews data", res.data);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
+
+  const formatTitleForURL = (title) => {
+    return title.replace(/\s+/g, "_"); // Replace spaces with underscores
+  };
+
   return (
     <Layout>
       <PageBanner pageName={"Blog Standard"} />
@@ -11,477 +49,116 @@ const Blog = () => {
           <div className="row gap-60">
             <div className="col-lg-8">
               <div className="blog-standard-inner">
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard1.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="/blog">
-                        <a className="tag">Branding</a>
-                      </Link>
+                {paginatedBlogs.map((blog, index) => {
+                  const actualIndex = startIndex + index;
+
+                  return (
+                    <div
+                      key={actualIndex}
+                      className="blog-standard-item wow fadeInUp delay-0-2s"
+                    >
+                      <div className="image">
+                        <img
+                          src={`/api/blog-image?BlogFileName=${blog.BlogFileName}`}
+                          alt="Blog"
+                        />
+                      </div>
+                      <div className="content">
+                        <div className="blog-meta-two mb-5">
+                          <Link
+                            href={`/blog-details?id=${actualIndex}&title=${formatTitleForURL(
+                              blog.BlogTitle,
+                            )}`}
+                          >
+                            <span className="tag">{blog.Category}</span>
+                          </Link>
+                        </div>
+                        <h4>
+                          <Link
+                            href={`/blog-details?id=${actualIndex}&title=${formatTitleForURL(
+                              blog.BlogTitle,
+                            )}`}
+                          >
+                            {blog.BlogTitle}
+                          </Link>
+                        </h4>
+                        {/* <p>
+                          {blog.introduction.length > 100
+                            ? blog.introduction.slice(0, 100) + "....."
+                            : blog.introduction}
+                        </p> */}
+                        <div className="blog-meta-two">
+                          <span>
+                            <i className="far fa-calendar-alt mx-2" />{" "}
+                            {moment(blog.CreatedDate).format("LL")}
+                          </span>
+                        </div>
+                        <hr />
+                        <Link
+                          href={`/blog-details?id=${actualIndex}&title=${formatTitleForURL(
+                            blog.BlogTitle,
+                          )}`}
+                        >
+                          <span className="read-more">
+                            Read More <i className="far fa-arrow-right" />
+                          </span>
+                        </Link>
+                      </div>
                     </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        Rethinking Server-Timing As A Critical Monitoring Tool
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard2.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="/blog">
-                        <a className="tag">Designing</a>
-                      </Link>
-                    </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        Voice Control Considerations For Visually Hidden Link
-                        Names
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard3.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="blog">
-                        <a className="tag">Marketing</a>
-                      </Link>
-                    </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        How To Create Vanilva Script Gantt Adding Task Editing
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard4.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="blog">
-                        <a className="tag">Development</a>
-                      </Link>
-                    </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        Web Design Done Well Delhtful Visualization Examples
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard5.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="/blog">
-                        <a className="tag">Branding</a>
-                      </Link>
-                    </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        DevFest For Ukraine Charity Conference Future Tech
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard6.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="blog">
-                        <a className="tag">UI/UX strategy</a>
-                      </Link>
-                    </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        Smashing Podcast Episode 47 With Soueidan Accessibe
-                        Matter?
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <div className="blog-standard-item wow fadeInUp delay-0-2s">
-                  <div className="image">
-                    <img
-                      src="assets/images/blog/blog-standard7.jpg"
-                      alt="Blog"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="blog-meta-two mb-5">
-                      <Link legacyBehavior href="blog">
-                        <a className="tag">Mobile app</a>
-                      </Link>
-                    </div>
-                    <h4>
-                      <Link legacyBehavior href="blog-details">
-                        DevFest For Ukraine Charity Conference Future Tech
-                      </Link>
-                    </h4>
-                    <p>
-                      Our experts help create the right website for acrosse and
-                      devices consideration user promotey
-                    </p>
-                    <div className="blog-meta-two">
-                      <a className="author" href="#">
-                        Kenneth S. Denman
-                      </a>
-                      <a className="date" href="#">
-                        <i className="far fa-calendar-alt" /> June 26, 2022
-                      </a>
-                    </div>
-                    <hr />
-                    <Link legacyBehavior href="/blog-details">
-                      <a className="read-more">
-                        Read More <i className="far fa-long-arrow-right" />
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-                <ul className="pagination flex-wrap wow fadeInUp delay-0-2s">
-                  <li className="page-item disabled">
-                    <span className="page-link">
-                      <i className="fas fa-angle-left" />
-                    </span>
-                  </li>
-                  <li className="page-item active">
-                    <span className="page-link">
-                      01
-                      <span className="sr-only">(current)</span>
-                    </span>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      02
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      03
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      04
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      <i className="fas fa-angle-right" />
-                    </a>
-                  </li>
-                </ul>
+                  );
+                })}
+
+                {blogData.length > 0 && totalPages > 1 && (
+                  <ul className="pagination flex-wrap wow fadeInUp delay-0-2s">
+                    <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                      <button
+                        type="button"
+                        className="page-link"
+                        onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                        disabled={currentPage === 1}
+                      >
+                        <i className="fas fa-chevron-left" />
+                      </button>
+                    </li>
+
+                    {pageNumbers.map((pageNumber) => (
+                      <li
+                        key={pageNumber}
+                        className={`page-item ${currentPage === pageNumber ? "active" : ""}`}
+                      >
+                        <button
+                          type="button"
+                          className="page-link"
+                          onClick={() => setCurrentPage(pageNumber)}
+                        >
+                          {String(pageNumber).padStart(2, "0")}
+                        </button>
+                      </li>
+                    ))}
+
+                    <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                      <button
+                        type="button"
+                        className="page-link"
+                        onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                        disabled={currentPage === totalPages}
+                      >
+                        <i className="fas fa-chevron-right" />
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
             <div className="col-lg-4 col-md-7 col-sm-9">
               <div className="main-sidebar rmt-75">
-                <div className="widget widget-search wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Search</h4>
-                  <form
-                    onSubmit={(e) => e.preventDefault()}
-                    action="#"
-                    className="default-search-form"
-                  >
-                    <input type="text" placeholder="Find Keywords" required />
-                    <button
-                      type="submit"
-                      className="searchbutton far fa-search"
-                    />
-                  </form>
-                </div>
-                <div className="widget widget-category wow fadeInUp delay-0-4s">
-                  <h4 className="widget-title">Category</h4>
-                  <ul>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Digital Solutions
-                      </Link>{" "}
-                      <span>(25)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Saas Landing
-                      </Link>{" "}
-                      <span>(09)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        WordPress
-                      </Link>{" "}
-                      <span>(18)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Graphics Design
-                      </Link>{" "}
-                      <span>(05)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Business Consulting
-                      </Link>{" "}
-                      <span>(03)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        SEO Optimization
-                      </Link>{" "}
-                      <span>(04)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Marketing
-                      </Link>{" "}
-                      <span>(05)</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="widget widget-recent-news wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Recent News</h4>
-                  <ul>
-                    <li>
-                      <div className="image">
-                        <img src="assets/images/widgets/news1.jpg" alt="News" />
-                      </div>
-                      <div className="content">
-                        <h5>
-                          <Link legacyBehavior href="blog-details">
-                            Build Group Chat App With Vanilla JS Twilio Node
-                          </Link>
-                        </h5>
-                        <span className="date">
-                          <i className="far fa-calendar-alt" />
-                          <a href="#">25 June 2022</a>
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="image">
-                        <img src="assets/images/widgets/news2.jpg" alt="News" />
-                      </div>
-                      <div className="content">
-                        <h5>
-                          <Link legacyBehavior href="blog-details">
-                            Expand Your Horiz Desktop Wallpapers Edition See
-                          </Link>
-                        </h5>
-                        <span className="date">
-                          <i className="far fa-calendar-alt" />
-                          <a href="#">25 June 2022</a>
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="image">
-                        <img src="assets/images/widgets/news3.jpg" alt="News" />
-                      </div>
-                      <div className="content">
-                        <h5>
-                          <Link legacyBehavior href="blog-details">
-                            Manage Accessible Design System With Colorntes
-                          </Link>
-                        </h5>
-                        <span className="date">
-                          <i className="far fa-calendar-alt" />
-                          <a href="#">25 June 2022</a>
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div className="widget widget-cta wow fadeInUp delay-0-2s">
-                  <h4>Build Awesome Website/Template</h4>
-                  <Link legacyBehavior href="/contact">
-                    <a className="theme-btn style-two">
-                      Contact Us <i className="fas fa-angle-double-right" />
-                    </a>
-                  </Link>
-                  <img src="assets/images/widgets/cta.png" alt="CTA" />
-                  <img
-                    className="cta-bg-line"
-                    src="assets/images/widgets/cta-bg-line.png"
-                    alt="CTA bg line"
-                  />
-                  <img
-                    className="cta-bg-dots"
-                    src="assets/images/widgets/cta-bg-dots.png"
-                    alt="CTA bg Dots"
-                  />
-                </div>
-                <div className="widget widget-tag-cloud wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Popular Tags</h4>
-                  <div className="tag-coulds">
-                    <Link legacyBehavior href="blog">
-                      Design
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      Landing
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      software
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      web
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      education
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      email marketing
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      SEO
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      development
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      wordpress
-                    </Link>
-                  </div>
+                <div className="mb-50 wow fadeInUp delay-0-2s">
+                  <ContactinBlog />
                 </div>
               </div>
+            </div>
+            <div className="col-lg-12 contactus">
+              <ContactUsProduct />
             </div>
           </div>
         </div>
@@ -489,4 +166,5 @@ const Blog = () => {
     </Layout>
   );
 };
+
 export default Blog;

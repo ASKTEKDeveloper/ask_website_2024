@@ -103,7 +103,7 @@ const Services = () => {
             <div className="col-xl-4 col-md-6">
               <div className="section-title mb-60 wow fadeInUp delay-0-2s">
                 <span className="sub-title mb-15">Latest Services</span>
-                <h2>We Provide Best IT Services</h2>
+                <h2>We Provide the Best IT Services</h2>
               </div>
             </div>
             <div className="col-xl-4 col-md-6">

@@ -1,8 +1,103 @@
 import PageBanner from "@/components/PageBanner";
 import Layout from "@/layout";
 import Link from "next/link";
+import ContactinBlog from "./ContactinBlog";
+import parse, { domToReact } from "html-react-parser";
+import { useRouter } from "next/router";
+import { Dialog, Divider, IconButton, LinearProgress } from "@mui/material";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ContactUsProduct from "./ContactUsProduct";
 
 const BlogDetails = () => {
+  const router = useRouter();
+  const [blogData, setBlogData] = useState([]);
+  const [openLoader, setOpenLoader] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const token =
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJldmVudGxpc3QiOlt7IlVzZXJJRCI6IjEiLCJMb2dpbkNvZGUiOiIwMSIsIkxvZ2luTmFtZSI6IkFkbWluIiwiRW1haWxJZCI6ImFkbWluQGdtYWlsLmNvbSIsIlVzZXJUeXBlIjoiQURNSU4ifV0sImlhdCI6MTYzODM1NDczMX0.ZW6zEHIXTxfT-QWEzS6-GuY7bRupf2Jc_tp4fXIRabQ";
+
+  useEffect(() => {
+    getAllBlog();
+  }, []);
+
+  // Get all Blogs Request
+  const getAllBlog = async () => {
+    setOpenLoader(true);
+    try {
+      const res = await axios.get("/api/BlogsManage/Blogs", {
+        headers: { Authorization: token, "Content-Type": "application/json" },
+      });
+      setBlogData(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      setError("Failed to load blog data.");
+      setLoading(false);
+    } finally {
+      setOpenLoader(false);
+    }
+  };
+
+  const { id, title } = router.query;
+  const blog = blogData[id];
+  const currentBlogIndex = parseInt(id, 10);
+
+  const formatTitleForURL = (title) => {
+    return title.replace(/\s+/g, "_"); // Replace spaces with underscores
+  };
+
+  if (loading) {
+    return (
+      <Layout>
+        <Dialog
+          open={openLoader}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          fullWidth
+        >
+          <LinearProgress />
+        </Dialog>
+      </Layout>
+    );
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!blog) {
+    return <div>Blog not found</div>;
+  }
+
+  const prevIndex = currentBlogIndex - 1 >= 0 ? currentBlogIndex - 1 : null;
+  const nextIndex =
+    currentBlogIndex + 1 < blogData.length ? currentBlogIndex + 1 : null;
+
+  // Custom parser options for anchor tags
+  const parserOptions = {
+    replace: (domNode) => {
+      if (domNode.name === "a") {
+        return (
+          <a
+            style={{
+              textDecoration: "none",
+              color: "green",
+            }}
+            href={domNode.attribs.href}
+            target={domNode.attribs.target || "_self"}
+            rel={domNode.attribs.rel || "noopener noreferrer"}
+          >
+            {domToReact(domNode.children, parserOptions)}
+          </a>
+        );
+      }
+    },
+  };
+
   return (
     <Layout>
       <PageBanner pageName={"Blog Details"} />
@@ -11,485 +106,192 @@ const BlogDetails = () => {
           <div className="row gap-60">
             <div className="col-lg-8">
               <div className="blog-details-content wow fadeInUp delay-0-2s">
-                <div className="image mb-40">
-                  <img
-                    src="assets/images/blog/blog-details.jpg"
-                    alt="Blog Single"
-                  />
-                </div>
                 <div className="blog-meta-two pb-15">
-                  <Link legacyBehavior href="/blog">
-                    <a className="tag">UX/UI Strategy</a>
-                  </Link>
-                  <Link legacyBehavior href="/blog">
-                    <a className="author">Kenneth S. Denman</a>
+                  <Link legacyBehavior href="#">
+                    <a className="tag">{blog.Category}</a>
                   </Link>
                   <a className="date" href="#">
-                    <i className="far fa-calendar-alt" /> June 26, 2022
+                    <i className="far fa-calendar-alt mx-3" />
+                    {moment(blog.CreatedDate).format("LL")}
                   </a>
                 </div>
                 <div className="title mb-20">
-                  <h3>
-                    How To Use Google CrUX To Analyze And Compare The
-                    Performance Of JS Frameworks
-                  </h3>
+                  <h3>{blog.BlogTitle}</h3>
                 </div>
-                <p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium totam aperiam eaque ipsa
-                  quae ab illo inventore veritatis et quasi architecto beatae
-                  vitae dicta sunt explicabo. Nemo enim luptatem quia voluptas
-                  sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-                  dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
-                  quisquam est, qui dolorem ipsum quia dolor sit amet,
-                  consectetur, adipisci velit, sed quia non numquam eius modi
-                  tempora incidunt ut labore et dolore magnam aliquam quaerat
-                  voluptatem. Ut enim ad minima veniam, quis nostrum
-                  exercitationem ullam corporis suscipit laboriosam, nisi ut
-                  aliquid ex ea commodi consequatur? Quis autem vel eum iure
-                  reprehenderit qui in ea voluptate velit esse quam nihil
-                  molestiae
-                </p>
-                <ul className="list-style-one pt-10 pb-40">
-                  <li>Rethinking Server-Timing As Critical Monitoring</li>
-                  <li>The Modern Way To Create And Host A WordPress Site</li>
-                  <li>Focus On What Matters You Must De-Focus</li>
-                </ul>
-                <blockquote>
-                  <div className="content">
-                    <h4>
-                      Smashing Podcast Episode Pauloag Conve Seen Overs Analyze
-                      And Compare Performance Frameworks
-                    </h4>
-                    <span className="name">Rasalina Willamson</span>
-                  </div>
-                </blockquote>
-                <div className="image mt-60 mb-30">
+                <div className="image mb-40 d-flex justify-content-center align-items-center">
                   <img
-                    src="assets/images/blog/blog-details-middle.jpg"
-                    alt="Blog Details"
+                    src={`/api/blog-image?BlogFileName=${blog.BlogFileName}`}
+                    alt="Blog Single"
                   />
                 </div>
-                <h4>Summery &amp; Results</h4>
-                <p>
-                  So blinded by desire, that they cannot foresee the pain and
-                  trouble that are bound to ensue; and equal blame belongs to
-                  those who fail in their duty through weakness of will, which
-                  is the same as saying through shrinking from toil and pain.
-                  These cases are perfectly simple and easy to distinguish. In
-                  free hour, when our power of choice is untrammelled and when
-                  nothing prevents our being able
-                </p>
+                <p>{parse(blog.BlogDescription, parserOptions)}</p>
+                {/* <p>{parse(blog.BlogDescription)}</p> */}
+                {blog.URL && (
+                  <iframe
+                    width="100%"
+                    height="315"
+                    src={blog.URL}
+                    title={blog.BlogTitle}
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                )}
+                <h4>Summary & Results</h4>
+                <p>{blog.Summary}</p>
               </div>
-              <hr className="mt-50" />
+
               <div className="tag-share pt-25 pb-55 wow fadeInUp delay-0-2s">
                 <div className="item">
                   <h5>Tags</h5>
                   <div className="tag-coulds">
-                    <Link legacyBehavior href="blog">
-                      Course
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      Design
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      marketing
+                    <Link legacyBehavior href="#">
+                      <a>{blog.Category}</a>
                     </Link>
                   </div>
                 </div>
-                <div className="item">
-                  <h5>Share :</h5>
-                  <div className="social-style-three">
-                    <a href="#">
-                      <i className="fab fa-facebook-f" />
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-twitter" />
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-instagram" />
-                    </a>
-                  </div>
-                </div>
               </div>
-              <div className="admin-comment mb-40 wow fadeInUp delay-0-2s">
-                <div className="comment-body">
-                  <div className="author-thumb">
-                    <img
-                      src="assets/images/blog/admin-author.jpg"
-                      alt="Author"
-                    />
-                  </div>
-                  <div className="content">
-                    <h4>Rasalina Wilimson</h4>
-                    <p>
-                      Quis autem vel eum iure reprehenderit qui in ea voluptate
-                      velit esse quam pehiles molestiae consequatur vel illum
-                      qui dolorem eum fugiat quo voluptas
-                    </p>
-                    <div className="social-style-three">
-                      <Link legacyBehavior href="contact">
-                        <i className="fab fa-facebook-f" />
-                      </Link>
-                      <Link legacyBehavior href="contact">
-                        <i className="fab fa-twitter" />
-                      </Link>
-                      <Link legacyBehavior href="contact">
-                        <i className="fab fa-instagram" />
-                      </Link>
-                      <Link legacyBehavior href="contact">
-                        <i className="fab fa-behance" />
-                      </Link>
-                      <Link legacyBehavior href="contact">
-                        <i className="fab fa-dribbble" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="next-prev-post py-40 wow fadeInUp delay-0-2s">
-                <div className="post-item">
-                  <div className="image">
-                    <img src="assets/images/blog/post-prev.jpg" alt="Post" />
-                  </div>
-                  <div className="content">
-                    <h5>
-                      <Link legacyBehavior href="blog-details">
-                        Build Group Chat Apps Vanilla Twilio Node
-                      </Link>
-                    </h5>
-                    <span className="date">
-                      <i className="far fa-calendar-alt" />
-                      <a href="#">25 June 2022</a>
-                    </span>
-                  </div>
-                </div>
-                <div className="post-item">
-                  <div className="image">
-                    <img src="assets/images/blog/post-next.jpg" alt="Post" />
-                  </div>
-                  <div className="content">
-                    <h5>
-                      <Link legacyBehavior href="blog-details">
-                        Expand Horiz to Desktop Wall Edition See
-                      </Link>
-                    </h5>
-                    <span className="date">
-                      <i className="far fa-calendar-alt" />
-                      <a href="#">25 June 2022</a>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <h4 className="comment-title mt-75 mb-25">People Comments</h4>
-              <div className="comments">
-                <div className="comment-body wow fadeInUp delay-0-2s">
-                  <div className="author-thumb">
-                    <img
-                      src="assets/images/blog/comment-author1.jpg"
-                      alt="Author"
-                    />
-                  </div>
-                  <div className="content">
-                    <h5>
-                      John F. Medina{" "}
-                      <a href="#" className="theme-btn style-two">
-                        Reply <i className="fas fa-angle-double-right" />
-                      </a>
-                    </h5>
-                    <span className="date">25 Feb 2022</span>
-                    <p>
-                      On the other hand, we denounce with righteous indignation
-                      and dislike men who are beguiled and demoralized by the
-                      charms of pleasure of the moment so blinded
-                    </p>
-                  </div>
-                </div>
-                <div className="comment-body wow fadeInUp delay-0-2s">
-                  <div className="author-thumb">
-                    <img
-                      src="assets/images/blog/comment-author2.jpg"
-                      alt="Author"
-                    />
-                  </div>
-                  <div className="content">
-                    <h5>
-                      Patrick V. Spears{" "}
-                      <a href="#" className="theme-btn style-two">
-                        Reply <i className="fas fa-angle-double-right" />
-                      </a>
-                    </h5>
-                    <span className="date">25 Feb 2022</span>
-                    <p>
-                      On the other hand, we denounce with righteous indignation
-                      and dislike men who are beguiled and demoralized by the
-                      charms of pleasure of the moment so blinded
-                    </p>
-                  </div>
-                </div>
-                <div className="comment-body wow fadeInUp delay-0-2s">
-                  <div className="author-thumb">
-                    <img
-                      src="assets/images/blog/comment-author3.jpg"
-                      alt="Author"
-                    />
-                  </div>
-                  <div className="content">
-                    <h5>
-                      Kevin S. Larsen{" "}
-                      <a href="#" className="theme-btn style-two">
-                        Reply <i className="fas fa-angle-double-right" />
-                      </a>
-                    </h5>
-                    <span className="date">25 Feb 2022</span>
-                    <p>
-                      On the other hand, we denounce with righteous indignation
-                      and dislike men who are beguiled and demoralized by the
-                      charms of pleasure of the moment so blinded
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <form
-                onSubmit={(e) => e.preventDefault()}
-                id="comment-form"
-                className="comment-form bgc-lighter mt-80 wow fadeInUp delay-0-2s"
-              >
-                <h4>Leave a Message</h4>
-                <p>Have any question? Ready to talk to us! </p>
-                <div className="row mt-15">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        id="full-name"
-                        name="full-name"
-                        className="form-control"
-                        defaultValue=""
-                        placeholder="Full Name"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        id="blog-email"
-                        name="blog-email"
-                        className="form-control"
-                        defaultValue=""
-                        placeholder="Email Address"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="message">
-                        <i className="fas fa-pencil-alt" />
-                      </label>
-                      <textarea
-                        name="message"
-                        id="message"
-                        className="form-control"
-                        rows={4}
-                        placeholder="Write Message"
-                        required
-                        defaultValue={""}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-12">
-                    <div className="form-group mb-0">
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="flexRadioDefault"
-                          id="agreement"
-                        />
-                        <label className="form-check-label" htmlFor="agreement">
-                          I Agree with the trams &amp; conditions
-                        </label>
-                      </div>
-                      <button type="submit" className="theme-btn style-two">
-                        Send Comment <i className="fas fa-arrow-right" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
             </div>
             <div className="col-lg-4 col-md-7 col-sm-9">
               <div className="main-sidebar rmt-75">
-                <div className="widget widget-search wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Search</h4>
-                  <form
-                    onSubmit={(e) => e.preventDefault()}
-                    action="#"
-                    className="default-search-form"
-                  >
-                    <input type="text" placeholder="Find Keywords" required />
-                    <button
-                      type="submit"
-                      className="searchbutton far fa-search"
-                    />
-                  </form>
-                </div>
-                <div className="widget widget-category wow fadeInUp delay-0-4s">
-                  <h4 className="widget-title">Category</h4>
-                  <ul>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Digital Solutions
-                      </Link>{" "}
-                      <span>(25)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Saas Landing
-                      </Link>{" "}
-                      <span>(09)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        WordPress
-                      </Link>{" "}
-                      <span>(18)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Graphics Design
-                      </Link>{" "}
-                      <span>(05)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Business Consulting
-                      </Link>{" "}
-                      <span>(03)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        SEO Optimization
-                      </Link>{" "}
-                      <span>(04)</span>
-                    </li>
-                    <li>
-                      <Link legacyBehavior href="blog">
-                        Marketing
-                      </Link>{" "}
-                      <span>(05)</span>
-                    </li>
-                  </ul>
+                <div className="mb-50 wow fadeInUp delay-0-2s">
+                  <ContactinBlog />
                 </div>
                 <div className="widget widget-recent-news wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Recent News</h4>
-                  <ul>
-                    <li>
-                      <div className="image">
-                        <img src="assets/images/widgets/news1.jpg" alt="News" />
-                      </div>
-                      <div className="content">
-                        <h5>
-                          <Link legacyBehavior href="blog-details">
-                            Build Group Chat App With Vanilla JS Twilio Node
-                          </Link>
-                        </h5>
-                        <span className="date">
-                          <i className="far fa-calendar-alt" />
-                          <a href="#">25 June 2022</a>
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="image">
-                        <img src="assets/images/widgets/news2.jpg" alt="News" />
-                      </div>
-                      <div className="content">
-                        <h5>
-                          <Link legacyBehavior href="blog-details">
-                            Expand Your Horiz Desktop Wallpapers Edition See
-                          </Link>
-                        </h5>
-                        <span className="date">
-                          <i className="far fa-calendar-alt" />
-                          <a href="#">25 June 2022</a>
-                        </span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="image">
-                        <img src="assets/images/widgets/news3.jpg" alt="News" />
-                      </div>
-                      <div className="content">
-                        <h5>
-                          <Link legacyBehavior href="blog-details">
-                            Manage Accessible Design System With Colorntes
-                          </Link>
-                        </h5>
-                        <span className="date">
-                          <i className="far fa-calendar-alt" />
-                          <a href="#">25 June 2022</a>
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div className="widget widget-cta wow fadeInUp delay-0-2s">
-                  <h4>Build Awesome Website/Template</h4>
-                  <Link legacyBehavior href="/contact">
-                    <a className="theme-btn style-two">
-                      Contact Us <i className="fas fa-angle-double-right" />
-                    </a>
-                  </Link>
-                  <img src="assets/images/widgets/cta.png" alt="CTA" />
-                  <img
-                    className="cta-bg-line"
-                    src="assets/images/widgets/cta-bg-line.png"
-                    alt="CTA bg line"
-                  />
-                  <img
-                    className="cta-bg-dots"
-                    src="assets/images/widgets/cta-bg-dots.png"
-                    alt="CTA bg Dots"
-                  />
-                </div>
-                <div className="widget widget-tag-cloud wow fadeInUp delay-0-2s">
-                  <h4 className="widget-title">Popular Tags</h4>
-                  <div className="tag-coulds">
-                    <Link legacyBehavior href="blog">
-                      Design
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      Landing
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      software
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      web
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      education
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      email marketing
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      SEO
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      development
-                    </Link>
-                    <Link legacyBehavior href="blog">
-                      wordpress
-                    </Link>
+                  <h4 className="widget-title">Recent Blogs</h4>
+                  <div style={{ maxHeight: "800px", overflow: "auto" }}>
+                    <ul>
+                      {blogData.map(
+                        (blog, index) =>
+                          index !== currentBlogIndex && (
+                            <li key={index}>
+                              <div className="image">
+                                <img
+                                  src={`/api/blog-image?BlogFileName=${blog.BlogFileName}`}
+                                  alt="News"
+                                  style={{
+                                    objectFit: "cover",
+                                    maxWidth: "90px",
+                                    height: "90px",
+                                    borderRadius: "10px",
+                                  }}
+                                />
+                              </div>
+                              <div className="content">
+                                <h5>
+                                  <Link
+                                    legacyBehavior
+                                    href={{
+                                      pathname: "/blog-details",
+                                      query: {
+                                        id: index,
+                                        title: formatTitleForURL(
+                                          blogData[index].BlogTitle,
+                                        ),
+                                      },
+                                    }}
+                                  >
+                                    <a>{blog.BlogTitle}</a>
+                                  </Link>
+                                </h5>
+                                <span className="date">
+                                  <i className="far fa-calendar-alt" />
+                                  <a href={"#"}>
+                                    {moment(blog.CreatedDate).format("LL")}
+                                  </a>
+                                </span>
+                              </div>
+                            </li>
+                          ),
+                      )}
+                    </ul>
                   </div>
                 </div>
               </div>
+            </div>
+            <hr />
+            <div className="next-prev-post col-12  py-40 wow fadeInUp delay-0-2s">
+              {prevIndex !== null && (
+                <div className="post-item">
+                  <div className="image">
+                    <img
+                      src={`/api/blog-image?BlogFileName=${blogData[prevIndex].BlogFileName}`}
+                      alt="Post"
+                      style={{
+                        objectFit: "cover",
+                        maxWidth: "90px",
+                        height: "90px",
+                        borderRadius: "10px",
+                      }}
+                    />
+                  </div>
+                  <div className="content">
+                    <h5>
+                      <Link
+                        legacyBehavior
+                        href={{
+                          pathname: "/blog-details",
+                          query: {
+                            id: prevIndex,
+                            title: formatTitleForURL(
+                              blogData[prevIndex].BlogTitle,
+                            ),
+                          },
+                        }}
+                      >
+                        <a>{blogData[prevIndex].BlogTitle}</a>
+                      </Link>
+                    </h5>
+                    <span className="date">
+                      <i className="far fa-calendar-alt" />
+                      {moment(blogData[prevIndex].CreatedDate).format("LL")}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {nextIndex !== null && (
+                <div className="post-item">
+                  <div className="image">
+                    <img
+                      src={`/api/blog-image?BlogFileName=${blogData[nextIndex].BlogFileName}`}
+                      alt="Post"
+                      style={{
+                        objectFit: "cover",
+                        maxWidth: "90px",
+                        height: "90px",
+                        borderRadius: "10px",
+                      }}
+                    />
+                  </div>
+                  <div className="content">
+                    <h5>
+                      <Link
+                        legacyBehavior
+                        href={{
+                          pathname: "/blog-details",
+                          query: {
+                            id: nextIndex,
+                            title: formatTitleForURL(
+                              blogData[nextIndex].BlogTitle,
+                            ),
+                          },
+                        }}
+                      >
+                        <a>{blogData[nextIndex].BlogTitle}</a>
+                      </Link>
+                    </h5>
+                    <span className="date">
+                      <i className="far fa-calendar-alt" />
+                      {moment(blogData[nextIndex].CreatedDate).format("LL")}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+            <Divider />
+            <div className="col-lg-12 contactus">
+              <ContactUsProduct />
             </div>
           </div>
         </div>
@@ -497,4 +299,5 @@ const BlogDetails = () => {
     </Layout>
   );
 };
+
 export default BlogDetails;

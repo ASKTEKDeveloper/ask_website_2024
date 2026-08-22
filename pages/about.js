@@ -12,7 +12,7 @@ const About = () => {
   return (
     <Layout>
       <PageBanner pageName={"About Us"} />
-      <section className="about-area-five py-130 rpt-100 rpb-65 rel z-1">
+      <section className="about-area-five py-50 rel z-1">
         <div className="container">
           <div className="row align-items-center gap-100">
             <div className="col-lg-6">
@@ -90,7 +90,7 @@ const About = () => {
       </section>
       {/* About Area end */}
       {/* Services Area start */}
-      <section className="services-area-six pb-100 rpb-70 rel z-1">
+      <section className="services-area-six py-50 rel z-1">
         <div className="container">
           <div className="row">
             <div className="col-lg-4 col-md-6">
@@ -230,7 +230,7 @@ const About = () => {
       </section>
       {/* Statistics Area end */}
       {/* Team Area start */}
-      <section className="team-area-two pt-130 rpt-100 pb-100 rpb-70 rel z-1">
+      <section className="team-area-two pt-130 py-50 rel z-1">
         <div className="container">
           <div className="section-title text-center mb-60 wow fadeInUp delay-0-2s">
             <span className="sub-title mb-15">Team Member</span>
@@ -338,7 +338,7 @@ const About = () => {
       </section>
       {/* Team Area end */}
       {/* Why Choose Us Area start */}
-      <section className="why-choose-us-area py-130 rpy-100 rel z-1">
+      <section className="why-choose-us-area py-50 rel z-1">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-xl-8">
@@ -530,14 +530,14 @@ const About = () => {
       </section>
       {/* Why Choose Us Area end */}
       {/* Testimonials Area Two start */}
-      <section className="testimonials-area-two pb-115 rpb-85 rel z-1">
+      <section className="testimonials-area-two py-50 rel z-1">
         <div className="container">
           <TestimonialsSlider />
         </div>
       </section>
       {/* Testimonials Area Two end */}
       {/* Partners Area start */}
-      <div className="partners-area-three text-center rel z-1 pb-110 rpb-80">
+      <div className="partners-area-three text-center rel z-1 py-50">
         <div className="container">
           <hr className="mb-75" />
           <div className="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 justify-content-center">

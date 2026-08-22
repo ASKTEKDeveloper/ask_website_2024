@@ -6,20 +6,41 @@ function Arrow({ className, extraClass, onClick, icon }) {
   );
 }
 
-export const projectSliderActive = {
+// export const projectSliderActive = {
+//   infinite: true,
+//   arrows: true,
+//   dots: true,
+//   fade: true,
+//   // autoplay: false,
+//   autoplay: true,
+//   prevArrow: <Arrow icon={"fal fa-angle-left"} extraClass={"prev-arrow"} />,
+//   nextArrow: <Arrow icon={"fal fa-angle-right"} extraClass={"next-arrow"} />,
+//   autoplaySpeed: 10000,
+//   pauseOnHover: true,
+//   slidesToScroll: 1,
+//   slidesToShow: 1,
+//   afterChange: current => setCurrentSlide(current)
+// };
+
+// In your separate file containing slider props (sliderProps.js)
+export const projectSliderActive = (setCurrentSlide) => ({
   infinite: true,
   arrows: true,
-  dots: false,
+  dots: true,
   fade: true,
   // autoplay: false,
   autoplay: true,
   prevArrow: <Arrow icon={"fal fa-angle-left"} extraClass={"prev-arrow"} />,
   nextArrow: <Arrow icon={"fal fa-angle-right"} extraClass={"next-arrow"} />,
-  autoplaySpeed: 5000,
-  pauseOnHover: false,
+  autoplaySpeed: 10000,
+  pauseOnHover: true,
   slidesToScroll: 1,
   slidesToShow: 1,
-};
+  afterChange: current => setCurrentSlide(current),
+  focusOnSelect:true,
+
+});
+
 
 export const testimonialSlider = {
   slidesToShow: 2,

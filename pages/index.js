@@ -1,33 +1,55 @@
 import Layout from "@/layout";
-import { TestimonialsSlider2 } from "@/src/components/slider/TestimonialsSlider";
-import { projectSliderActive } from "@/src/sliderProps";
+import { projectSliderActive, sliderTwoActive } from "@/src/sliderProps";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-// import "@/styles/buttons.css";
-// import Marquee, { Motion } from "react-marquee-slider";
-// import _ from "lodash";
-// import { randomIntFromInterval } from "./utils";
-import ProgressBar from "@/src/components/ProgressBar";
-import mockup from "@/public/assets/images/about/mockup.png";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Marquee from "react-fast-marquee";
 import Slider from "react-slick";
 import { styled } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import { Nav, Tab } from "react-bootstrap";
-
+import { Container } from "@mui/material";
+import { useRef, useState } from "react";
+import { Dialog, LinearProgress } from "@mui/material";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { HiOutlineChip } from "react-icons/hi";
+import { LiaStreamSolid } from "react-icons/lia";
+import { TfiExport } from "react-icons/tfi";
+import { GrIntegration } from "react-icons/gr";
 const Counter = dynamic(() => import("@/src/components/Counter"), {
   ssr: false,
 });
+import { FaBoxes } from "react-icons/fa";
+import { AiOutlineFileDone } from "react-icons/ai";
+import { CiShop } from "react-icons/ci";
+import { MdOutlineMonitorHeart } from "react-icons/md";
+import { GrCompliance } from "react-icons/gr";
+import { MdOutlineWorkHistory } from "react-icons/md";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { LuMonitorDot } from "react-icons/lu";
+import { TbBulb } from "react-icons/tb";
+import { SiLinkerd } from "react-icons/si";
+import { LuBrainCircuit } from "react-icons/lu";
+import { RiFocus2Line } from "react-icons/ri";
+import { TbLayersLinked } from "react-icons/tb";
+import { SlLike } from "react-icons/sl";
+import { LiaLuggageCartSolid } from "react-icons/lia";
+import { CiBoxes } from "react-icons/ci";
+import { LiaShippingFastSolid } from "react-icons/lia";
+import { LuFilePieChart } from "react-icons/lu";
 
-const BootstrapTooltip = styled(Tooltip)(({ theme }) => ({
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.common.black,
-  },
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.black,
-  },
-}));
+import { HiBellAlert } from "react-icons/hi2";
+import { CiShoppingTag } from "react-icons/ci";
+import { IoCardOutline } from "react-icons/io5";
+import { TbReport } from "react-icons/tb";
+
+import ContactUsForm from "./ContactUsForm";
+import BlogList from "./BlogList";
+import Testimonials from "./Testimonials";
+import ContactUsGarments from "./ContactUsGarments";
+import OurPartners from "./OurPartners";
 
 const icons = [
   "angular.png",
@@ -45,7 +67,6 @@ const icons = [
   "apple.png",
   "android-icon.webp",
   "aws.png",
-  "flutter.png",
   "flutter.svg",
 ];
 
@@ -66,103 +87,134 @@ const PartnerIcon = ({ imageName }) => (
 );
 
 const Index = () => {
-  return (
-    <Layout header={1}>
-      {/* Hero Section Start */}
-      <section className="hero-area bgc-gray rel z-1">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-lg-6 align-self-center">
-              <div className="hero-content pt-115 pb-125 rpb-0 wow fadeInUp delay-0-4s">
-                <h1>WE BRING SUCCESS TO YOUR GREAT BUSINESS</h1>
-                <p>
-                  Revolutionize your operations with Ask Technology's
-                  cutting-edge solutions. From ERP tailored for Textile &
-                  Garment Industries to Enterprise-level Goods Traders
-                  Management, our suite of products is designed for excellence
-                </p>
-                <Link legacyBehavior href="/about">
-                  <a className="theme-btn mt-20 wow fadeInUp delay-0-6s">
-                    Explore Our Solutions{" "}
-                    <i className="fas fa-long-arrow-right" />
-                  </a>
-                </Link>
-                <div className="hero-shapes">
-                  <img
-                    className="shape one"
-                    src="assets/images/shapes/dabble-plus.png"
-                    alt="Shape"
-                  />
-                  <img
-                    className="shape two"
-                    src="assets/images/shapes/dabble-plus.png"
-                    alt="Shape"
-                  />
-                  <img
-                    className="shape three"
-                    src="assets/images/shapes/plus.png"
-                    alt="Shape"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6 align-self-end">
-              <div className="hero-images  wow fadeInLeft">
-                <img
-                  src="assets/images/hero/hero-one.jpg"
-                  alt="Hero"
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="hero-shapes">
-          <img
-            className="shape bg-lines"
-            src="assets/images/shapes/hero-bg-line-shapes.png"
-            alt="Shape"
-          />
-          <img
-            className="shape right-shape wow fadeInRight delay-0-8s"
-            src="assets/images/shapes/hero-right-shape.png"
-            alt="Shape"
-          />
-        </div>
-      </section>
+  const sliderRef = useRef(null);
+  const theme = useTheme();
+  const matchesSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [openLoader, setOpenLoader] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const settings = projectSliderActive(setCurrentSlide);
 
+  const clientImages = Array.from(
+    { length: 22 },
+    (_, i) => `assets/images/clients/${i + 1}.jpeg`,
+  );
+
+  return (
+    <Layout header={2}>
+      <Slider
+        {...sliderTwoActive}
+        ref={sliderRef}
+        className="slider-two-active"
+        style={{ background: "#2975870a", backgroundColor: "#2975870a" }}
+      >
+        <div
+          className={`slider-item-two ${
+            matchesSmallScreen ? "pt-50" : "pt-50"
+          }`}
+          style={{
+            background: "#2975870a",
+            backgroundColor: "#2975870a",
+          }}
+        >
+          <Container maxWidth="lg">
+            <div className="slide-content">
+              <h3
+                style={{
+                  background:
+                    "linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                <HiOutlineChip style={{ marginRight: "8px" }} />
+                AI-Powered Apparel ERP
+              </h3>
+
+              {/* <span className="sub-title" style={{ color: "#3E54AC" }}>
+                AI-Powered Apparel ERP
+              </span> */}
+              <h4
+                style={{ textTransform: "capitalize", color: "#0079FF" }}
+                className="text-shadow1 text-gradient-title4"
+              >
+                INTELLIGENCE THAT DRIVES APPAREL INDUSTRIES
+              </h4>
+              <p>
+                Transform your apparel business with an AI-powered Garment ERP
+                built for the complete lifecycle. From Order & Costing to
+                Production & Shipment, manage everything in one intelligent
+                platform. Reduce costs, improve productivity, predict problems,
+                and make smarter decisions faster. AI-Powered. Apparel-Focused.
+                Built for Growth.
+              </p>
+
+              <Link href="ai_solution" passHref>
+                <span className="theme-btn style-two mt-15">
+                  Explore Our AI Solutions{" "}
+                  <i className="fas fa-long-arrow-right" />
+                </span>
+              </Link>
+            </div>
+          </Container>
+          {!matchesSmallScreen ? (
+            <div className="slider-image pt-1">
+              <img
+                src="assets/images/home/home5.png"
+                alt="Blog"
+                style={{
+                  mixBlendMode: "multiply",
+                  borderTopLeftRadius: 20,
+                  borderBottomLeftRadius: 80,
+                  // boxShadow:
+                  //   "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                }}
+              />
+            </div>
+          ) : (
+            <div
+              className="p-25 slider-image"
+              style={{
+                backgroundImage: "url(assets/images/home/home5.png)",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                mixBlendMode: "multiply",
+              }}
+            />
+          )}
+        </div>
+      </Slider>
+      {/* <Hero4Slider /> */}
       {/* About Area start */}
-      <section className="about-area pt-150  rpb-100 rel z-1">
-        <div className="container">
+      <section className="about-area px-3  py-100  rpb-100 rel z-1">
+        <Container>
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <div className="about-content rmb-65 wow fadeInLeft delay-0-2s">
+              <div className="about-content rmb-65 wow  delay-0-2s">
                 <div className="section-title mb-30">
-                  <span className="sub-title mb-15">About Company</span>
-                  <h3>Empowering Businesses with Innovative Solutions</h3>
+                  <span className="sub-title mb-15 ">ASK TECHNOLOGY</span>
+                  <h3 className="text-gradient-title3 ">
+                    Empowering Businesses with Innovative Solutions
+                  </h3>
                 </div>
                 <p>
-                  At Ask Technology, we are more than just an IT services
-                  company – we are your trusted partner in leveraging technology
+                  At ASK Technology, we are more than just an IT services
+                  company, we are your trusted partner in leveraging technology
                   to drive innovation and growth. With a relentless focus on
                   delivering exceptional solutions tailored to your unique
                   needs, we have established ourselves as a leader in the
-                  industry.
+                  industry
                 </p>
                 <div className="about-btns mb-45">
-                  <Link legacyBehavior href="/about">
-                    <a className="theme-btn mt-15">
-                      Learn More <i className="fas fa-long-arrow-right" />
+                  <Link legacyBehavior href="#contactus">
+                    <a className="theme-btn style-three mt-15">
+                      Connect With Us <i className="fas fa-long-arrow-right" />
                     </a>
                   </Link>
-                  {/* <div className="hotline mt-15">
-                    <i className="fas fa-phone" />
-                    <div className="content">
-                      <span>Hotline</span>
-                      <br />
-                      <a href="callto:+000(123)45688">+000 (123) 456 88</a>
-                    </div>
-                  </div> */}
+                  <Link legacyBehavior href="about-us">
+                    <a className="theme-btn mt-15">
+                      Read More <i className="fas fa-long-arrow-right" />
+                    </a>
+                  </Link>
                 </div>
                 <div className="row no-gap for-active">
                   <div className="col-sm-6">
@@ -173,16 +225,11 @@ const Index = () => {
                           alt="Icon"
                         />
                       </div>
-                      <h4>
-                        <Link legacyBehavior href="service-details">
-                          IT Consulting
-                        </Link>
-                      </h4>
+                      <h4>IT Consulting</h4>
                       <p>
                         Our IT consulting services encompass strategic planning
                         to align technology initiatives with business
-                        objectives, ensuring optimal efficiency and
-                        performance..
+                        objectives, ensuring optimal efficiency and performance.
                       </p>
                       <br />
                     </div>
@@ -195,16 +242,12 @@ const Index = () => {
                           alt="Icon"
                         />
                       </div>
-                      <h4>
-                        <Link legacyBehavior href="service-details">
-                          Business Growth
-                        </Link>
-                      </h4>
+                      <h4>Business Growth</h4>
                       <p>
                         Our ERP products, tailored for textile, garment, and
                         rental management industries, streamline operations and
                         catalyze business growth through enhanced efficiency and
-                        productivity
+                        productivity.
                       </p>
                     </div>
                   </div>
@@ -215,112 +258,59 @@ const Index = () => {
               <div className="about-images">
                 <div className="top-part">
                   <img
-                    className="wow fadeInRight delay-0-3s"
-                    src="assets/images/about/about1.jpg"
+                    className=""
+                    src="assets/images/about/image2.jpg"
                     alt="About"
+                    style={{ borderRadius: 20 }}
                   />
                   <img
-                    className="wow zoomIn delay-0-5s"
+                    className=""
                     src="assets/images/about/about2.jpg"
                     alt="About"
-                    style={{ mixBlendMode: "multiply" }}
+                    style={{ mixBlendMode: "multiply", borderRadius: 20 }}
                   />
                 </div>
                 <div className="bottom-part">
                   <img
-                    className="wow fadeInDown delay-0-5s"
+                    className=""
                     src="assets/images/about/about-dots.png"
                     alt="About"
                   />
                   <img
-                    className="wow fadeInDown delay-0-3s"
-                    src="assets/images/about/mockup.png"
+                    className=""
+                    src="assets/images/about/image22.jpg"
                     alt="About"
+                    style={{ borderRadius: 20 }}
                   />
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
       {/* About Area end */}
-      {/* Hero Section End */}
-      {/* Partners Area start */}
-      <section className="partners-area mt-60 pb-100 pt-150 rmt-30 rpb-70 rel z-1">
-        <div>
-          <div className="section-title text-center mb-50 wow fadeInUp delay-0-2s">
-            {/* <span className="sub-title mb-15">Global Partners</span> */}
-            <h2>Our Partners</h2>
-          </div>
-          <div className="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 justify-content-center">
-            <Marquee
-              direction="right"
-              pauseOnHover
-              gradient={500}
-              loop={0}
-              autoFill
-            >
-              <div style={{ padding: 20 }}>
-                <img
-                  src="assets/images/partners/partner1.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                />
-              </div>
 
-              <div style={{ padding: 30 }}>
-                <img
-                  src="assets/images/partners/partner2.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                />
-              </div>
-
-              <div style={{ padding: 30 }}>
-                <img
-                  src="assets/images/partners/partner3.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                />
-              </div>
-
-              <div style={{ padding: 30 }}>
-                <img
-                  src="assets/images/partners/partner4.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                />
-              </div>
-
-              <div style={{ padding: 30 }}>
-                <img
-                  src="assets/images/partners/partner5.png"
-                  alt="Partner"
-                  style={{ margin: 20 }}
-                />
-              </div>
-            </Marquee>
-          </div>
-        </div>
-      </section>
-      {/* Partners Area end */}
       {/* Project Area start */}
       <section
-        className="project-area overflow-hidden bgc-lighter  rpt-100 rel z-1"
+        className="project-area px-3  overflow-hidden bgc-lighter  rpt-100 rel z-1"
         style={{ paddingTop: 80 }}
+        id="products_services"
       >
-        <div className="container">
+        <Container>
           <div className="section-title text-center mb-55 wow fadeInUp delay-0-2s">
-            {/* <span className="sub-title mb-15">Learn Our Project</span> */}
-            <h2>
-              PRODUCTS & <span style={{ color: "#9376E0" }}>SERVICES</span>
+            <h2 className="new-font-play">
+              OUR PRODUCTS
+              {/* & <span style={{ color: "#9376E0" }}>SERVICES</span> */}
             </h2>
           </div>
 
-          <Slider {...projectSliderActive} className="project-slider-active">
-            {/*1,ERP for Textile & Garment Industries - 'TARGET'{" "} */}
+          <Slider {...settings} className="project-slider-active mb-55">
+            {/*1 Garment ERP for Knit & Woven*/}
             <div className="project-slider-item">
-              <div className="row">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 0 ? 9999 : 1 }}
+              >
                 <div className="col-xl-8 col-md-12  content">
                   <h3>
                     <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
@@ -344,71 +334,456 @@ const Index = () => {
                   <div className="row medium-gap m-1 mt-2">
                     <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-networking" />
+                        <LiaStreamSolid />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Streamlined Production
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Streamlined Production</h6>
                     </div>
 
                     <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-coding" />
+                        <FaBoxes />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Real-Time Inventory
-                        </Link>
+                      <h6 className="mb-0">Real-Time Inventory</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <TfiExport />
+                      </div>
+                      <h6 className="mb-0">Effortless Export</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <GrIntegration />
+                      </div>
+                      <h6 className="mb-0">Seamless Integration</h6>
+                    </div>
+                  </div>
+
+                  <div
+                    className="content col-12 mt-3 "
+                    style={{ padding: 0, cursor: "pointer" }}
+                  >
+                    <Link
+                      legacyBehavior
+                      href="/erp-for-textiles-and-garments"
+                      style={{}}
+                    >
+                      <a className="theme-btn style-four ">
+                        Know More
+                        <i className="fas fa-long-arrow-right" />
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/erp-mockup.png"
+                    alt="Video"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 2. BMS - Buying House Management */}
+            <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
+              >
+                <div className="col-xl-8 col-md-12  content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#EE4266" }}>Target BMS </span> -
+                      Buying House Management Solutions
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Streamline Vendor Collaboration with Target BMS
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    TARGET - BMS is a comprehensive business management solution
+                    designed to streamline operations and enhance efficiency.
+                    Our product includes modules tailored to address specific
+                    organizational needs, offering powerful functionalities to
+                    optimize processes and drive growth. From managing orders to
+                    tracking finances, TARGET - BMS empowers you to succeed in
+                    today’s competitive landscape.
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <TbReport />
+                      </div>
+                      <h6 className="mb-0">MIS Analysis Reports</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <HiBellAlert />
+                      </div>
+                      <h6 className="mb-0">Alerts & Reminders for Advance</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiShoppingTag />
+                      </div>
+                      <h6 className="mb-0">
+                        Vendor Registration and Fabric Bidding
                       </h6>
                     </div>
 
                     <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-app-development" />
+                        <IoCardOutline />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Effortless Export
-                        </Link>
-                      </h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <i className="flaticon-logo" />
-                      </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Seamless Integration
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Fabric Bidding</h6>
                     </div>
 
                     <div
                       className="content col-12 mt-3 "
                       style={{ padding: 0, cursor: "pointer" }}
                     >
-                      <Link legacyBehavior href="/project-details">
-                        <a className="theme-btn style-two ">
-                          Read More <i className="fas fa-long-arrow-right" />
+                      <Link legacyBehavior href="/buying_house_management">
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
                         </a>
                       </Link>
                     </div>
                   </div>
                 </div>
                 <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img src="assets/images/about/mockup.png" alt="Video" />
+                  <img
+                    src="assets/images/projects/bms-mockup.png"
+                    alt="Video"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Garment Inspection Software*/}
+            <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
+              >
+                <div className="col-xl-8 col-md-12  content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#EE4266" }}>Target </span> -
+                      INSPECTION ON GO
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Tailored for Garment Industry Quality
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Inspection On Go is a robust solution designed to streamline
+                    garment inspection processes from order creation to quality
+                    checks, optimizing workflow and ensuring transparency at
+                    every stage. It integrates real-time monitoring, offline
+                    capabilities, and mobile accessibility to help manufacturers
+                    and quality assurance teams maintain high standards, even in
+                    remote or disconnected environments.
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <GrCompliance />
+                      </div>
+                      <h6 className="mb-0">Buyer Order Management</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineWorkHistory />
+                      </div>
+                      <h6 className="mb-0">Factory Order Insights</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <IoPersonCircleOutline />
+                      </div>
+                      <h6 className="mb-0">Inspection Audits</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <LuMonitorDot />
+                      </div>
+                      <h6 className="mb-0">Access Control Management</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3 "
+                      style={{ padding: 0, cursor: "pointer" }}
+                    >
+                      <Link legacyBehavior href="/garment_inspection_softwares">
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/iog-mockup.png"
+                    alt="Video"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Garment ERP for Brands */}
+            <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
+              >
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/mockup-sampling.png"
+                    alt="Video"
+                  />
+                </div>
+                <div className="col-xl-8 col-md-12 content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#87A922" }}>TARGET </span> -
+                      GARMENTS SAMPLING
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Streamlining the Sampling Process in the Apparel Industry
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Managing samples manually in the apparel industry often
+                    leads to inefficiencies, miscommunication, and costly
+                    errors. Our integrated software automates and optimizes the
+                    entire sampling process, providing a seamless connection
+                    with purchasing, inventory, production, and delivery. This
+                    ensures accurate tracking and communication between
+                    departments, minimizing errors and aligning sample
+                    specifications with bulk orders.
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <FaBoxes />
+                      </div>
+                      <h6 className="mb-0">Sampling Costing</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <AiOutlineFileDone />
+                      </div>
+                      <h6 className="mb-0">
+                        Sample Order Entry and Assortment
+                      </h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiShop />
+                      </div>
+                      <h6 className="mb-0">Purchase Management</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineMonitorHeart />
+                      </div>
+                      <h6 className="mb-0">Inventory Management</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3"
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
+                    >
+                      <Link legacyBehavior href="/garments_sampling_software">
+                        <a className="theme-btn style-four">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 5. Operation Bulletin (QUICK OB) */}
+            <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 1 ? 9999 : 1 }}
+              >
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img src="assets/images/projects/ob-mockup.png" alt="Video" />
+                </div>
+                <div className="col-xl-8 col-md-12 content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#87A922" }}>Quick OB </span> -
+                      Operation Bulletin
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Streamlining Your Garment Production
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Welcome to Ask Technology, where innovation meets experience
+                    in the apparel industry. Quick OB is a cloud-based
+                    application designed to help garment manufacturers
+                    streamline their operation bulletin planning, improve
+                    accuracy, and optimize resource allocation.
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <FaBoxes />
+                      </div>
+                      <h6 className="mb-0">Operation Bulletin Planning</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <AiOutlineFileDone />
+                      </div>
+                      <h6 className="mb-0">Accurate SMV Calculation</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiShop />
+                      </div>
+                      <h6 className="mb-0">Real-Time Production Tracking</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineMonitorHeart />
+                      </div>
+                      <h6 className="mb-0">Comprehensive Reporting</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3"
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
+                    >
+                      <Link legacyBehavior href="/operation_bulletin">
+                        <a className="theme-btn style-four">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 6. HRMS - Target HR & Payroll Solutions */}
+            <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
+              >
+                <div className="col-xl-8 col-md-12  content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#EE4266" }}>Target HRMS </span> -
+                      HR & Payroll Solutions
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Empowering Your Workforce, Streamlining Payroll
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Say goodbye to HR and payroll complexities with Target HRMS.
+                    Tailored for diverse industries, especially manufacturing
+                    and compliance-focused factories, our solution provides a
+                    complete HR and payroll package. Experience the ease of
+                    mobile-responsive dashboards, ensuring that your workforce
+                    management is as dynamic as your business
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <GrCompliance />
+                      </div>
+                      <h6 className="mb-0">Regulatory Compliance</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <MdOutlineWorkHistory />
+                      </div>
+                      <h6 className="mb-0">Automated Payroll</h6>
+                    </div>
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <IoPersonCircleOutline />
+                      </div>
+                      <h6 className="mb-0">Self Service Portal</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <LuMonitorDot />
+                      </div>
+                      <h6 className="mb-0">Book Free Demo</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3 "
+                      style={{ padding: 0, cursor: "pointer" }}
+                    >
+                      <Link
+                        legacyBehavior
+                        href="/Target_HRMS_HR_and_Payroll_Solutions"
+                      >
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/hrms-mockup.png"
+                    alt="Video"
+                  />
                 </div>
               </div>
             </div>
 
             {/* 2. Target SCM - Supply Chain Management */}
-            <div className="project-slider-item">
-              <div className="row">
+            {/* <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 1 ? 9999 : 1 }}
+              >
                 <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img src="assets/images/about/mockup.png" alt="Video" />
+                  <img
+                    src="assets/images/projects/scm-mockup.png"
+                    alt="Video"
+                  />
                 </div>
                 <div className="col-xl-8 col-md-12  content">
                   <h3>
@@ -433,234 +808,206 @@ const Index = () => {
                   <div className="row medium-gap m-1 mt-2">
                     <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-networking" />
+                        <FaBoxes />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Optimized Stock
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Optimized Stock</h6>
                     </div>
 
                     <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-coding" />
+                        <AiOutlineFileDone />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Efficient Order Fulfilment
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Efficient Order Fulfilment</h6>
                     </div>
                     <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-app-development" />
+                        <CiShop />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Collaborative Vendor Sourcing
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Collaborative Vendor Sourcing</h6>
                     </div>
 
                     <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-logo" />
+                        <MdOutlineMonitorHeart />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Live Monitoring
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Live Monitoring</h6>
                     </div>
 
                     <div
                       className="content col-12 mt-3 "
-                      style={{ padding: 0, cursor: "pointer" }}
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
                     >
-                      <Link legacyBehavior href="/project-details">
-                        <a className="theme-btn style-two ">
-                          Read More <i className="fas fa-long-arrow-right" />
+                      <Link
+                        legacyBehavior
+                        href="/Target_SCM_Supply_Chain_Managements"
+                      >
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
                         </a>
                       </Link>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            {/* 3. HRMS - Target HR & Payroll Solutions */}
-            <div className="project-slider-item">
-              <div className="row">
+            {/* 4. TOMS */}
+            {/* <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 3 ? 9999 : 1 }}
+              >
+                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
+                  <img
+                    src="assets/images/projects/mockup-erp.png"
+                    alt="Video"
+                  />
+                </div>
                 <div className="col-xl-8 col-md-12  content">
                   <h3>
                     <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                      <span style={{ color: "#EE4266" }}>Target HRMS </span> -
-                      HR & Payroll Solutions
+                      <span style={{ color: "#337357" }}>TOMS </span> -
+                      Streamline Your Order and Inventory Management
                     </span>
                     <br />
                     <span style={{ fontSize: "large", color: "#0E21A0" }}>
-                      Empowering Your Workforce, Streamlining Payroll
+                      Revolutionizing Your Order and Inventory Management
                     </span>
                   </h3>
                   <p className="my-3">
-                    Say goodbye to HR and payroll complexities with Target HRMS.
-                    Tailored for diverse industries, especially manufacturing
-                    and compliance-focused factories, our solution provides a
-                    complete HR and payroll package. Experience the ease of
-                    mobile-responsive dashboards, ensuring that your workforce
-                    management is as dynamic as your business
+                    TOMS streamlines operations, manages orders, tracks
+                    inventory, and ensures seamless supply chain management.
+                    From order processing to inventory replenishment, TOMS
+                    reduces costs and delivers exceptional customer experiences.
+                    Say goodbye to manual processes—choose TOMS for simplified
+                    management
                   </p>
 
                   <div className="row medium-gap m-1 mt-2">
                     <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-networking" />
+                        <LiaLuggageCartSolid />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Regulatory Compliance
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Order Processing Efficiency</h6>
                     </div>
 
                     <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-coding" />
+                        <CiBoxes />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Automated Payroll
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Inventory Optimization</h6>
                     </div>
                     <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-app-development" />
+                        <LiaShippingFastSolid />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Self Service Portal
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Supply Chain Visibility</h6>
                     </div>
 
                     <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
                       <div className="icon">
-                        <i className="flaticon-logo" />
+                        <LuFilePieChart />
                       </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Book Free Demo
-                        </Link>
-                      </h6>
+                      <h6 className="mb-0">Analytics and Reporting</h6>
                     </div>
 
                     <div
                       className="content col-12 mt-3 "
+                      style={{ padding: 0, cursor: "pointer", zIndex: 99 }}
+                    >
+                      <Link
+                        legacyBehavior
+                        href="/Target_Order_Management_System"
+                      >
+                        <a className="theme-btn style-four ">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
+                        </a>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+
+            {/* 8. Exports */}
+            {/* <div className="project-slider-item">
+              <div
+                className="row"
+                style={{ zIndex: currentSlide === 2 ? 9999 : 1 }}
+              >
+                <div className="col-xl-8 col-md-12 content">
+                  <h3>
+                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
+                      <span style={{ color: "#87A922" }}>TARGET </span> -
+                      Garment Export Management Solution
+                    </span>
+                    <br />
+                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
+                      Streamline Your Garment Exports
+                    </span>
+                  </h3>
+                  <p className="my-3">
+                    Our Garment Export Documentation application streamlines the
+                    entire export process, allowing quick creation of essential
+                    documents like invoices and packing lists, ensuring accurate
+                    tracking and compliance.
+                  </p>
+
+                  <div className="row medium-gap m-1 mt-2">
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <TbReport />
+                      </div>
+                      <h6 className="mb-0">Buyer Order Management</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <HiBellAlert />
+                      </div>
+                      <h6 className="mb-0">Pre-Shipment Management</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <CiShoppingTag />
+                      </div>
+                      <h6 className="mb-0">Packing List Management</h6>
+                    </div>
+
+                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
+                      <div className="icon">
+                        <IoCardOutline />
+                      </div>
+                      <h6 className="mb-0">Post-Shipment Management</h6>
+                    </div>
+
+                    <div
+                      className="content col-12 mt-3"
                       style={{ padding: 0, cursor: "pointer" }}
                     >
-                      <Link legacyBehavior href="/project-details">
-                        <a className="theme-btn style-two ">
-                          Read More <i className="fas fa-long-arrow-right" />
+                      <Link legacyBehavior href="/garments_exports_software">
+                        <a className="theme-btn style-four">
+                          Know More
+                          <i className="fas fa-long-arrow-right" />
                         </a>
                       </Link>
                     </div>
                   </div>
                 </div>
                 <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img src="assets/images/about/mockup.png" alt="Video" />
+                  <img
+                    src="assets/images/projects/exports-mockup.png"
+                    alt="Garment Export Management"
+                  />
                 </div>
               </div>
-            </div>
-
-            {/* 2. Target SCM - Supply Chain Management */}
-            <div className="project-slider-item">
-              <div className="row">
-                <div className="col-xl-4 col-md-12 d-flex justify-content-center align-items-center">
-                  <img src="assets/images/about/mockup.png" alt="Video" />
-                </div>
-                <div className="col-xl-8 col-md-12  content">
-                  <h3>
-                    <span style={{ fontFamily: "Oswald", color: "#31363F" }}>
-                      <span style={{ color: "#337357" }}>Target SCM </span> -
-                      Supply Chain Management
-                    </span>
-                    <br />
-                    <span style={{ fontSize: "large", color: "#0E21A0" }}>
-                      Powering Your Supply Chain Dynamics
-                    </span>
-                  </h3>
-                  <p className="my-3">
-                    Transform your supply chain with Target SCM, a versatile
-                    solution applicable across industries. Boost purchase and
-                    distribution processes, and gain real-time visibility into
-                    your supply chain. With online tools for customer purchase
-                    orders and tracking, Target SCM ensures efficiency and
-                    transparency in every link of your supply chain
-                  </p>
-
-                  <div className="row medium-gap m-1 mt-2">
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <i className="flaticon-networking" />
-                      </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Optimized Stock
-                        </Link>
-                      </h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0 mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <i className="flaticon-coding" />
-                      </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Efficient Order Fulfilment
-                        </Link>
-                      </h6>
-                    </div>
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <i className="flaticon-app-development" />
-                      </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Collaborative Vendor Sourcing
-                        </Link>
-                      </h6>
-                    </div>
-
-                    <div className="col-xl-6 col-md-6 p-0 m-0  mb-3 d-flex justify-content-start align-items-center gap-3 service-two-item wow fadeInUp delay-0-4s">
-                      <div className="icon">
-                        <i className="flaticon-logo" />
-                      </div>
-                      <h6>
-                        <Link legacyBehavior href="service-details">
-                          Live Monitoring
-                        </Link>
-                      </h6>
-                    </div>
-
-                    <div
-                      className="content col-12 mt-3 "
-                      style={{ padding: 0, cursor: "pointer" }}
-                    >
-                      <Link legacyBehavior href="/project-details">
-                        <a className="theme-btn style-two ">
-                          Read More <i className="fas fa-long-arrow-right" />
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div> */}
           </Slider>
-        </div>
-        <div className="project-shapes">
+        </Container>
+        {/* <div className="project-shapes">
           <img
             className="shape one"
             src="assets/images/shapes/project-left.png"
@@ -671,194 +1018,564 @@ const Index = () => {
             src="assets/images/shapes/project-right.png"
             alt="shape"
           />
-        </div>
+        </div> */}
       </section>
       {/* Project Area end */}
 
       {/* Services Area start */}
-      <section className="services-area bgc-gray text-white pt-75 pb-10 rel z-1">
-        <div className="container">
+      {/* <section className="services-area px-3  bgc-gray text-white pt-75 pb-10 rel z-1">
+        <Container>
           <div className="row medium-gap">
-            <div className="col-xl-12 col-md-6">
-              <div className="section-title mb-60 wow fadeInUp delay-0-2s">
+            <div className="col-xl-12 col-md-12">
+              <div
+                className={`${
+                  matchesSmallScreen && "text-center"
+                } section-title mb-60 wow fadeInUp delay-0-2s`}
+              >
                 <span className="sub-title mb-15">Our Services</span>
-
                 <h2 style={{ fontFamily: "Oswald", color: "#EEF5FF" }}>
-                  We Provide Best IT Services
+                  We Provide the Best IT Services
                 </h2>
               </div>
             </div>
 
             <div className="col-xl-6 col-md-6">
-              <div className="service-two-item wow fadeInUp delay-0-3s">
-                <BootstrapTooltip
-                  title="Learn More about mobile services"
-                  arrow
-                  placement="bottom-end"
-                >
-                  <div className="d-flex justify-content-start align-items-center gap-4">
+              <Link href="/mobile-app-solutions">
+                <div className="service-two-item service-two-item22 mx-4 wow fadeInUp delay-0-3s">
+                  <div
+                    className={`${
+                      matchesSmallScreen && "flex-column"
+                    } d-flex   justify-content-start align-items-center gap-4`}
+                  >
                     <div className="icon">
                       <img
                         src="assets/images/about/mobile-app.png"
                         className="icon"
                       />
-                      {/* <i className="flaticon-app-development" /> */}
                     </div>
                     <div className="content">
-                      <h4 style={{ fontFamily: "Oswald" }}>
-                        <Link legacyBehavior href="service-details">
-                          Mobile App Solutions
-                        </Link>
+                      <h4
+                        style={{ fontFamily: "Oswald" }}
+                        className={`${matchesSmallScreen && "text-center"}`}
+                      >
+                        Mobile App Solutions
                       </h4>
-                      <p>
+                      <p className={`${matchesSmallScreen && "text-center"}`}>
                         Unlock the potential of mobile technology with our
                         bespoke mobile app solutions. From concept to
                         deployment, we craft intuitive and engaging apps
                         tailored to your business needs, ensuring seamless user
                         experiences across iOS and Android platforms
+                        <br />
+                        <br />
                       </p>
                     </div>
                   </div>
-                </BootstrapTooltip>
-              </div>
+                </div>
+              </Link>
             </div>
 
             <div className="col-xl-6 col-md-6">
-              <div className="service-two-item wow fadeInUp delay-0-4s">
-                <div className="d-flex justify-content-start align-items-center gap-4">
-                  <div className="icon">
-                    <img src="assets/images/about/erp.png" className="icon" />
-                    {/* <i className="flaticon-networking" /> */}
-                  </div>
-                  <div className="content">
-                    <h4 style={{ fontFamily: "Oswald" }}>
-                      <Link legacyBehavior href="service-details">
+              <Link href="/erp-software-services">
+                <div className="service-two-item service-two-item22 mx-4 wow fadeInUp delay-0-4s">
+                  <div
+                    className={`${
+                      matchesSmallScreen && "flex-column"
+                    } d-flex   justify-content-start align-items-center gap-4`}
+                  >
+                    <div className="icon">
+                      <img src="assets/images/about/erp.png" className="icon" />
+                    </div>
+                    <div className="content">
+                      <h4
+                        style={{ fontFamily: "Oswald" }}
+                        className={`${matchesSmallScreen && "text-center"}`}
+                      >
                         ERP Software Development
-                      </Link>
-                    </h4>
-                    <p>
-                      Transform your business operations with our custom ERP
-                      software development services. Tailored to your unique
-                      requirements, our ERP solutions streamline processes,
-                      centralize data, and provide real-time insights,
-                      empowering you to make informed decisions and drive
-                      business growth
-                    </p>
+                      </h4>
+                      <p className={`${matchesSmallScreen && "text-center"}`}>
+                        Transform your business operations with our custom ERP
+                        software development services. Tailored to your unique
+                        requirements, our ERP solutions streamline processes,
+                        centralize data, and provide real-time insights,
+                        empowering you to make informed decisions and drive
+                        business growth
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             <div className="col-xl-6 col-md-6">
-              <div className="service-two-item wow fadeInUp delay-0-4s">
-                <div className="d-flex justify-content-start align-items-center gap-4">
-                  <div className="icon">
-                    <img src="assets/images/about/crm.png" className="icon" />
-                    {/* <i className="flaticon-networking" /> */}
-                  </div>
-                  <div className="content">
-                    <h4 style={{ fontFamily: "Oswald" }}>
-                      <Link legacyBehavior href="service-details">
+              <Link href="/enterprise-application-services">
+                <div className="service-two-item service-two-item22 mx-4 wow fadeInUp delay-0-4s">
+                  <div
+                    className={`${
+                      matchesSmallScreen && "flex-column"
+                    } d-flex   justify-content-start align-items-center gap-4`}
+                  >
+                    <div className="icon">
+                      <img src="assets/images/about/crm.png" className="icon" />
+                    </div>
+                    <div className="content">
+                      <h4
+                        style={{ fontFamily: "Oswald" }}
+                        className={`${matchesSmallScreen && "text-center"}`}
+                      >
                         Enterprise Application Development
-                      </Link>
-                    </h4>
-                    <p>
-                      Empower your business with scalable and robust enterprise
-                      applications that streamline operations and enhance
-                      productivity. Our custom-built solutions are designed to
-                      address your unique business challenges, driving
-                      efficiency and growth
-                    </p>
+                      </h4>
+                      <p className={`${matchesSmallScreen && "text-center"}`}>
+                        Empower your business with scalable and robust
+                        enterprise applications that streamline operations and
+                        enhance productivity. Our custom-built solutions are
+                        designed to address your unique business challenges,
+                        driving efficiency and growth
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             <div className="col-xl-6 col-md-6">
-              <div className="service-two-item wow fadeInUp delay-0-6s">
-                <div className="d-flex justify-content-start align-items-center gap-4">
-                  <div className="icon">
-                    <img
-                      src="assets/images/about/ecommerce.png"
-                      className="icon"
-                    />
-                    {/* <i className="flaticon-coding" /> */}
-                  </div>
-                  <div className="content">
-                    <h4 style={{ fontFamily: "Oswald" }}>
-                      <Link legacyBehavior href="service-details">
-                        Ecommerce Application Development
-                      </Link>
-                    </h4>
-                    <p>
-                      Revolutionize your online presence with our ecommerce
-                      application development services. From user-friendly
-                      interfaces to secure payment gateways, we create dynamic
-                      ecommerce platforms that drive sales and enhance customer
-                      engagement
-                    </p>
+              <Link href="/ecommerce-application-development">
+                <div className="service-two-item service-two-item22 mx-4 wow fadeInUp delay-0-6s">
+                  <div
+                    className={`${
+                      matchesSmallScreen && "flex-column"
+                    } d-flex   justify-content-start align-items-center gap-4`}
+                  >
+                    <div className="icon">
+                      <img
+                        src="assets/images/about/ecommerce.png"
+                        className="icon"
+                      />
+                    </div>
+                    <div className="content">
+                      <h4
+                        style={{ fontFamily: "Oswald" }}
+                        className={`${matchesSmallScreen && "text-center"}`}
+                      >
+                        E-Commerce Application Development
+                      </h4>
+                      <p className={`${matchesSmallScreen && "text-center"}`}>
+                        Revolutionize your online presence with our e-commerce
+                        application development services. From user-friendly
+                        interfaces to secure payment gateways, we create dynamic
+                        e-commerce platforms that drive sales and enhance
+                        customer engagement
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             <div className="col-xl-6 col-md-6">
-              <div className="service-two-item wow fadeInUp delay-0-5s">
-                <div className="d-flex justify-content-start align-items-center gap-4">
-                  <div className="icon">
-                    {/* <i className="flaticon-logo" /> */}
-                    <img src="assets/images/about/ui.png" className="icon" />
-                  </div>
+              <Link href="/UI/UX Strategy">
+                <div className="service-two-item service-two-item22 mx-4 wow fadeInUp delay-0-5s">
+                  <div
+                    className={`${
+                      matchesSmallScreen && "flex-column"
+                    } d-flex   justify-content-start align-items-center gap-4`}
+                  >
+                    <div className="icon">
+                      <img src="assets/images/about/ui.png" className="icon" />
+                    </div>
 
-                  <div className="content">
-                    <h4 style={{ fontFamily: "Oswald" }}>
-                      <Link legacyBehavior href="service-details">
+                    <div className="content">
+                      <h4
+                        style={{ fontFamily: "Oswald" }}
+                        className={`${matchesSmallScreen && "text-center"}`}
+                      >
                         UI/UX Strategy
-                      </Link>
-                    </h4>
-                    <p>
-                      Elevate your digital presence with our UI/UX strategy
-                      services. We combine innovative design principles with
-                      user-centric strategies to create intuitive interfaces and
-                      delightful user experiences, ensuring maximum engagement
-                      and retention
-                    </p>
+                      </h4>
+                      <p className={`${matchesSmallScreen && "text-center"}`}>
+                        Elevate your digital presence with our UI/UX strategy
+                        services. We combine innovative design principles with
+                        user-centric strategies to create intuitive interfaces
+                        and delightful user experiences, ensuring maximum
+                        engagement and retention
+                        <br />
+                        <br />
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             <div className="col-xl-6 col-md-6">
-              <div className="service-two-item wow fadeInUp delay-0-7s">
-                <div className="d-flex justify-content-between align-items-center gap-4">
-                  <div className="icon">
-                    {/* <i className="flaticon-seo" /> */}
-                    <img src="assets/images/about/video.png" className="icon" />
-                  </div>
-                  <div className="content">
-                    <h4 style={{ fontFamily: "Oswald" }}>
-                      <Link legacyBehavior href="service-details">
+              <Link href="/digital-marketing-services">
+                <div className="service-two-item service-two-item22 mx-4 wow fadeInUp delay-0-7s">
+                  <div
+                    className={`${
+                      matchesSmallScreen && "flex-column"
+                    } d-flex   justify-content-start align-items-center gap-4`}
+                  >
+                    <div className="icon">
+                      <img
+                        src="assets/images/about/video.png"
+                        className="icon"
+                      />
+                    </div>
+                    <div className="content">
+                      <h4
+                        style={{ fontFamily: "Oswald" }}
+                        className={`${matchesSmallScreen && "text-center"}`}
+                      >
                         Digital Marketing
-                      </Link>
-                    </h4>
-                    <p>
-                      Amplify your online reach and drive growth with our
-                      digital marketing solutions. From SEO and PPC campaigns to
-                      social media management, we help you navigate the digital
-                      landscape and connect with your target audience
-                      effectively, driving traffic, leads, and conversions
-                    </p>
+                      </h4>
+                      <p className={`${matchesSmallScreen && "text-center"}`}>
+                        Amplify your online reach and drive growth with our
+                        digital marketing solutions. From SEO and PPC campaigns
+                        to social media management, we help you navigate the
+                        digital landscape and connect with your target audience
+                        effectively, driving traffic, leads, and conversions
+                      </p>
+                    </div>
                   </div>
                 </div>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section> */}
+      {/* Services Area end */}
+      {/* Why Choose Us Area start */}
+      <section className="why-choose-us-area px-3  py-130 rpy-100 rel z-1">
+        <Container>
+          <div className="row justify-content-center">
+            <div className="col-xl-8">
+              <div className="section-title text-center mb-45 wow fadeInUp delay-0-2s">
+                <span className="sub-title mb-15 new-font-play">
+                  Why Choose Ask Technology
+                </span>
+                <h5 className="my-4">
+                  At Ask Technology, we understand that the right technology
+                  partner can make all the difference. Here's why we stand out
+                  in the crowded tech landscape
+                </h5>
               </div>
             </div>
           </div>
+          <Tab.Container defaultActiveKey={"wc-tap1"}>
+            <div className="why-choose-tab">
+              <Nav
+                as={"ul"}
+                className="nav nav-pills nav-fill mb-20 rmb-50 wow fadeInUp delay-0-4s"
+              >
+                <li className="nav-item">
+                  <Nav.Link
+                    as="a"
+                    eventKey={"wc-tap1"}
+                    className="nav-link"
+                    data-bs-toggle="tab"
+                    href="#wc-tap1"
+                  >
+                    <TbBulb className="nav-icons" />
+                    <span>Innovation</span>
+                  </Nav.Link>
+                </li>
+
+                <li className="nav-item">
+                  <Nav.Link
+                    as="a"
+                    eventKey={"wc-tap2"}
+                    className="nav-link"
+                    data-bs-toggle="tab"
+                    href="#wc-tap2"
+                  >
+                    <SiLinkerd className="nav-icons" />
+                    <span>Tailoring</span>
+                  </Nav.Link>
+                </li>
+
+                <li className="nav-item">
+                  <Nav.Link
+                    as="a"
+                    eventKey={"wc-tap3"}
+                    className="nav-link"
+                    data-bs-toggle="tab"
+                    href="#wc-tap3"
+                  >
+                    <LuBrainCircuit className="nav-icons" />
+                    <span>Expertise</span>
+                  </Nav.Link>
+                </li>
+
+                <li className="nav-item">
+                  <Nav.Link
+                    as="a"
+                    eventKey={"wc-tap4"}
+                    className="nav-link"
+                    data-bs-toggle="tab"
+                    href="#wc-tap4"
+                  >
+                    <RiFocus2Line className="nav-icons" />
+                    <span>Client-Centric</span>
+                  </Nav.Link>
+                </li>
+
+                <li className="nav-item">
+                  <Nav.Link
+                    as="a"
+                    eventKey={"wc-tap5"}
+                    className="nav-link"
+                    data-bs-toggle="tab"
+                    href="#wc-tap5"
+                  >
+                    <TbLayersLinked className="nav-icons" />
+                    <span>End-to-End</span>
+                  </Nav.Link>
+                </li>
+
+                <li className="nav-item">
+                  <Nav.Link
+                    as="a"
+                    eventKey={"wc-tap6"}
+                    className="nav-link"
+                    data-bs-toggle="tab"
+                    href="#wc-tap6"
+                  >
+                    <SlLike className="nav-icons" />
+                    <span>Excellence</span>
+                  </Nav.Link>
+                </li>
+              </Nav>
+              <Tab.Content className="tab-content">
+                <Tab.Pane className="tab-pane fade" eventKey="wc-tap1">
+                  <div className="row gap-20 align-items-center">
+                    <div className="col-lg-4">
+                      <div className="why-choose-image rmb-55">
+                        <img
+                          src="assets/images/about/Deconstructed.png"
+                          alt="Why Choose"
+                          className="why-choose-img "
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-8">
+                      <div className="why-choose-content">
+                        <h3 className="text-gradient-title4">
+                          Innovation at the Core
+                        </h3>
+                        <p>
+                          Our commitment to innovation drives everything we do.
+                          From developing cutting-edge solutions to adopting the
+                          latest technologies, we ensure your business stays
+                          ahead in a rapidly evolving digital landscape
+                        </p>
+                        <ul className="list-style-one pt-5">
+                          <li>Strategic UI/UX Assessment</li>
+                          <li>
+                            Thorough Contextual Research and 360° Planning
+                          </li>
+                          <li>
+                            Advanced Wireframing &amp; Prototyping Techniques
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Pane>
+
+                <Tab.Pane className="tab-pane fade" eventKey="wc-tap2">
+                  <div className="row gap-20 align-items-center">
+                    <div className="col-lg-8">
+                      <div className="why-choose-content">
+                        <h3 className="text-gradient-title4">
+                          Tailored Solutions, Every Time
+                        </h3>
+                        <p>
+                          Our approach is personalized to fit your specific
+                          requirements. We delve deep into understanding your
+                          business intricacies to provide tailor-made solutions
+                          that perfectly match your objectives. No cookie-cutter
+                          approaches here – just bespoke strategies for your
+                          success.
+                        </p>
+                        <ul className="list-style-one pt-5">
+                          <li>Customized Strategy Development</li>
+                          <li>Thorough Needs Analysis and Consultation</li>
+                          <li>Personalized Product Development</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="why-choose-image rmt-55">
+                        <img
+                          src="assets/images/about/technology.png"
+                          alt="Why Choose"
+                          // className="why-choose-img"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Pane>
+
+                <Tab.Pane className="tab-pane fade" eventKey="wc-tap3">
+                  <div className="row gap-20 align-items-center">
+                    <div className="col-lg-4">
+                      <div className="why-choose-image rmb-55">
+                        <img
+                          src="assets/images/about/expert.png"
+                          alt="Why Choose"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-8">
+                      <div className="why-choose-content">
+                        <h3 className="text-gradient-title4">
+                          Proven Expertise
+                        </h3>
+                        <p>
+                          With years of experience in IT technology services, we
+                          bring a wealth of expertise to the table. Our team of
+                          skilled professionals is dedicated to delivering
+                          solutions that not only meet but exceed expectations
+                        </p>
+                        <ul className="list-style-one pt-5">
+                          <li>Decades of IT Technology Services Experience</li>
+                          <li>In-depth Industry Expertise and Insight</li>
+                          <li>Commitment to Exceeding Client Expectations</li>
+                        </ul>
+
+                        {/* <Link legacyBehavior href="/about">
+                          <a className="theme-btn mt-30">
+                            Learn More <i className="fas fa-long-arrow-right" />
+                          </a>
+                        </Link> */}
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Pane>
+
+                <Tab.Pane className="tab-pane fade" eventKey="wc-tap4">
+                  <div className="row gap-20 align-items-center">
+                    <div className="col-lg-8">
+                      <div className="why-choose-content">
+                        <h3 className="text-gradient-title4">
+                          Client-Centric Approach
+                        </h3>
+                        <p>
+                          Your success is our priority. We pride ourselves on
+                          our client-centric approach, ensuring open
+                          communication, transparency, and a collaborative
+                          partnership. Your challenges are our challenges, and
+                          your victories are our victories.
+                        </p>
+                        <ul className="list-style-one pt-5">
+                          <li>Commitment to Prioritizing Your Success</li>
+                          <li>
+                            Emphasis on Open Communication and Transparency
+                          </li>
+                          <li>Building Collaborative Partnerships</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="why-choose-image rmt-55">
+                        <img
+                          src="assets/images/about/excellence.png"
+                          alt="Why Choose"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Pane>
+
+                <Tab.Pane className="tab-pane fade" eventKey="wc-tap5">
+                  <div className="row gap-20 align-items-center">
+                    <div className="col-lg-4">
+                      <div className="why-choose-image rmb-55">
+                        <img
+                          src="assets/images/about/End-to-End.png"
+                          alt="Why Choose"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-8">
+                      <div className="why-choose-content">
+                        <h3 className="text-gradient-title4">
+                          End-to-End Services
+                        </h3>
+                        <p>
+                          From web and mobile app development to ready-to-go ERP
+                          products and technology training, we offer end-to-end
+                          services. This holistic approach ensures that all your
+                          technology needs are met under one roof.
+                        </p>
+                        <ul className="list-style-one pt-5">
+                          <li>Comprehensive Web and Mobile App Development</li>
+                          <li>Ready-to-Deploy ERP Solutions</li>
+                          <li>Technology Training and Support</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Pane>
+
+                <Tab.Pane className="tab-pane fade" eventKey="wc-tap6">
+                  <div className="row gap-20 align-items-center">
+                    <div className="col-lg-8">
+                      <div className="why-choose-content">
+                        <h3 className="text-gradient-title4">
+                          Commitment to Excellence
+                        </h3>
+                        <p>
+                          Excellence is not just a goal; it's a standard. We are
+                          committed to delivering solutions that not only meet
+                          high-quality benchmarks but set new standards in the
+                          industry. Your success story is our measure of
+                          success.
+                        </p>
+                        <ul className="list-style-one pt-5">
+                          <li>Setting High-Quality Standards</li>
+                          <li>Pioneering Industry-Leading Solutions</li>
+                          <li>Your Success Drives Our Pursuit of Excellence</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4">
+                      <div className="why-choose-image rmt-55">
+                        <img
+                          src="assets/images/about/Commitment.png"
+                          alt="Why Choose"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Tab.Pane>
+              </Tab.Content>
+            </div>
+          </Tab.Container>
+        </Container>
+        <div className="why-choose-shapes">
+          <img
+            className="shape one"
+            src="assets/images/about/why-choose-shape1.png"
+            alt="Shape"
+          />
+          <img
+            className="shape two"
+            src="assets/images/about/why-choose-shape2.png"
+            alt="Shape"
+          />
         </div>
       </section>
+      {/* Why Choose Us Area end */}
 
-      {/* Services Area end */}
+      {/* Partners Area start */}
+      <OurPartners />
+      {/* Partners Area end */}
+
       {/* Work Process Area start */}
-      <section className="work-process-area pt-130 pb-100 rpt-100 rpb-70 rel z-1">
+      <section className="work-process-area px-3  py-100 rpt-100 rpb-70 rel z-1">
         <div className="section-title text-center mb-70 wow fadeInUp delay-0-2s">
           <span className="sub-title mb-15">Working Process</span>
           <h2>Industry Best Practices to the Core</h2>
@@ -931,11 +1648,11 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* Work Process Area End */}
 
-      {/* Techveel Area End */}
       {/* Techveel Area start */}
-      <section className="about-area-four pt-25 mb-5 rpt-0 rel z-2">
-        <div className="container">
+      {/* <section className=" about-area-four px-3  pt-25 mb-100 rpt-0 rel z-2">
+        <Container>
           <div className="row align-items-center">
             <div className="col-xl-6">
               <div className="about-four-image rel z-1 mb-65 wow fadeInRight delay-0-2s">
@@ -946,15 +1663,28 @@ const Index = () => {
                   />
                   <img
                     className="text"
-                    src="assets/images/about/about-circle-text.png"
+                    src="assets/images/about/about-circle-text4.png"
                     alt="Circle Text"
+                    style={{ mixBlendMode: "screen" }}
                   />
                 </div>
-                <div className="image">
-                  <img src="assets/images/about/about-four.jpg" alt="About" />
-                </div>
+                {!matchesSmallScreen && (
+                  <div className="image">
+                    <img
+                      src="assets/images/about/techveel.jpg"
+                      alt="About"
+                      style={{
+                        maxWidth: "339px",
+                        height: "362px",
+                        objectFit: "contain",
+                        borderRadius: "20px",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
+
             <div className="col-xl-6 col-lg-10">
               <div className="about-four-content mb-65 rel z-1 wow fadeInLeft delay-0-2s">
                 <div className="section-title mb-50">
@@ -974,22 +1704,6 @@ const Index = () => {
                   </h2>
                   <span className="bg-text">TECHVEEL</span>
                 </div>
-                {/* <Tab.Container defaultActiveKey={"about-tap1"}>
-                  <Nav as={"ul"} className="nav nav-pills nav-fill mb-35">
-                    <li className="nav-item">
-                      <Nav.Link
-                        as={"a"}
-                        className="nav-link"
-                        data-bs-toggle="tab"
-                        href="#about-tap1"
-                        eventKey="about-tap1"
-                      >
-                        Expert Instructors
-                      </Nav.Link>
-                    </li>
-                  </Nav> */}
-                {/* <Tab.Content className="tab-content">
-                    <Tab.Pane className="tab-pane fade" eventKey="about-tap1"> */}
                 <p>
                   Placement services are designed to empower individuals with
                   the skills needed to thrive in the ever-evolving tech
@@ -1033,32 +1747,14 @@ const Index = () => {
                     </p>
                   </li>
                 </ul>
-                {/* <Typography variant="h6" color="#40679E">
-                  Ready to embark on a transformative journey? <br />
-                  Explore our courses and kickstart your tech career
-                </Typography> */}
-
-                {/* <button>
-                  <p>Discover Courses</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    ></path>
-                  </svg>
-                </button> */}
-
-                <Link legacyBehavior href="/about">
+                <Link
+                  legacyBehavior
+                  href="https://techveel.com/#technology"
+                  passHref
+                >
                   <a
                     className="theme-btn mt-10"
+                    target="_blank"
                     style={{
                       color: "orange",
                       marginRight: 10,
@@ -1069,365 +1765,27 @@ const Index = () => {
                     Discover Courses <i className="fas fa-long-arrow-right" />
                   </a>
                 </Link>
-                <Link legacyBehavior href="/about">
-                  <a className="theme-btn mt-10">
+                <Link legacyBehavior href="https://techveel.com/" passHref>
+                  <a className="theme-btn mt-10" target="_blank">
                     Explore Placements <i className="fas fa-long-arrow-right" />
                   </a>
                 </Link>
-
-                {/* </Tab.Pane>
-                  </Tab.Content>
-                </Tab.Container> */}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </section> */}
       {/* Techveel Area end */}
 
-      {/* Why Choose Us Area start */}
-      <section className="why-choose-us-area py-130 rpy-100 rel z-1">
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-xl-8">
-              <div className="section-title text-center mb-45 wow fadeInUp delay-0-2s">
-                <span className="sub-title mb-15">
-                  Why Choose Ask Technology
-                </span>
-                <h5>
-                  At Ask Technology, we understand that the right technology
-                  partner can make all the difference. Here's why we stand out
-                  in the crowded tech landscape
-                </h5>
-              </div>
-            </div>
-          </div>
-          <Tab.Container defaultActiveKey={"wc-tap1"}>
-            <div className="why-choose-tab">
-              <Nav
-                as={"ul"}
-                className="nav nav-pills nav-fill mb-80 rmb-50 wow fadeInUp delay-0-4s"
-              >
-                <li className="nav-item">
-                  <Nav.Link
-                    as="a"
-                    eventKey={"wc-tap1"}
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#wc-tap1"
-                  >
-                    <i className="flaticon-creativity" />{" "}
-                    <span>Innovation</span>
-                  </Nav.Link>
-                </li>
-
-                <li className="nav-item">
-                  <Nav.Link
-                    as="a"
-                    eventKey={"wc-tap2"}
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#wc-tap2"
-                  >
-                    <i className="flaticon-test" /> <span>Tailoring</span>
-                  </Nav.Link>
-                </li>
-
-                <li className="nav-item">
-                  <Nav.Link
-                    as="a"
-                    eventKey={"wc-tap3"}
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#wc-tap3"
-                  >
-                    <i className="flaticon-creativity" /> <span>Expertise</span>
-                  </Nav.Link>
-                </li>
-
-                <li className="nav-item">
-                  <Nav.Link
-                    as="a"
-                    eventKey={"wc-tap4"}
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#wc-tap4"
-                  >
-                    <i className="flaticon-support" />{" "}
-                    <span>Client-Centric</span>
-                  </Nav.Link>
-                </li>
-
-                <li className="nav-item">
-                  <Nav.Link
-                    as="a"
-                    eventKey={"wc-tap5"}
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#wc-tap5"
-                  >
-                    <i className="flaticon-cyber-security-1" />{" "}
-                    <span>End-to-End</span>
-                  </Nav.Link>
-                </li>
-
-                <li className="nav-item">
-                  <Nav.Link
-                    as="a"
-                    eventKey={"wc-tap6"}
-                    className="nav-link"
-                    data-bs-toggle="tab"
-                    href="#wc-tap6"
-                  >
-                    <i className="flaticon-support" /> <span>Excellence</span>
-                  </Nav.Link>
-                </li>
-              </Nav>
-
-              <Tab.Content className="tab-content">
-                <Tab.Pane className="tab-pane fade" eventKey="wc-tap1">
-                  <div className="row gap-90 align-items-center">
-                    <div className="col-lg-6">
-                      <div className="why-choose-image rmb-55">
-                        <img
-                          src="assets/images/about/why-choose1.jpg"
-                          alt="Why Choose"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="why-choose-content">
-                        <h3 style={{ fontFamily: "oswald" }}>
-                          Innovation at the Core
-                        </h3>
-                        <p>
-                          Our commitment to innovation drives everything we do.
-                          From developing cutting-edge solutions to adopting the
-                          latest technologies, we ensure your business stays
-                          ahead in a rapidly evolving digital landscape
-                        </p>
-                        <ul className="list-style-one pt-5">
-                          <li>Strategic UI/UX Assessment</li>
-                          <li>
-                            Thorough Contextual Research and 360° Planning
-                          </li>
-                          <li>
-                            Advanced Wireframing &amp; Prototyping Techniques
-                          </li>
-                        </ul>
-                        {/* <Link legacyBehavior href="/about">
-                          <a className="theme-btn mt-30">
-                            Learn More <i className="fas fa-long-arrow-right" />
-                          </a>
-                        </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-
-                <Tab.Pane className="tab-pane fade" eventKey="wc-tap2">
-                  <div className="row gap-90 align-items-center">
-                    <div className="col-lg-6">
-                      <div className="why-choose-content">
-                        <h3 style={{ fontFamily: "oswald" }}>
-                          Tailored Solutions, Every Time
-                        </h3>
-                        <p>
-                          Our approach is personalized to fit your specific
-                          requirements. We delve deep into understanding your
-                          business intricacies to provide tailor-made solutions
-                          that perfectly match your objectives. No cookie-cutter
-                          approaches here – just bespoke strategies for your
-                          success.
-                        </p>
-                        <ul className="list-style-one pt-5">
-                          <li>Customized Strategy Development</li>
-                          <li>Thorough Needs Analysis and Consultation</li>
-                          <li>Personalized Product Development</li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-6">
-                      <div className="why-choose-image rmt-55">
-                        <img
-                          src="assets/images/about/why-choose1.jpg"
-                          alt="Why Choose"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-
-                <Tab.Pane className="tab-pane fade" eventKey="wc-tap3">
-                  <div className="row gap-90 align-items-center">
-                    <div className="col-lg-6">
-                      <div className="why-choose-image rmb-55">
-                        <img
-                          src="assets/images/about/why-choose1.jpg"
-                          alt="Why Choose"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="why-choose-content">
-                        <h3>Proven Expertise</h3>
-                        <p>
-                          With years of experience in IT technology services, we
-                          bring a wealth of expertise to the table. Our team of
-                          skilled professionals is dedicated to delivering
-                          solutions that not only meet but exceed expectations
-                        </p>
-                        <ul className="list-style-one pt-5">
-                          <li>Decades of IT Technology Services Experience</li>
-                          <li>In-depth Industry Expertise and Insight</li>
-                          <li>Commitment to Exceeding Client Expectations</li>
-                        </ul>
-
-                        {/* <Link legacyBehavior href="/about">
-                          <a className="theme-btn mt-30">
-                            Learn More <i className="fas fa-long-arrow-right" />
-                          </a>
-                        </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-
-                <Tab.Pane className="tab-pane fade" eventKey="wc-tap4">
-                  <div className="row gap-90 align-items-center">
-                    <div className="col-lg-6">
-                      <div className="why-choose-content">
-                        <h3>Client-Centric Approach</h3>
-                        <p>
-                          Your success is our priority. We pride ourselves on
-                          our client-centric approach, ensuring open
-                          communication, transparency, and a collaborative
-                          partnership. Your challenges are our challenges, and
-                          your victories are our victories.
-                        </p>
-                        <ul className="list-style-one pt-5">
-                          <li>Commitment to Prioritizing Your Success</li>
-                          <li>
-                            Emphasis on Open Communication and Transparency
-                          </li>
-                          <li>Building Collaborative Partnerships</li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-6">
-                      <div className="why-choose-image rmt-55">
-                        <img
-                          src="assets/images/about/why-choose1.jpg"
-                          alt="Why Choose"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-
-                <Tab.Pane className="tab-pane fade" eventKey="wc-tap5">
-                  <div className="row gap-90 align-items-center">
-                    <div className="col-lg-6">
-                      <div className="why-choose-image rmb-55">
-                        <img
-                          src="assets/images/about/why-choose1.jpg"
-                          alt="Why Choose"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="why-choose-content">
-                        <h3>End-to-End Services</h3>
-                        <p>
-                          From web and mobile app development to ready-to-go ERP
-                          products and technology training, we offer end-to-end
-                          services. This holistic approach ensures that all your
-                          technology needs are met under one roof.
-                        </p>
-                        <ul className="list-style-one pt-5">
-                          <li>Comprehensive Web and Mobile App Development</li>
-                          <li>Ready-to-Deploy ERP Solutions</li>
-                          <li>Technology Training and Support</li>
-                        </ul>
-                        {/* <Link legacyBehavior href="/about">
-      <a className="theme-btn mt-30">
-        Learn More <i className="fas fa-long-arrow-right" />
-      </a>
-    </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-
-                <Tab.Pane className="tab-pane fade" eventKey="wc-tap6">
-                  <div className="row gap-90 align-items-center">
-                    <div className="col-lg-6">
-                      <div className="why-choose-content">
-                        <h3>Commitment to Excellence</h3>
-                        <p>
-                          Excellence is not just a goal; it's a standard. We are
-                          committed to delivering solutions that not only meet
-                          high-quality benchmarks but set new standards in the
-                          industry. Your success story is our measure of
-                          success.
-                        </p>
-                        <ul className="list-style-one pt-5">
-                          <li>Setting High-Quality Standards</li>
-                          <li>Pioneering Industry-Leading Solutions</li>
-                          <li>Your Success Drives Our Pursuit of Excellence</li>
-                        </ul>
-                        <Link legacyBehavior href="/about">
-                          <a className="theme-btn mt-30">
-                            Learn More <i className="fas fa-long-arrow-right" />
-                          </a>
-                        </Link>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-6">
-                      <div className="why-choose-image rmt-55">
-                        <img
-                          src="assets/images/about/why-choose1.jpg"
-                          alt="Why Choose"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </Tab.Pane>
-              </Tab.Content>
-            </div>
-          </Tab.Container>
-        </div>
-        <div className="why-choose-shapes">
-          <img
-            className="shape one"
-            src="assets/images/about/why-choose-shape1.png"
-            alt="Shape"
-          />
-          <img
-            className="shape two"
-            src="assets/images/about/why-choose-shape2.png"
-            alt="Shape"
-          />
-        </div>
-      </section>
-      {/* Why Choose Us Area end */}
-
       {/* Statistics Area start */}
-      <section className="statistics-area-two rel z-2 mb-130 rmb-100">
-        <div className="container">
+      <section className="statistics-area-two px-3   rel z-2 mb-100 rmb-100">
+        <Container maxWidth="lg">
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-8">
               <div className="section-title text-center mb-50 wow fadeInUp delay-0-2s">
-                <span
-                  className="sub-title mb-10"
-                  style={{ fontFamily: "oswald" }}
-                >
+                <span className="sub-title mb-10">
                   Learn About Our Company Statistics
                 </span>
-                {/* <h2>5,000+ Completed Projects in 41+ Countries</h2> */}
               </div>
             </div>
           </div>
@@ -1452,8 +1810,8 @@ const Index = () => {
                   </span>
                   <span className="counter-title">Projects Delivered</span>
                   <p>
-                    showcasing our commitment to excellence and client
-                    satisfaction
+                    Showcasing our commitment to excellence, integrity, and
+                    client satisfaction
                   </p>
                 </div>
               </div>
@@ -1476,9 +1834,9 @@ const Index = () => {
                   >
                     <Counter end={98.9} />
                   </span>
-                  <span className="counter-title">Happy Clients </span>
+                  <span className="counter-title">Happy clients </span>
                   <p>
-                    Clients happiness is our priority, reflected in our
+                    clients happiness is our priority, reflected in our
                     impressive 98.9% satisfaction rate.
                   </p>
                 </div>
@@ -1537,16 +1895,16 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
       {/* Statistics Area end */}
 
       {/* Skills Area start */}
-      <section className="skills-area">
-        <div className="">
+      <section className="skills-area px-3 ">
+        <Container>
           <div className="row">
             <div className="col-xl-12">
-              <div className="skills-content mt-60 mb-70 rmt-0 rel z-1 wow fadeInLeft delay-0-2s">
+              <div className="skills-content mt-60 rmt-0 rel z-1 wow fadeInLeft delay-0-2s">
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="section-title text-center">
@@ -1567,7 +1925,7 @@ const Index = () => {
                     <Marquee
                       direction="left"
                       pauseOnClick
-                      gradient={500}
+                      gradient={100}
                       loop={0}
                       autoFill
                       speed={90}
@@ -1580,16 +1938,17 @@ const Index = () => {
                   <div className="col-lg-12 my-4">
                     <div className="section-title mb-55 container wow fadeInUp delay-0-2s">
                       {/* <span className="sub-title mb-15" style={{fontFamily:'oswald'}} >Our Tech Stack</span> */}
-                      <h3
+                      <h2
                         style={{
                           textAlign: "center",
-                          fontFamily: "Play",
+                          fontFamily: "oswald",
                           color: "#007F73",
                         }}
+                        className="text-gradient-title2"
                       >
                         Explore the robust technologies we master, powering our
                         innovative solutions and driving digital transformation
-                      </h3>
+                      </h2>
                       <span className="bg-text">TECHNOLOGY</span>
                     </div>
                   </div>
@@ -1597,7 +1956,7 @@ const Index = () => {
                     <Marquee
                       direction="right"
                       pauseOnClick
-                      gradient={500}
+                      gradient={100}
                       loop={0}
                       autoFill
                       speed={90}
@@ -1611,407 +1970,30 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
       {/* Skills Area end */}
 
-      {/* Pricing Plan Area start */}
-      {/* <section className="price-plan-area bgc-lighter mt-30 rmt-0 pt-220 pb-100 rpb-70 rel z-1">
-        <div className="container pt-20">
-          <div className="section-title text-center mb-55 wow fadeInUp delay-0-2s">
-            <span className="sub-title mb-15">Amazing Pricing Plan</span>
-            <h2>Affordable Pricing Packages</h2>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-xl-4 col-md-6">
-              <div className="pricing-plan-item wow fadeInUp delay-0-2s">
-                <span className="badge">Best Package</span>
-                <h4 className="title">Basic Plan</h4>
-                <span className="price-count">5 Services Included</span>
-                <span className="price">29.85</span>
-                <Link legacyBehavior href="/pricing">
-                  <a className="theme-btn style-two">
-                    Choose Package <i className="fas fa-long-arrow-right" />
-                  </a>
-                </Link>
-                <h5>This Plan Included :</h5>
-                <ul>
-                  <li>
-                    <a href="#">Premium Quality Supports (24/7)</a>
-                  </li>
-                  <li>
-                    <a href="#">IT Consultations (Business Growth)</a>
-                  </li>
-                  <li>
-                    <a href="#">Web Design &amp; Development</a>
-                  </li>
-                  <li>
-                    <a href="#">Search Engine Optimization (SEO )</a>
-                  </li>
-                  <li>
-                    <a href="#">User &amp; Market Research</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-xl-4 col-md-6">
-              <div className="pricing-plan-item wow fadeInUp delay-0-4s">
-                <span className="badge">Best Package</span>
-                <h4 className="title">standard Plan</h4>
-                <span className="price-count">7 Services Included</span>
-                <span className="price">49.64</span>
-                <Link legacyBehavior href="/pricing">
-                  <a className="theme-btn style-two">
-                    Choose Package <i className="fas fa-long-arrow-right" />
-                  </a>
-                </Link>
-                <h5>This Plan Included :</h5>
-                <ul>
-                  <li>
-                    <a href="#">Premium Quality Supports (24/7)</a>
-                  </li>
-                  <li>
-                    <a href="#">IT Consultations (Business Growth)</a>
-                  </li>
-                  <li>
-                    <a href="#">Web Design &amp; Development</a>
-                  </li>
-                  <li>
-                    <a href="#">Search Engine Optimization (SEO )</a>
-                  </li>
-                  <li>
-                    <a href="#">User &amp; Market Research</a>
-                  </li>
-                  <li>
-                    <a href="#">UX/UI Strategy (Design &amp; Develop)</a>
-                  </li>
-                  <li>
-                    <a href="#">Product Engineering</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-xl-4 col-md-6">
-              <div className="pricing-plan-item wow fadeInUp delay-0-6s">
-                <span className="badge">Best Package</span>
-                <h4 className="title">Golden Package</h4>
-                <span className="price-count">7 Services Included</span>
-                <span className="price">98.73</span>
-                <Link legacyBehavior href="/pricing">
-                  <a className="theme-btn style-two">
-                    Choose Package <i className="fas fa-long-arrow-right" />
-                  </a>
-                </Link>
-                <h5>This Plan Included :</h5>
-                <ul>
-                  <li>
-                    <a href="#">Premium Quality Supports (24/7)</a>
-                  </li>
-                  <li>
-                    <a href="#">IT Consultations (Business Growth)</a>
-                  </li>
-                  <li>
-                    <a href="#">Web Design &amp; Development</a>
-                  </li>
-                  <li>
-                    <a href="#">Search Engine Optimization (SEO )</a>
-                  </li>
-                  <li>
-                    <a href="#">User &amp; Market Research</a>
-                  </li>
-                  <li>
-                    <a href="#">UX/UI Strategy (Design &amp; Develop)</a>
-                  </li>
-                  <li>
-                    <a href="#">Product Engineering</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="price-shapes">
-          <img
-            className="shape one wow fadeInLeft delay-0-5s"
-            src="assets/images/shapes/price-left.png"
-            alt="Shape"
-          />
-          <img
-            className="shape two"
-            src="assets/images/shapes/price-right.png"
-            alt="Shape"
-          />
-        </div>
-      </section> */}
-      {/* Pricing Plan Area end */}
-
-      {/* Testimonials Area start */}
-      <section className="testimonials-area py-130 rpy-100 rel z-1">
-        <div className="container">
-          <div className="row align-items-center justify-content-between">
-            <div className="col-xl-5 col-lg-6">
-              <div className="testimonial-left-part rmb-85 wow fadeInLeft delay-0-2s">
-                <div className="section-title mb-45">
-                  <span className="sub-title mb-15">Our Testimonials</span>
-                  <h2>What Our Clients Say About Solutions</h2>
-                </div>
-                <TestimonialsSlider2 />
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="testimonial-right-part wow fadeInRight delay-0-2s">
-                <img
-                  src="assets/images/testimonials/testimonial.jpg"
-                  alt="Testimonial"
-                />
-                <div className="testi-image-over">
-                  <h3>We Have More 3248+ Reviews From Global Clients</h3>
-                  <img
-                    src="assets/images/testimonials/signature.png"
-                    alt="Signature"
-                  />
-                </div>
-                <div className="dot-shapes">
-                  <img
-                    src="assets/images/testimonials/testimonial-dots.png"
-                    alt="Dots"
-                  />
-                  <img
-                    src="assets/images/testimonials/testimonial-dots.png"
-                    alt="Dots"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Testimonials Area end */}
-
-      {/* Blog Area start */}
-      <section className="blog-area pb-150 mb-30 rmb-0 rel z-1">
-        <div className="container">
-          <div className="section-title text-center mb-55 wow fadeInUp delay-0-2s">
-            <span className="sub-title mb-15">Our Blog &amp; News</span>
-            <h2>Latest Blog, New &amp; Articles</h2>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-xl-4 col-md-6">
-              <div className="blog-item style-two wow fadeInUp delay-0-2s">
-                <div className="image">
-                  <img src="assets/images/blog/blog1.jpg" alt="Blog" />
-                </div>
-                <div className="content">
-                  <ul className="blog-meta">
-                    <li>
-                      <i className="far fa-calendar-alt" />{" "}
-                      <a href="#">Jule 26, 2022</a>
-                    </li>
-                    <li>
-                      <i className="far fa-calendar-alt" />{" "}
-                      <a href="#">Comments (25)</a>
-                    </li>
-                  </ul>
-                  <h4>
-                    <Link legacyBehavior href="blog-details">
-                      Voice Usabilit Consideration Partially Visually Hidden
-                    </Link>
-                  </h4>
-                  <div className="author">
-                    <img src="assets/images/blog/author.jpg" alt="Author" />
-                    <i>Post By </i>
-                    <a href="#">John M. Brecht</a>
-                  </div>
-                  <p>
-                    We denounce righteou indignation and dislike men beguile and
-                    demoralize charms
-                  </p>
-                  <Link legacyBehavior href="/blog-details">
-                    <a className="read-more">
-                      Read More <i className="far fa-arrow-right" />
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-md-6">
-              <div className="blog-item style-two wow fadeInUp delay-0-4s">
-                <div className="image">
-                  <img src="assets/images/blog/blog2.jpg" alt="Blog" />
-                </div>
-                <div className="content">
-                  <ul className="blog-meta">
-                    <li>
-                      <i className="far fa-calendar-alt" />{" "}
-                      <a href="#">Jule 26, 2022</a>
-                    </li>
-                    <li>
-                      <i className="far fa-calendar-alt" />{" "}
-                      <a href="#">Comments (25)</a>
-                    </li>
-                  </ul>
-                  <h4>
-                    <Link legacyBehavior href="blog-details">
-                      How Create Vanil Java Script Gant Chart Adding Task
-                    </Link>
-                  </h4>
-                  <div className="author">
-                    <img src="assets/images/blog/author.jpg" alt="Author" />
-                    <i>Post By </i>
-                    <a href="#">John M. Brecht</a>
-                  </div>
-                  <p>
-                    We denounce righteou indignation and dislike men beguile and
-                    demoralize charms
-                  </p>
-                  <Link legacyBehavior href="/blog-details">
-                    <a className="read-more">
-                      Read More <i className="far fa-arrow-right" />
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-4 col-md-6">
-              <div className="blog-item style-two wow fadeInUp delay-0-6s">
-                <div className="image">
-                  <img src="assets/images/blog/blog3.jpg" alt="Blog" />
-                </div>
-                <div className="content">
-                  <ul className="blog-meta">
-                    <li>
-                      <i className="far fa-calendar-alt" />{" "}
-                      <a href="#">Jule 26, 2022</a>
-                    </li>
-                    <li>
-                      <i className="far fa-calendar-alt" />{" "}
-                      <a href="#">Comments (25)</a>
-                    </li>
-                  </ul>
-                  <h4>
-                    <Link legacyBehavior href="blog-details">
-                      Smashing Podcast Episode 47 Soueidan Accessibility
-                    </Link>
-                  </h4>
-                  <div className="author">
-                    <img src="assets/images/blog/author.jpg" alt="Author" />
-                    <i>Post By </i>
-                    <a href="#">John M. Brecht</a>
-                  </div>
-                  <p>
-                    We denounce righteou indignation and dislike men beguile and
-                    demoralize charms
-                  </p>
-                  <Link legacyBehavior href="/blog-details">
-                    <a className="read-more">
-                      Read More <i className="far fa-arrow-right" />
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* Blog Area end */}
+      {/* Testimonials Area Three Start */}
+      <Testimonials />
+      {/* Testimonials Area Three End */}
+      <div id="contactus">
+        <ContactUsForm />
+      </div>
 
-      {/* Work Process Area end */}
-      {/* Team Area start */}
-      {/* <section className="team-area pb-100 rpb-70 rel z-1">
-        <div className="container">
-          <div className="section-title text-center mb-60 wow fadeInUp delay-0-2s">
-            <span className="sub-title mb-15">Team Member</span>
-            <h2>Amazing Team Members</h2>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-xl-3 col-lg-4 col-md-6">
-              <div className="team-member wow fadeInUp delay-0-2s">
-                <img src="assets/images/team/member1.jpg" alt="Team" />
-                <h4>Johnathan P. Bailey</h4>
-                <span className="designation">UX/UI Designer</span>
-                <div className="social-style-two">
-                  <a href="#">
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-twitter" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-linkedin-in" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-4 col-md-6">
-              <div className="team-member wow fadeInUp delay-0-4s">
-                <img src="assets/images/team/member2.jpg" alt="Team" />
-                <h4>Mark M. Hughes</h4>
-                <span className="designation">Web Developer</span>
-                <div className="social-style-two">
-                  <a href="#">
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-twitter" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-linkedin-in" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-4 col-md-6">
-              <div className="team-member wow fadeInUp delay-0-6s">
-                <img src="assets/images/team/member3.jpg" alt="Team" />
-                <h4>Donald B. Mitchell</h4>
-                <span className="designation">Software Engineer</span>
-                <div className="social-style-two">
-                  <a href="#">
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-twitter" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-linkedin-in" />
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-xl-3 col-lg-4 col-md-6">
-              <div className="team-member wow fadeInUp delay-0-8s">
-                <img src="assets/images/team/member4.jpg" alt="Team" />
-                <h4>Bennie N. Bannister</h4>
-                <span className="designation">Senior Consultant</span>
-                <div className="social-style-two">
-                  <a href="#">
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-twitter" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a href="#">
-                    <i className="fab fa-linkedin-in" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      {/* Team Area end */}
+      <BlogList />
+      {/* Contact Form Section Start */}
+      <ContactUsGarments TypeOF={"p"} initialValue={""} />
+
+      <Dialog
+        open={openLoader}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth
+      >
+        <LinearProgress />
+      </Dialog>
     </Layout>
   );
 };
