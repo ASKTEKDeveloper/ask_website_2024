@@ -14,6 +14,7 @@ import { useRef, useState } from "react";
 import { Dialog, LinearProgress } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { HiOutlineChip } from "react-icons/hi";
 import { LiaStreamSolid } from "react-icons/lia";
 import { TfiExport } from "react-icons/tfi";
 import { GrIntegration } from "react-icons/gr";
@@ -108,34 +109,48 @@ const Index = () => {
       >
         <div
           className={`slider-item-two ${
-            matchesSmallScreen ? "pt-100" : "pt-150"
+            matchesSmallScreen ? "pt-50" : "pt-50"
           }`}
           style={{
             background: "#2975870a",
             backgroundColor: "#2975870a",
           }}
         >
-          <Container>
+          <Container maxWidth="lg">
             <div className="slide-content">
-              <span className="sub-title" style={{ color: "#3E54AC" }}>
-                Welcome to ASK Technology
-              </span>
-              <h2
+              <h3
+                style={{
+                  background:
+                    "linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                <HiOutlineChip style={{ marginRight: "8px" }} />
+                AI-Powered Apparel ERP
+              </h3>
+
+              {/* <span className="sub-title" style={{ color: "#3E54AC" }}>
+                AI-Powered Apparel ERP
+              </span> */}
+              <h4
                 style={{ textTransform: "capitalize", color: "#0079FF" }}
                 className="text-shadow1 text-gradient-title4"
               >
-                WE BRING SUCCESS TO YOUR GREAT BUSINESS
-              </h2>
+                INTELLIGENCE THAT DRIVES APPAREL INDUSTRIES
+              </h4>
               <p>
-                Revolutionize your operations with Ask Technology's cutting-edge
-                solutions. From ERP tailored for Textile & Garment Industries to
-                Enterprise-level Goods Traders Management, our suite of products
-                is designed for excellence
+                Transform your apparel business with an AI-powered Garment ERP
+                built for the complete lifecycle. From Order & Costing to
+                Production & Shipment, manage everything in one intelligent
+                platform. Reduce costs, improve productivity, predict problems,
+                and make smarter decisions faster. AI-Powered. Apparel-Focused.
+                Built for Growth.
               </p>
 
-              <Link href="#products_services" passHref>
+              <Link href="ai_solution" passHref>
                 <span className="theme-btn style-two mt-15">
-                  Explore Our Solutions{" "}
+                  Explore Our AI Solutions{" "}
                   <i className="fas fa-long-arrow-right" />
                 </span>
               </Link>
@@ -284,7 +299,7 @@ const Index = () => {
         <Container>
           <div className="section-title text-center mb-55 wow fadeInUp delay-0-2s">
             <h2 className="new-font-play">
-              OUR PRODUCTS 
+              OUR PRODUCTS
               {/* & <span style={{ color: "#9376E0" }}>SERVICES</span> */}
             </h2>
           </div>

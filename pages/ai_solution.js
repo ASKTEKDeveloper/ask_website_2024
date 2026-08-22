@@ -273,13 +273,13 @@ const AiSolution = () => {
             <div className="col-lg-7">
               <div className="about-content rel z-1" style={{ color: "white" }}>
                 <div className="section-title mb-30 rmb-40">
-                  <span
+                  <h2
                     className="sub-title mb-15"
                     style={{ color: "rgba(255,255,255,0.8)" }}
                   >
                     <HiOutlineChip style={{ marginRight: "8px" }} />
                     AI-Powered Fashion ERP
-                  </span>
+                  </h2>
                   <h2
                     style={{
                       color: "white",
@@ -369,7 +369,7 @@ const AiSolution = () => {
                       alt="AI Solutions"
                       style={{
                         borderRadius: 20,
-                        width: "100%",
+                        width: "85%",
                         objectFit: "cover",
                       }}
                     />

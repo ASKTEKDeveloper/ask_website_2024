@@ -137,9 +137,9 @@ li {
 }
 
 img {
-  max-width: 100%;
+  max-width: 70%;
   display: inline-block;
-}
+} 
 
 mark {
   color: var(--secondary-color);
@@ -5417,7 +5417,7 @@ h6,
 }
 
 .slide-content {
-  max-width: 615px;
+  max-width: 650px;
 }
 .slide-content .sub-title {
   display: -webkit-box;
@@ -5632,7 +5632,7 @@ h6,
   z-index: 1;
   position: relative;
   /* padding-top: 150px; */
-  padding-bottom: 240px;
+  padding-bottom: 50px;
 }
 .slider-item-two .slide-content {
   position: relative;
