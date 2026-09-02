@@ -137,9 +137,16 @@ li {
 }
 
 img {
+  max-width: 100%;
+  display: inline-block;
+} 
+
+
+img_landing_page {
   max-width: 70%;
   display: inline-block;
 } 
+
 
 mark {
   color: var(--secondary-color);

@@ -369,7 +369,7 @@ const AiSolution = () => {
                       alt="AI Solutions"
                       style={{
                         borderRadius: 20,
-                        width: "85%",
+                        width: "100%",
                         objectFit: "cover",
                       }}
                     />
